@@ -191,11 +191,11 @@
   
 #Pydev  
 - name: Transfer eclipse Pydev certificate
-  copy: src=add_pydev_certificate.py dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}} mode=0777
+  copy: src=add_pydev_certificate.py dest=/tmp mode=0777 force=yes
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   
 - name: Add eclipse Pydev certificate
-  command: sudo python {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/add_pydev_certificate.py
+  command: sudo python /tmp/add_pydev_certificate.py
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled           
 
 - name: Install eclipse Pydev plugins
