@@ -1,0 +1,25 @@
+---
+
+galaxy_info:
+  author: Alban Andrieu
+  description: A role for installing eclipse
+  company: Nabla
+  license: MIT
+  min_ansible_version: 1.6.3
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+    - lucid
+    - maverick
+    - natty
+    - oneiric
+    - precise
+    - quantal
+    - raring
+    - saucy
+    - trusty
+  categories:
+  - development
+dependencies: []
+

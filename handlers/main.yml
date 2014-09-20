@@ -1,0 +1,7 @@
+---
+- name: restart eclipse 
+  service: 
+     name=eclipse
+     state=restarted
+     enabled={{eclipse_service_enabled}}
+  notify:  wait for eclipse to start
