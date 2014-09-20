@@ -159,7 +159,7 @@
   when: eclipse_plugins_protobuf_enabled and eclipse_plugins_enabled
 
 #yedit - YAML Editor
-- name: Install eclipse Proto buffer plugins
+- name: Install eclipse YAML Editor plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -189,7 +189,15 @@
   when: eclipse_plugins_webpageed_enabled and eclipse_plugins_enabled
   ignore_errors: True
   
-#Pydev
+#Pydev  
+- name: Transfer eclipse Pydev certificate
+  copy: src=add_pydev_certificate.py dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}} mode=0777
+  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
+  
+- name: Add eclipse Pydev certificate
+  command: sudo python {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/add_pydev_certificate.py
+  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled           
+
 - name: Install eclipse Pydev plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
@@ -199,6 +207,7 @@
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   ignore_errors: True
   
+#Subclipse  
 - name: Install JavaHL for subclipse
   apt: pkg={{ item }} state=present
   when: ansible_distribution == 'Debian'
@@ -206,8 +215,6 @@
     - libsvn-java
   when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
 
-#Subclipse 1.10.5
-#http://subclipse.tigris.org/update_1.6.x
 - name: Install eclipse m2e plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
