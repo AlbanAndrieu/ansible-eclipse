@@ -194,7 +194,7 @@
   apt: pkg={{ item }} state=present
   when: ansible_distribution == 'Debian'
   with_items:
-    - pexpect
+    - python-pexpect
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
 
 #todo for RehHat : sudo yum install pexpect.noarch
