@@ -190,6 +190,15 @@
   ignore_errors: True
   
 #Pydev  
+- name: Install python pexpect for adding Pydev certificat
+  apt: pkg={{ item }} state=present
+  when: ansible_distribution == 'Debian'
+  with_items:
+    - pexpect
+  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
+
+#todo for RehHat : sudo yum install pexpect.noarch
+
 - name: Transfer eclipse Pydev certificate
   copy: src=add_pydev_certificate.py dest=/tmp mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
