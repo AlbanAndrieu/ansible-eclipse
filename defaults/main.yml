@@ -29,6 +29,6 @@ eclipse_plugins_protobuf_enabled: no                  # Enable plugins
 eclipse_plugins_yedit_enabled: no                     # Enable plugins
 eclipse_plugins_shelled_enabled: no                   # Enable plugins
 eclipse_plugins_webpageed_enabled: no                 # Enable plugins
-eclipse_plugins_pydev_enabled: yes                     # Enable plugins
-eclipse_plugins_m2e_enabled: no                       # Enable plugins
+eclipse_plugins_pydev_enabled: yes                    # Enable plugins
+eclipse_plugins_m2e_enabled: yes                      # Enable plugins
 eclipse_plugins_subclipse_enabled: no                 # Enable plugins
