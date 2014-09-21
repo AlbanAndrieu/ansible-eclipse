@@ -3,4 +3,7 @@
   sudo: True
   roles:
     - ansible-eclipse
-
+     
+  vars:     
+       user: root
+       home: /root
