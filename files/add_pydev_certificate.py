@@ -16,10 +16,10 @@ def main():
   child.sendline("changeit")
   if child.expect(["Trust this certificate?", "already exists"]) == 0:
     child.sendline("yes")
-  try:
-    child.interact()
-  except OSError:
-    pass  
+  #try:
+  #  child.interact()
+  #except OSError:
+  #  pass  
   print "done"
 
 if __name__ == "__main__":
