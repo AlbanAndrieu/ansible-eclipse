@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+FROM        stackbrew/ubuntu:14.04
+#FROM        debian:jessie
+
+VOLUME      ["/var/log/jenkins"]
+
+MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu/nabla"
+
+ENV			DEBIAN_FRONTEND noninteractive
+ENV         ECLIPSE_HOME {{ eclipse_base_dir }}
+
+RUN         apt-get update
+
+#EXPOSE      8080
+ENTRYPOINT  ["{{ {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse }}"]
+#ENTRYPOINT ["java", "-jar", "{{ jenkins_home }}/swarm-client-1.9-jar-with-dependencies.jar"]
+CMD ["-g", "deamon off;"]

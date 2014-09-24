@@ -1,7 +1,9 @@
 ---
 eclipse_enabled: yes                       # Enable module
 
+user                                       : 'albandri' #please override me
 eclipse_owner                              : "{{ user }}"
+home                                       : '~' #please override me
 eclipse_owner_home                         : "{{ home }}"
 eclipse_group                              : "{{ eclipse_owner }}"
 eclipse_base_dir                           : "/usr/local/eclipse"
