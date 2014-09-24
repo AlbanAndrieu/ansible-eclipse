@@ -1,17 +1,38 @@
 # {{ ansible_managed }}
-FROM        stackbrew/ubuntu:14.04
 #FROM        debian:jessie
+#FROM        stackbrew/ubuntu:14.04
+FROM        jasongiedymin/ansible-base-ubuntu
 
-VOLUME      ["/var/log/jenkins"]
+# Volume can be accessed outside of container
+VOLUME      [{{ docker_volume_directory }}]
 
-MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu/nabla"
+MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu"
 
 ENV			DEBIAN_FRONTEND noninteractive
 ENV         ECLIPSE_HOME {{ eclipse_base_dir }}
 
-RUN         apt-get update
+# Working dir
+WORKDIR {{ docker_working_directory }}
 
-#EXPOSE      8080
+# ADD
+ADD default $WORKDIR/default
+ADD meta $WORKDIR/meta
+ADD files $WORKDIR/files
+ADD handlers $WORKDIR/handlers
+ADD tasks $WORKDIR/tasks
+ADD templates $WORKDIR/templates
+ADD vars $WORKDIR/vars
+ADD docker $WORKDIR/docker
+
+# Here we continue to use add because
+# there are a limited number of RUNs
+# allowed.
+ADD docker/hosts /etc/ansible/hosts
+ADD docker/playbook.yml $WORKDIR/playbook.yml
+
+# Execute
+RUN         ansible-playbook $WORKDIR/playbook.yml -c local
+
+EXPOSE      22
 ENTRYPOINT  ["{{ {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse }}"]
-#ENTRYPOINT ["java", "-jar", "{{ jenkins_home }}/swarm-client-1.9-jar-with-dependencies.jar"]
 CMD ["-g", "deamon off;"]

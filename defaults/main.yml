@@ -33,4 +33,8 @@ eclipse_plugins_shelled_enabled: no                   # Enable plugins
 eclipse_plugins_webpageed_enabled: no                 # Enable plugins
 eclipse_plugins_pydev_enabled: no                     # Enable plugins
 eclipse_plugins_m2e_enabled: no                       # Enable plugins
-eclipse_plugins_subclipse_enabled: yes                # Enable plugins
+eclipse_plugins_subclipse_enabled: no                # Enable plugins
+
+docker_volume_directory       : "{{ eclipse_base_dir }}"
+docker_working_directory      : "/home/vagrant"
+docker_image_name             : "nabla/ansible-eclipse"

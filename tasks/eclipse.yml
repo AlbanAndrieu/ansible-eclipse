@@ -230,7 +230,7 @@
     - libsvn-java
   when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
 
-- name: Install eclipse m2e plugins
+- name: Install eclipse Subversion plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -244,7 +244,7 @@
   ignore_errors: True
   
 #Maven m2e
-- name: Install eclipse m2e plugins
+- name: Install eclipse Maven m2e plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -258,3 +258,6 @@
   tags: eclipse_setup
   
 - debug: msg="Start eclipse {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"
+
+- name: copy Dockerfile
+  template: src=Dockerfile.j2 dest=roles/eclipse/Dockerfile mode=0700
