@@ -1,18 +1,18 @@
-# {{ ansible_managed }}
+# Ansible managed: /workspace/users/albandri10/env/ansible/roles/eclipse/templates/Dockerfile.j2 modified on 2014-09-25 00:45:54 by albandri on albandri-laptop-misys
 #FROM        debian:jessie
 #FROM        stackbrew/ubuntu:14.04
 FROM        jasongiedymin/ansible-base-ubuntu
 
 # Volume can be accessed outside of container
-VOLUME      [{{ docker_volume_directory }}]
+VOLUME      [/workspace/eclipse]
 
 MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu"
 
 ENV			DEBIAN_FRONTEND noninteractive
-ENV         ECLIPSE_HOME {{ eclipse_base_dir }}
+ENV         ECLIPSE_HOME /workspace/eclipse
 
 # Working dir
-WORKDIR {{ docker_working_directory }}
+WORKDIR /home/vagrant
 
 # ADD
 ADD default $WORKDIR/default
@@ -34,5 +34,5 @@ ADD docker/playbook.yml $WORKDIR/playbook.yml
 RUN         ansible-playbook $WORKDIR/playbook.yml -c local
 
 EXPOSE      22
-ENTRYPOINT  ["{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"]
+ENTRYPOINT  ["/workspace/eclipse/eclipse-4/eclipse"]
 CMD ["-g", "deamon off;"]

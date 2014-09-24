@@ -257,7 +257,10 @@
   file: name={{ tempdir.stdout }} state=absent
   tags: eclipse_setup
   
-- debug: msg="Start eclipse {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"
+- name: Copy Dockerfile
+  template: src=Dockerfile.j2 dest={{ docker_files_generated_directory }}/Dockerfile mode=0777
+  
+- name: Copy build.sh
+  template: src=build.sh dest={{ docker_files_generated_directory }}/build.sh mode=0777
 
-- name: copy Dockerfile
-  template: src=Dockerfile.j2 dest=roles/eclipse/Dockerfile mode=0700
+- debug: msg="Start eclipse {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"
