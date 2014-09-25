@@ -31,7 +31,7 @@ ADD docker/hosts /etc/ansible/hosts
 ADD docker/playbook.yml $WORKDIR/playbook.yml
 
 # Execute
-RUN         ansible-playbook $WORKDIR/playbook.yml -c local
+RUN         ansible-playbook $WORKDIR/docker/playbook.yml -i $WORKDIR/docker/hosts -c local
 
 EXPOSE      22
 ENTRYPOINT  ["{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"]

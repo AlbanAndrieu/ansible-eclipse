@@ -1,15 +1,18 @@
-# ansible-eclipse
+ansible-eclipse
+====================
 
 A role for installing eclipse.
 
+[![Build Status](https://travis-ci.org/AlbanAndrieu/ansible-eclipse/ansible-vagrant-role.png?branch=master)](https://travis-ci.org/AlbanAndrieu/ansible-eclipse)
 
 ## Actions
 
 - Ensures that eclipse is installed (using `apt`)
 
 
-## Usage:
-```
+Usage example
+------------
+
   - name: Install eclipse
     connection: local  
     hosts: workstation
@@ -22,9 +25,18 @@ A role for installing eclipse.
         eclipse_base_dir: /workspace/eclipse     
         eclipse_owner: albandri
         eclipse_group: albandri
+        
+Requirements
+------------
 
-```
+none
 
-## License
+Dependencies
+------------
+
+none
+
+License
+-------
 
 MIT

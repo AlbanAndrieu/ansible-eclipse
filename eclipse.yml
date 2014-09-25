@@ -6,7 +6,7 @@
      
   vars:     
        user: root
-       home: /root
+       home: "/root:
        docker_files_generated_directory         : ""
        eclipse_plugins_emf_enabled: no                       # Enable plugins
        eclipse_plugins_cdt_enabled: yes                       # Enable plugins
