@@ -3,7 +3,7 @@ ansible-eclipse
 
 A role for installing eclipse.
 
-[![Build Status](https://travis-ci.org/AlbanAndrieu/ansible-eclipse/ansible-vagrant-role.png?branch=master)](https://travis-ci.org/AlbanAndrieu/ansible-eclipse)
+[![Build Status](https://api.travis-ci.org/AlbanAndrieu/ansible-eclipse.png?branch=master)](https://travis-ci.org/AlbanAndrieu/ansible-eclipse)
 
 ## Actions
 
