@@ -13,18 +13,17 @@ A role for installing eclipse.
 Usage example
 ------------
 
-  - name: Install eclipse
-    connection: local  
-    hosts: workstation
-    remote_user: albandri
-  #  connection: local
-    roles:
-      - role: eclipse     
+    - name: Install eclipse
+      connection: local  
+      hosts: workstation
+      remote_user: albandri
+      roles:
+        - role: eclipse     
       
-    vars:    
-        eclipse_base_dir: /workspace/eclipse     
-        eclipse_owner: albandri
-        eclipse_group: albandri
+      vars:    
+          eclipse_base_dir: /workspace/eclipse     
+          eclipse_owner: albandri
+          eclipse_group: albandri
         
 Requirements
 ------------
