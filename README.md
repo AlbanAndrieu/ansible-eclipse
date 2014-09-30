@@ -9,7 +9,6 @@ A role for installing eclipse.
 
 - Ensures that eclipse is installed (using `apt`)
 
-
 Usage example
 ------------
 
@@ -39,3 +38,7 @@ License
 -------
 
 MIT
+
+#### Feedback, bug-reports, requests, ...
+
+Are [welcome](https://github.com/AlbanAndrieu/ansible-eclipse/issues)!

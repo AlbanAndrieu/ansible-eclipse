@@ -1,26 +1,28 @@
 ---
 eclipse_enabled: yes                       # Enable module
 
-user                                       : 'albandri' #please override me
-eclipse_owner                              : "{{ user }}"
-home                                       : '~' #please override me
-eclipse_owner_home                         : "{{ home }}"
-eclipse_group                              : "{{ eclipse_owner }}"
-eclipse_base_dir                           : "/usr/local/eclipse"
+#user: 'albandri' #please override me
+user: "{{ lookup('env','USER') }}"
+eclipse_owner: "{{ user }}"
+#home: '~' #please override me
+home: "{{ lookup('env','HOME') }}"
+eclipse_owner_home: "{{ home }}"
+eclipse_group: "{{ eclipse_owner }}"
+eclipse_base_dir: "/usr/local/eclipse"
 
 ## Most likely you dont need to edit 
 #todo eclipse_service_enabled   : 'yes'
-eclipse_major             : "4"
-eclipse_minor             : "4"
+eclipse_major: "4"
+eclipse_minor: "4"
 #kepler 3.7.2.1
-eclipse_version           : "{{eclipse_major}}.{{eclipse_minor}}"
-eclipse_name              : "luna"
-eclipse_archive_extracted : "eclipse"
-#eclipse_archive           : "eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz"
-eclipse_archive           : "eclipse-modeling-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
+eclipse_version: "{{eclipse_major}}.{{eclipse_minor}}"
+eclipse_name: "luna"
+eclipse_archive_extracted: "eclipse"
+#eclipse_archive: "eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz"
+eclipse_archive: "eclipse-modeling-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
 
-eclipse_url               : "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
-eclipse_home_dir          : "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
+eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
+eclipse_home_dir: "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
 
 eclipse_plugins_enabled: yes                          # Enable plugins
 eclipse_plugins_emf_enabled: no                       # Enable plugins

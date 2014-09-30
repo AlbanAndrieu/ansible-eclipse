@@ -15,7 +15,7 @@ ENV         ECLIPSE_HOME {{ eclipse_base_dir }}
 WORKDIR {{ docker_working_directory }}
 
 # ADD
-ADD default $WORKDIR/default
+ADD defaults $WORKDIR/defaults
 ADD meta $WORKDIR/meta
 ADD files $WORKDIR/files
 ADD handlers $WORKDIR/handlers

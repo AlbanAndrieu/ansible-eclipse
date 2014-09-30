@@ -3,19 +3,19 @@
   sudo: True
   roles:
     - ansible-eclipse
-     
-  vars:     
-       user: root
-       home: /root
-       docker_files_generated_directory         : ""
-       eclipse_plugins_emf_enabled: no                       # Enable plugins
-       eclipse_plugins_cdt_enabled: yes                       # Enable plugins
-       eclipse_plugins_cmakeed_enabled: yes                   # Enable plugins
-       eclipse_plugins_openinterminal_enabled: no            # Enable plugins
-       eclipse_plugins_protobuf_enabled: no                  # Enable plugins
-       eclipse_plugins_yedit_enabled: yes                     # Enable plugins
-       eclipse_plugins_shelled_enabled: no                   # Enable plugins
-       eclipse_plugins_webpageed_enabled: no                 # Enable plugins
-       eclipse_plugins_pydev_enabled: no                     # Enable plugins
-       eclipse_plugins_m2e_enabled: yes                       # Enable plugins
-       eclipse_plugins_subclipse_enabled: yes                 # Enable plugins
+
+  vars:
+    user: root
+    home: "/root"
+    docker_files_generated_directory: ""
+    eclipse_plugins_emf_enabled: no                       # Enable plugins
+    eclipse_plugins_cdt_enabled: yes                       # Enable plugins
+    eclipse_plugins_cmakeed_enabled: yes                   # Enable plugins
+    eclipse_plugins_openinterminal_enabled: no            # Enable plugins
+    eclipse_plugins_protobuf_enabled: no                  # Enable plugins
+    eclipse_plugins_yedit_enabled: yes                     # Enable plugins
+    eclipse_plugins_shelled_enabled: no                   # Enable plugins
+    eclipse_plugins_webpageed_enabled: no                 # Enable plugins
+    eclipse_plugins_pydev_enabled: no                     # Enable plugins
+    eclipse_plugins_m2e_enabled: yes                       # Enable plugins
+    eclipse_plugins_subclipse_enabled: yes                 # Enable plugins

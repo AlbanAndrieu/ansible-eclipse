@@ -1,4 +1,4 @@
-# Ansible managed: /workspace/users/albandri10/env/ansible/roles/eclipse/templates/Dockerfile.j2 modified on 2014-09-25 00:45:54 by albandri on albandri-laptop-misys
+# Ansible managed: /workspace/users/albandri10/env/ansible/roles/eclipse/templates/Dockerfile.j2 modified on 2014-09-30 20:56:09 by albandri on albandri-laptop-misys
 #FROM        debian:jessie
 #FROM        stackbrew/ubuntu:14.04
 FROM        jasongiedymin/ansible-base-ubuntu
@@ -15,7 +15,7 @@ ENV         ECLIPSE_HOME /workspace/eclipse
 WORKDIR /home/vagrant
 
 # ADD
-ADD default $WORKDIR/default
+ADD defaults $WORKDIR/defaults
 ADD meta $WORKDIR/meta
 ADD files $WORKDIR/files
 ADD handlers $WORKDIR/handlers
@@ -31,7 +31,7 @@ ADD docker/hosts /etc/ansible/hosts
 ADD docker/playbook.yml $WORKDIR/playbook.yml
 
 # Execute
-RUN         ansible-playbook $WORKDIR/playbook.yml -c local
+RUN         ansible-playbook $WORKDIR/docker/playbook.yml -i $WORKDIR/docker/hosts -c local
 
 EXPOSE      22
 ENTRYPOINT  ["/workspace/eclipse/eclipse-4/eclipse"]
