@@ -21,7 +21,7 @@ ADD files $WORKDIR/files
 ADD handlers $WORKDIR/handlers
 ADD tasks $WORKDIR/tasks
 ADD templates $WORKDIR/templates
-ADD vars $WORKDIR/vars
+#ADD vars $WORKDIR/vars
 ADD docker $WORKDIR/docker
 
 # Here we continue to use add because
