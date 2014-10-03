@@ -9,6 +9,6 @@ install:
 script:
   - ansible --version
   - export ANSIBLE_ROLES_PATH="../"
-  - echo localhost > inventory
-  - ansible-playbook -i inventory --syntax-check eclipse.yml
-  - ansible-playbook -i inventory --connection=local --sudo -vvvv eclipse.yml
+#  - echo localhost > inventory
+  - ansible-playbook -i hosts --syntax-check eclipse.yml
+  - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
