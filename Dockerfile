@@ -14,6 +14,10 @@ ENV         ECLIPSE_HOME /workspace/eclipse
 # Working dir
 WORKDIR /home/vagrant
 
+RUN         pwd
+RUN         ls -lrta
+RUN         mkdir $WORKDIR/ansible-eclipse
+
 # ADD
 ADD defaults $WORKDIR/ansible-eclipse/defaults
 ADD meta $WORKDIR/ansible-eclipse/meta
