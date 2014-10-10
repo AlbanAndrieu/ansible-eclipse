@@ -15,13 +15,13 @@ ENV         ECLIPSE_HOME {{ eclipse_base_dir }}
 WORKDIR {{ docker_working_directory }}
 
 # ADD
-ADD defaults $WORKDIR/eclipse/defaults
-ADD meta $WORKDIR/eclipse/meta
-ADD files $WORKDIR/eclipse/files
-ADD handlers $WORKDIR/eclipse/handlers
-ADD tasks $WORKDIR/eclipse/tasks
-ADD templates $WORKDIR/eclipse/templates
-#ADD vars $WORKDIR/eclipse/vars
+ADD defaults $WORKDIR/ansible-eclipse/defaults
+ADD meta $WORKDIR/ansible-eclipse/meta
+ADD files $WORKDIR/ansible-eclipse/files
+ADD handlers $WORKDIR/ansible-eclipse/handlers
+ADD tasks $WORKDIR/ansible-eclipse/tasks
+ADD templates $WORKDIR/ansible-eclipse/templates
+#ADD vars $WORKDIR/ansible-eclipse/vars
 
 # Here we continue to use add because
 # there are a limited number of RUNs
