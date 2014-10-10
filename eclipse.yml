@@ -6,6 +6,8 @@
     - ansible-eclipse
 
   vars:
+    user: "root"
+    home: "/home/root"  
     docker_files_generated_directory: ""
     docker_files_enable: no       
     eclipse_plugins_emf_enabled: no                       # Enable plugins

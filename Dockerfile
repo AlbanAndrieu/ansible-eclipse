@@ -10,6 +10,7 @@ MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu"
 
 ENV			DEBIAN_FRONTEND noninteractive
 ENV         ECLIPSE_HOME /workspace/eclipse
+ENV         WORKDIR /home/vagrant
 
 # Working dir
 WORKDIR /home/vagrant
