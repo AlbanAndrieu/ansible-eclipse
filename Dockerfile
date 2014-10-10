@@ -32,12 +32,12 @@ ADD templates $WORKDIR/ansible-eclipse/templates
 # there are a limited number of RUNs
 # allowed.
 ADD hosts /etc/ansible/hosts
-ADD eclipse.yml $WORKDIR/eclipse.yml
+ADD eclipse.yml $WORKDIR/ansible-eclipse/eclipse.yml
 
 # Execute
 RUN         pwd
 RUN         ls -lrta
-RUN         ansible-playbook $WORKDIR/eclipse.yml -c local -vvvv
+RUN         ansible-playbook $WORKDIR/ansible-eclipse/eclipse.yml -c local -vvvv
 
 EXPOSE      22
 ENTRYPOINT  ["/workspace/eclipse/eclipse-4/eclipse"]

@@ -9,7 +9,7 @@ install:
   - sudo pip install ansible
 script:
   - ansible --version
-  - export ANSIBLE_ROLES_PATH="../"
+#  - export ANSIBLE_ROLES_PATH="../"
 #  - echo localhost > inventory
   - ansible-playbook -i hosts --syntax-check eclipse.yml
   - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml

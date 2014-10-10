@@ -33,20 +33,6 @@
   when: eclipse_download.changed
   tags: eclipse_setup
 
-#- name: Extract archive eclipse
-#  unarchive:
-#    src="{{ tempdir.stdout }}/{{eclipse_archive}}"
-#    dest="{{eclipse_base_dir}}"
-#    owner="{{eclipse_owner}}"
-#    group="{{eclipse_group}}"
-#    copy=no
-#  sudo_user: "{{eclipse_owner}}"
-#  tags: eclipse_setup
-
-#- name: Move {{eclipse_base_dir}}/{{eclipse_archive_extracted}} to {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
-#  command: mv {{eclipse_base_dir}}/{{eclipse_archive_extracted}} {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
-#  when: eclipse_archive_extracted_present.stat.exists
-
 - name: Extract archive eclipse
   command: tar xzf {{ tempdir.stdout }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1
   when: eclipse_download.changed
@@ -55,9 +41,7 @@
   file: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}} owner={{eclipse_owner}} group={{eclipse_group}} state=directory recurse=yes
   when: eclipse_download.changed
 
-#copy: src=~test/a dest=~test/a owner=root group=root
-
-- name: stat {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
+- name: Stat {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
   stat: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}}
   register: eclipse_archive_extracted_present
 
@@ -67,7 +51,7 @@
 - fail: msg="Whoops! file ownership has changed"
   when: eclipse_archive_extracted_present.stat.pw_name != '{{eclipse_owner}}'
 
-- name: create a link to eclipse
+- name: Create a link to eclipse
   file:
     src="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
     dest="{{eclipse_base_dir}}/eclipse-{{eclipse_major}}"

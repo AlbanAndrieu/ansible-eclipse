@@ -2,14 +2,14 @@
 - hosts: all
   sudo: true
   roles:
-#    - role: ./  
-    - ansible-eclipse
+    - role: ./
+#    - ansible-eclipse
 
   vars:
     user: "root"
-    home: "/home/root"  
+    home: "/home/root"
     docker_files_generated_directory: ""
-    docker_files_enable: no       
+    docker_files_enable: no
     eclipse_plugins_emf_enabled: no                       # Enable plugins
     eclipse_plugins_cdt_enabled: yes                       # Enable plugins
     eclipse_plugins_cmakeed_enabled: yes                   # Enable plugins
