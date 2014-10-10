@@ -2,10 +2,12 @@
 - hosts: all
   sudo: true
   roles:
+#    - role: ./  
     - ansible-eclipse
 
   vars:
     docker_files_generated_directory: ""
+    docker_files_enable: no       
     eclipse_plugins_emf_enabled: no                       # Enable plugins
     eclipse_plugins_cdt_enabled: yes                       # Enable plugins
     eclipse_plugins_cmakeed_enabled: yes                   # Enable plugins
@@ -17,3 +19,5 @@
     eclipse_plugins_pydev_enabled: no                     # Enable plugins
     eclipse_plugins_m2e_enabled: yes                       # Enable plugins
     eclipse_plugins_subclipse_enabled: yes                 # Enable plugins
+
+#- include: docker/integration-tests.yml

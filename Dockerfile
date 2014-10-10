@@ -15,22 +15,24 @@ ENV         ECLIPSE_HOME /workspace/eclipse
 WORKDIR /home/vagrant
 
 # ADD
-ADD defaults $WORKDIR/defaults
-ADD meta $WORKDIR/meta
-ADD files $WORKDIR/files
-ADD handlers $WORKDIR/handlers
-ADD tasks $WORKDIR/tasks
-ADD templates $WORKDIR/templates
-#ADD vars $WORKDIR/vars
+ADD defaults $WORKDIR/eclipse/defaults
+ADD meta $WORKDIR/eclipse/meta
+ADD files $WORKDIR/eclipse/files
+ADD handlers $WORKDIR/eclipse/handlers
+ADD tasks $WORKDIR/eclipse/tasks
+ADD templates $WORKDIR/eclipse/templates
+#ADD vars $WORKDIR/eclipse/vars
 
 # Here we continue to use add because
 # there are a limited number of RUNs
 # allowed.
 ADD hosts /etc/ansible/hosts
-ADD playbook.yml $WORKDIR/playbook.yml -vvvv
+ADD eclipse.yml $WORKDIR/eclipse.yml
 
 # Execute
-RUN         ansible-playbook $WORKDIR/playbook.yml -i $WORKDIR/hosts -c local
+RUN         pwd
+RUN         ls -lrta
+RUN         ansible-playbook $WORKDIR/eclipse.yml -c local -vvvv
 
 EXPOSE      22
 ENTRYPOINT  ["/workspace/eclipse/eclipse-4/eclipse"]
