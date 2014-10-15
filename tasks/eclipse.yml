@@ -1,30 +1,30 @@
 ---
 # This playbook contains common plays to install eclipse.
 
-- name: Check user exists
+- name: eclipse | Check user exists
   user: name={{eclipse_owner}} state=present
 
-- name: Check user home directory
+- name: eclipse | Check user home directory
   stat: path={{eclipse_owner_home}}
   register: home_present
 
-- debug: msg="Path exists and is a directory"
+- debug: msg=" eclipse | Path exists and is a directory"
   when: home_present.stat.isdir is defined and home_present.stat.isdir == true
 
-- name: Create temporary directory
+- name: eclipse | Create temporary directory
   shell: mktemp -d
   register: tempdir
   sudo: true
   tags: eclipse_setup
 
-- name: Download eclipse
+- name: eclipse | Download eclipse
   get_url:
     url="{{eclipse_url}}"
-    dest="{{ tempdir.stdout }}/{{eclipse_archive}}"
+    dest="{{ eclipse_dir_tmp }}/{{eclipse_archive}}"
   register: eclipse_download
   tags: eclipse_setup
 
-- name: Create base directory
+- name: eclipse | Create base directory
   file:
     dest="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
     state=directory
@@ -33,25 +33,25 @@
   when: eclipse_download.changed
   tags: eclipse_setup
 
-- name: Extract archive eclipse
-  command: tar xzf {{ tempdir.stdout }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1
+- name: eclipse | Extract archive eclipse
+  command: tar xzf {{ eclipse_dir_tmp }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1
   when: eclipse_download.changed
 
-- name: Change archive eclipse ownership
+- name: eclipse | Change archive eclipse ownership
   file: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}} owner={{eclipse_owner}} group={{eclipse_group}} state=directory recurse=yes
   when: eclipse_download.changed
 
-- name: Stat {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
+- name: eclipse | Stat {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
   stat: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}}
   register: eclipse_archive_extracted_present
 
-- debug: msg="Path exists and is a directory"
+- debug: msg=" eclipse | Path exists and is a directory"
   when: eclipse_archive_extracted_present.stat.isdir is defined and eclipse_archive_extracted_present.stat.isdir == true
 
-- fail: msg="Whoops! file ownership has changed"
+- fail: msg=" eclipse | Whoops! file ownership has changed"
   when: eclipse_archive_extracted_present.stat.pw_name != '{{eclipse_owner}}'
 
-- name: Create a link to eclipse
+- name: eclipse | Create a link to eclipse
   file:
     src="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
     dest="{{eclipse_base_dir}}/eclipse-{{eclipse_major}}"
@@ -60,7 +60,7 @@
     group="{{eclipse_group}}"
   tags: eclipse_setup
 
-- name: Install eclipse MoDisco & EMF Facet plugins
+- name: eclipse | Install eclipse MoDisco & EMF Facet plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
     -application org.eclipse.equinox.p2.director \
     -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -105,7 +105,7 @@
     net.sf.eclipsecs.feature.group"
   when: eclipse_plugins_emf_enabled and eclipse_plugins_enabled
 
-- name: Install eclipse CDT plugins
+- name: eclipse | Install eclipse CDT plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -120,7 +120,7 @@
   ignore_errors: True
 
 #cmakeed - CMake editor
-- name: Install eclipse CMake editor plugins
+- name: eclipse | Install eclipse CMake editor plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -130,7 +130,7 @@
   ignore_errors: True
   
 #OpenInTerminal - Add option in context menu
-- name: Install eclipse Open In Terminal plugins
+- name: eclipse | Install eclipse Open In Terminal plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -140,7 +140,7 @@
   ignore_errors: True
   
 #protobuf-dt - Google Protobuffer editor
-- name: Install eclipse Proto buffer plugins
+- name: eclipse | Install eclipse Proto buffer plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -149,7 +149,7 @@
   when: eclipse_plugins_protobuf_enabled and eclipse_plugins_enabled
 
 #yedit - YAML Editor
-- name: Install eclipse YAML Editor plugins
+- name: eclipse | Install eclipse YAML Editor plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -159,7 +159,7 @@
   ignore_errors: True
   
 #shelled - Bash Script Editor
-- name: Install eclipse Bash Script Editor plugins
+- name: eclipse | Install eclipse Bash Script Editor plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -170,7 +170,7 @@
   ignore_errors: True
     
 #Web Page Editor
-- name: Install eclipse Web Page Editor plugins
+- name: eclipse | Install eclipse Web Page Editor plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -180,7 +180,7 @@
   ignore_errors: True
   
 #Pydev  
-- name: Install python pexpect for adding Pydev certificat
+- name: eclipse | Install python pexpect for adding Pydev certificat
   apt: pkg={{ item }} state=present
   when: ansible_distribution == 'Debian'
   with_items:
@@ -189,15 +189,15 @@
 
 #todo for RehHat : sudo yum install pexpect.noarch
 
-- name: Transfer eclipse Pydev certificate
-  copy: src=add_pydev_certificate.py dest={{ tempdir.stdout }} mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
+- name: eclipse | Transfer eclipse Pydev certificate
+  copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   
-- name: Add eclipse Pydev certificate
-  command: python {{ tempdir.stdout }}/add_pydev_certificate.py
+- name: eclipse | Add eclipse Pydev certificate
+  command: python {{ eclipse_dir_tmp }}/add_pydev_certificate.py
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled           
 
-- name: Install eclipse Pydev plugins
+- name: eclipse | Install eclipse Pydev plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -207,14 +207,14 @@
   ignore_errors: True
   
 #Subclipse  
-- name: Install JavaHL for subclipse
+- name: eclipse | Install JavaHL for subclipse
   apt: pkg={{ item }} state=present
   when: ansible_distribution == 'Debian'
   with_items:
     - libsvn-java
   when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
 
-- name: Install eclipse Subversion plugins
+- name: eclipse | Install eclipse Subversion plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -228,7 +228,7 @@
   ignore_errors: True
   
 #Maven m2e
-- name: Install eclipse Maven m2e plugins
+- name: eclipse | Install eclipse Maven m2e plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
   -application org.eclipse.equinox.p2.director \
   -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
@@ -237,8 +237,8 @@
   when: eclipse_plugins_m2e_enabled and eclipse_plugins_enabled
   ignore_errors: True
 
-- name: Cleanup temporary directory
+- name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
   tags: eclipse_setup
 
-- debug: msg="Start eclipse {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"
+- debug: msg=" eclipse | Start eclipse {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"

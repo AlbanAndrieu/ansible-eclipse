@@ -7,7 +7,8 @@ A role for installing eclipse.
 
 ## Actions
 
-- Ensures that eclipse is installed (using `apt`)
+- Ensures that eclipse is installed (using `ansible`)
+- Once eclipse is installed using ansible, a docker image is automatically created, so please do not hesitate to enhance ansible script it will then improve docker image.
 
 Usage example
 ------------
@@ -16,6 +17,7 @@ Usage example
       connection: local  
       hosts: workstation
       remote_user: albandri
+      
       roles:
         - role: eclipse     
       

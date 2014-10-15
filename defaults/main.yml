@@ -9,6 +9,8 @@ home: "{{ lookup('env','HOME') }}"
 eclipse_owner_home: "{{ home }}"
 eclipse_group: "{{ eclipse_owner }}"
 eclipse_base_dir: "/usr/local/eclipse"
+tempdir: "/tmp"
+eclipse_dir_tmp: "{{ tempdir.stdout }}"
 
 ## Most likely you dont need to edit 
 #todo eclipse_service_enabled   : 'yes'
