@@ -3,7 +3,6 @@
   sudo: true
   roles:
     - role: ./
-#    - ansible-eclipse
 
   vars:
     user: "root"

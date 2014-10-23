@@ -34,7 +34,7 @@
   tags: eclipse_setup
 
 - name: eclipse | Extract archive eclipse
-  command: tar xzf {{ eclipse_dir_tmp }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1
+  command: tar xzf {{ eclipse_dir_tmp }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1  
   when: eclipse_download.changed
 
 - name: eclipse | Change archive eclipse ownership

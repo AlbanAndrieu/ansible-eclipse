@@ -4,6 +4,8 @@ ansible-eclipse
 A role for installing eclipse.
 
 [![Build Status](https://api.travis-ci.org/AlbanAndrieu/ansible-eclipse.png?branch=master)](https://travis-ci.org/AlbanAndrieu/ansible-eclipse)
+[![Galaxy](http://img.shields.io/badge/galaxy-eclipse-blue.svg?style=flat-square)](https://galaxy.ansible.com/list#/roles/1776)
+[![Tag](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)]()
 
 ## Actions
 
