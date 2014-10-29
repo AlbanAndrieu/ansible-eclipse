@@ -51,7 +51,7 @@
 - fail: msg=" eclipse | Whoops! file ownership has changed"
   when: eclipse_archive_extracted_present.stat.pw_name != '{{eclipse_owner}}'
 
-- name: eclipse | Create a link to eclipse
+- name: eclipse | Create a link to eclipse (1)
   file:
     src="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
     dest="{{eclipse_base_dir}}/eclipse-{{eclipse_major}}"
@@ -60,6 +60,15 @@
     group="{{eclipse_group}}"
   tags: eclipse_setup
 
+- name: eclipse | Create a link to eclipse (2)
+  file:
+    src="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
+    dest="{{eclipse_link_base_dir}}/eclipse-{{eclipse_major}}"
+    state=link
+    owner="{{eclipse_owner}}"
+    group="{{eclipse_group}}"
+  tags: eclipse_setup
+  
 - name: eclipse | Install eclipse MoDisco & EMF Facet plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
     -application org.eclipse.equinox.p2.director \

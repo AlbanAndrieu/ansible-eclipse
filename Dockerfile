@@ -1,23 +1,19 @@
-# Ansible managed: /workspace/users/albandri10/env/ansible/roles/eclipse/templates/Dockerfile.j2 modified on 2014-09-30 20:56:09 by albandri on albandri-laptop-misys
+# Ansible managed: /workspace/users/albandri10/env/ansible/roles/eclipse/templates/Dockerfile.j2 modified on 2014-10-16 01:03:53 by albandri on albandri-laptop-misys.misys.global.ad
 #FROM        debian:jessie
 #FROM        stackbrew/ubuntu:14.04
 FROM        jasongiedymin/ansible-base-ubuntu
 
 # Volume can be accessed outside of container
-VOLUME      [/workspace/eclipse]
+VOLUME      [/usr/local/eclipse]
 
 MAINTAINER  Alban Andrieu "https://github.com/AlbanAndrieu"
 
 ENV			DEBIAN_FRONTEND noninteractive
-ENV         ECLIPSE_HOME /workspace/eclipse
+ENV         ECLIPSE_HOME /usr/local/eclipse
 ENV         WORKDIR /home/vagrant
 
 # Working dir
 WORKDIR /home/vagrant
-
-RUN         pwd
-RUN         ls -lrta
-RUN         mkdir $WORKDIR/ansible-eclipse
 
 # ADD
 ADD defaults $WORKDIR/ansible-eclipse/defaults
@@ -39,6 +35,6 @@ RUN         pwd
 RUN         ls -lrta
 RUN         ansible-playbook $WORKDIR/ansible-eclipse/eclipse.yml -c local -vvvv
 
-EXPOSE      22
-ENTRYPOINT  ["/workspace/eclipse/eclipse-4/eclipse"]
+EXPOSE 21:9999
+ENTRYPOINT  ["/usr/local/eclipse/eclipse-4/eclipse"]
 CMD ["-g", "deamon off;"]
