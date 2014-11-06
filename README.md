@@ -1,48 +1,86 @@
-ansible-eclipse
-====================
+## eclipse
 
-A role for installing eclipse.
+[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-AlbanAndrieu.eclipse-660198.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
-[![Build Status](https://api.travis-ci.org/AlbanAndrieu/ansible-eclipse.png?branch=master)](https://travis-ci.org/AlbanAndrieu/ansible-eclipse)
-[![Galaxy](http://img.shields.io/badge/galaxy-eclipse-blue.svg?style=flat-square)](https://galaxy.ansible.com/list#/roles/1776)
-[![Tag](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)]()
+This role ensures that eclipse is installed (using ansible)
 
-## Actions
+### Installation
 
-- Ensures that eclipse is installed (using `ansible`)
-- Once eclipse is installed using ansible, a docker image is automatically created, so please do not hesitate to enhance ansible script it will then improve docker image.
+This role requires at least Ansible `v1.6.3`. To install it, run:
 
-Usage example
-------------
+    ansible-galaxy install AlbanAndrieu.eclipse
 
-    - name: Install eclipse
-      connection: local  
-      hosts: workstation
-      remote_user: albandri
-      
-      roles:
-        - role: eclipse     
-      
-      vars:    
-          eclipse_base_dir: /workspace/eclipse     
-          eclipse_owner: albandri
-          eclipse_group: albandri
-        
-Requirements
-------------
 
-none
 
-Dependencies
-------------
+### Role variables
 
-none
+List of default variables available in the inventory:
 
-License
--------
+```yaml
+    ---
+    eclipse_enabled: yes                       # Enable module
+    
+    #user: 'albandri' #please override me
+    user: "{{ lookup('env','USER') }}"
+    eclipse_owner: "{{ user }}"
+    eclipse_group: "{{ eclipse_owner }}"
+    #home: '~' #please override me
+    home: "{{ lookup('env','HOME') }}"
+    eclipse_owner_home: "{{ home }}"
+    eclipse_base_dir: "/usr/local/eclipse"
+    eclipse_link_base_dir: "/opt"
+    eclipse_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
+    
+    ## Most likely you dont need to edit 
+    #todo eclipse_service_enabled   : 'yes'
+    eclipse_major: "4"
+    eclipse_minor: "4"
+    #kepler 3.7.2.1
+    eclipse_version: "{{eclipse_major}}.{{eclipse_minor}}"
+    eclipse_name: "luna"
+    eclipse_archive_extracted: "eclipse"
+    #eclipse_archive: "eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz"
+    eclipse_archive: "eclipse-modeling-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
+    
+    eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
+    eclipse_home_dir: "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
+    
+    eclipse_plugins_enabled: yes                          # Enable plugins
+    eclipse_plugins_emf_enabled: no                       # Enable plugins
+    eclipse_plugins_cdt_enabled: no                       # Enable plugins
+    eclipse_plugins_cmakeed_enabled: no                   # Enable plugins
+    eclipse_plugins_openinterminal_enabled: no            # Enable plugins
+    eclipse_plugins_protobuf_enabled: no                  # Enable plugins
+    eclipse_plugins_yedit_enabled: no                     # Enable plugins
+    eclipse_plugins_shelled_enabled: no                   # Enable plugins
+    eclipse_plugins_webpageed_enabled: no                 # Enable plugins
+    eclipse_plugins_pydev_enabled: no                     # Enable plugins
+    eclipse_plugins_m2e_enabled: no                       # Enable plugins
+    eclipse_plugins_subclipse_enabled: no                # Enable plugins
+    
+    docker_files_generated_directory: "./"
+    docker_files_enable: no
+    docker_volume_directory                  : "{{ eclipse_base_dir }}"
+    docker_working_directory                 : "/home/vagrant"
+    docker_image_name                        : "nabla/ansible-eclipse"
+```
 
-MIT
 
-#### Feedback, bug-reports, requests, ...
+### Detailed usage guide
 
-Are [welcome](https://github.com/AlbanAndrieu/ansible-eclipse/issues)!
+Once eclipse is installed using ansible, a docker image is automatically created, so please do not hesitate to enhance ansible script it will then improve docker image...
+
+
+### Authors and license
+
+`eclipse` role was written by:
+- [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
+- License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
+
+### Feedback, bug-reports, requests, ...
+
+Are [welcome](https://github.com/AlbanAndrieu/ansible-eclipse/issues>)!
+
+***
+
+README generated by [Ansigenome](https://github.com/nickjj/ansigenome/).

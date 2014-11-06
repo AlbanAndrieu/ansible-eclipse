@@ -1,10 +1,16 @@
 ---
 
+dependencies: []
+  # List your role dependencies here, one per line. Only
+  # dependencies available via galaxy should be listed here.
+  # Be sure to remove the '[]' above if you add dependencies
+  # to this list.
+  
 galaxy_info:
   author: Alban Andrieu
   description: A role for installing eclipse
   company: Nabla
-  license: MIT
+  license: GPLv3
   min_ansible_version: 1.6.3
   platforms:
   - name: Ubuntu
@@ -21,5 +27,24 @@ galaxy_info:
     - trusty
   categories:
   - development
-dependencies: []
 
+ansigenome_info:
+  galaxy_id: '1776'
+
+  travis: True
+  
+  authors:
+    - name:  'Alban Andrieu'
+      url: 'fr.linkedin.com/in/nabla/'
+      email: 'alban.andrieu@free.fr'
+      twitter: 'AlbanAndrieu'
+      github: 'AlbanAndrieu'
+      
+  synopsis: |
+    This role ensures that eclipse is installed (using ansible)
+
+  usage: |
+    Once eclipse is installed using ansible, a docker image is automatically created, so please do not hesitate to enhance ansible script it will then improve docker image...
+
+  #custom: |
+  #  Any custom output you want after the usage section..
