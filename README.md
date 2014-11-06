@@ -2,7 +2,7 @@
 
 [![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-AlbanAndrieu.eclipse-660198.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
-This role ensures that eclipse is installed (using ansible)
+Ensures that eclipse is properly installed (using `apt`) and configured
 
 ### Installation
 

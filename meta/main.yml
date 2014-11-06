@@ -41,7 +41,7 @@ ansigenome_info:
       github: 'AlbanAndrieu'
       
   synopsis: |
-    This role ensures that eclipse is installed (using ansible)
+    Ensures that eclipse is properly installed (using `apt`) and configured  
 
   usage: |
     Once eclipse is installed using ansible, a docker image is automatically created, so please do not hesitate to enhance ansible script it will then improve docker image...
