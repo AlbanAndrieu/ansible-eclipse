@@ -4,8 +4,8 @@
   roles:
     - { role: ./,
         docker_files_enable: yes,
-        #user: "root",
-        #home: "/root",
+        user: "root",
+        home: "/root",
         eclipse_plugins_emf_enabled: no,
         eclipse_plugins_cdt_enabled: yes,
         eclipse_plugins_cmakeed_enabled: yes,
@@ -16,7 +16,7 @@
         eclipse_plugins_webpageed_enabled: no,
         eclipse_plugins_pydev_enabled: no,
         eclipse_plugins_m2e_enabled: yes,
-        eclipse_plugins_subclipse_enabled: yes        
+        eclipse_plugins_subclipse_enabled: yes,
       }
 
 #- include: docker/integration-tests.yml

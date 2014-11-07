@@ -1,14 +1,26 @@
 ## eclipse
 
-[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-AlbanAndrieu.eclipse-660198.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
+[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.eclipse-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
-Ensures that eclipse is properly installed (using `apt`) and configured
+Ensures that eclipse is properly installed (not using `apt`) and configured  
+This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with some of the main basic plugins.       
+
+Taken from
+------------------
+
+https://www.eclipse.org/downloads/
+
+###Requirements
+
+Tools taht might be needed by [Eclipse](https://www.eclipse.org), like jdk, maven...
 
 ### Installation
 
-This role requires at least Ansible `v1.6.3`. To install it, run:
+This role requires at least Ansible `v1.6.3`. 
 
-    ansible-galaxy install AlbanAndrieu.eclipse
+To install it, run:
+
+    ansible-galaxy install alban.andrieu.eclipse
 
 
 
@@ -68,7 +80,8 @@ List of default variables available in the inventory:
 
 ### Detailed usage guide
 
-Once eclipse is installed using ansible, a docker image is automatically created, so please do not hesitate to enhance ansible script it will then improve docker image...
+Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created on [Docker Hub](https://registry.hub.docker.com/), 
+so please do not hesitate to enhance ansible script it will then improve docker image automatically...
 
 
 ### Authors and license
@@ -79,7 +92,7 @@ Once eclipse is installed using ansible, a docker image is automatically created
 
 ### Feedback, bug-reports, requests, ...
 
-Are [welcome](https://github.com/AlbanAndrieu/ansible-eclipse/issues>)!
+Are [welcome](https://github.com/AlbanAndrieu/ansible-eclipse/issues)!
 
 ***
 
