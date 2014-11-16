@@ -42,7 +42,8 @@ ansigenome_info:
       github: 'AlbanAndrieu'
       
   synopsis: |
-    Ensures that eclipse is properly installed (not using `apt`) and configured  
+    Ensures that eclipse is properly installed (not using `apt`) using `Ansible` script and configured.
+    For now Eclipse luna has been installed on Ubuntu.
     This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with some of the main basic plugins.       
     
     Taken from
@@ -55,6 +56,7 @@ ansigenome_info:
     Tools taht might be needed by [Eclipse](https://www.eclipse.org), like jdk, maven...
     
   usage: |
+    `docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
     Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created on [Docker Hub](https://registry.hub.docker.com/), 
     so please do not hesitate to enhance ansible script it will then improve docker image automatically...
 

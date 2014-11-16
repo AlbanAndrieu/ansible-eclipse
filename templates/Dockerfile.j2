@@ -35,6 +35,6 @@ RUN         pwd
 RUN         ls -lrta
 RUN         ansible-playbook $WORKDIR/ansible-eclipse/eclipse.yml -c local -vvvv
 
-EXPOSE 21:9999
+#EXPOSE 21:9999
 ENTRYPOINT  ["{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"]
 CMD ["-g", "deamon off;"]
