@@ -2,7 +2,8 @@
 
 [![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.eclipse-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
-Ensures that eclipse is properly installed (not using `apt`) and configured  
+Ensures that eclipse is properly installed (not using `apt`) using `Ansible` script and configured.
+For now Eclipse luna has been installed on Ubuntu.
 This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with some of the main basic plugins.       
 
 Taken from
@@ -80,6 +81,7 @@ List of default variables available in the inventory:
 
 ### Detailed usage guide
 
+`docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
 Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created on [Docker Hub](https://registry.hub.docker.com/), 
 so please do not hesitate to enhance ansible script it will then improve docker image automatically...
 
