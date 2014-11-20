@@ -14,7 +14,6 @@
 - name: eclipse | Create temporary directory
   shell: mktemp -d
   register: tempdir
-  sudo: true
   tags: eclipse_setup
 
 - name: eclipse | Download eclipse
@@ -220,6 +219,7 @@
 #Subclipse  
 - name: eclipse | Install JavaHL for subclipse
   apt: pkg={{ item }} state=present
+  sudo: yes
   when: ansible_distribution == 'Debian'
   with_items:
     - libsvn-java
