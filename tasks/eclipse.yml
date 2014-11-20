@@ -30,6 +30,7 @@
     state=directory
     owner="{{eclipse_owner}}"
     group="{{eclipse_group}}"
+  sudo : yes
   when: eclipse_download.changed
   tags: eclipse_setup
 
@@ -38,7 +39,7 @@
   when: eclipse_download.changed
 
 - name: eclipse | Change archive eclipse ownership
-  file: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}} owner={{eclipse_owner}} group={{eclipse_group}} state=directory recurse=yes
+  file: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}} owner={{eclipse_owner}} state=directory recurse=yes
   when: eclipse_download.changed
 
 - name: eclipse | Stat {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
@@ -57,7 +58,7 @@
     dest="{{eclipse_base_dir}}/eclipse-{{eclipse_major}}"
     state=link
     owner="{{eclipse_owner}}"
-    group="{{eclipse_group}}"
+#    group="{{eclipse_group}}"
   tags: eclipse_setup
 
 - name: eclipse | Create a link to eclipse (2)
@@ -66,7 +67,8 @@
     dest="{{eclipse_link_base_dir}}/eclipse-{{eclipse_major}}"
     state=link
     owner="{{eclipse_owner}}"
-    group="{{eclipse_group}}"
+#    group="{{eclipse_group}}"
+  sudo: yes
   tags: eclipse_setup
   
 - name: eclipse | Install eclipse MoDisco & EMF Facet plugins

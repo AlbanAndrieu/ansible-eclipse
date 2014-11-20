@@ -59,6 +59,10 @@ ansigenome_info:
     `docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
     Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created on [Docker Hub](https://registry.hub.docker.com/), 
     so please do not hesitate to enhance ansible script it will then improve docker image automatically...
-
+    
+    Run the following command :
+    
+    `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-sudo-pass | tee setup.log`
+    
   #custom: |
   #  Any custom output you want after the usage section..
