@@ -1,10 +1,12 @@
-## eclipse
+## alban.andrieu.eclipse
 
 [![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.eclipse-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
 
-Ensures that eclipse is properly installed (not using `apt`) using `Ansible` script and configured.
-For now Eclipse luna has been installed on Ubuntu.
-This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with some of the main basic plugins.       
+Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.
+Default settings is using Eclipse luna.
+This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with basic plugins. 
+
+This playbook is be used by [Docker Hub](https://hub.docker.com) to create a [Docker](http://docker.io) image.      
 
 Taken from
 ------------------
@@ -13,7 +15,8 @@ https://www.eclipse.org/downloads/
 
 ###Requirements
 
-Tools taht might be needed by [Eclipse](https://www.eclipse.org), like jdk, maven...
+Tools which might be needed by [Eclipse](https://www.eclipse.org), like jdk, maven...
+See available playbook on [GitHub](https://github.com/search?p=3&q=user%3AAlbanAndrieu+ansible%2A&type=Repositories)
 
 ### Installation
 
@@ -23,15 +26,16 @@ To install it, run:
 
     ansible-galaxy install alban.andrieu.eclipse
 
+### Role dependencies
 
+- `alban.andrieu.common`
 
 ### Role variables
 
 List of default variables available in the inventory:
 
 ```yaml
-    ---
-    eclipse_enabled: yes                       # Enable module
+        eclipse_enabled: yes                       # Enable module
     
     #user: 'albandri' #please override me
     user: "{{ lookup('env','USER') }}"
@@ -81,14 +85,21 @@ List of default variables available in the inventory:
 
 ### Detailed usage guide
 
-`docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
-Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created on [Docker Hub](https://registry.hub.docker.com/), 
-so please do not hesitate to enhance ansible script it will then improve docker image automatically...
+Use :
+
+    `docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
+
+Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created by [Docker Hub](https://registry.hub.docker.com/), 
+so please do not hesitate to enhance ansible script it will then improve docker image automatically.
+
+Run the following command :
+
+     `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-sudo-pass | tee setup.log`
 
 
 ### Authors and license
 
-`eclipse` role was written by:
+`alban.andrieu.eclipse` role was written by:
 - [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 
