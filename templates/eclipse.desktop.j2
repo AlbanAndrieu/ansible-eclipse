@@ -1,0 +1,28 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version={{ eclipse_major }}
+Name=Eclipse {{ eclipse_version }}
+GenericName=Text Editor
+
+Exec={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse
+Terminal=false
+#Icon=/usr/lib/eclipse/icon.xpm
+#** something like /opt/eclipse/icon.xpm **
+Icon={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/icon.xpm
+Type=Application
+Categories=IDE;Development
+Comment=Integrated Development Environment
+NoDisplay=false
+StartupNotify=false
+StartupWMClass=Eclipse
+OnlyShowIn=Unity;
+X-UnityGenerated=true
+
+X-Ayatana-Desktop-Shortcuts=NewWindow
+
+[NewWindow Shortcut Group]
+Name=New Window
+#Exec=eclipse -n
+# ** something like /opt/eclipse/eclipse **
+Exec={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse
+TargetEnvironment=Unity

@@ -248,6 +248,11 @@
   when: eclipse_plugins_m2e_enabled and eclipse_plugins_enabled
   ignore_errors: True
 
+- name: eclipse | Configure eclipse icon
+  template: src=eclipse.desktop.j2 dest={{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
+  tags: eclipse_setup
+  
 - name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
   tags: eclipse_setup
