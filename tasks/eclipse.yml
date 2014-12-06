@@ -251,6 +251,7 @@
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
+  ignore_errors: yes  
   tags: eclipse_setup
   
 - name: eclipse | Cleanup temporary directory
