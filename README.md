@@ -26,9 +26,7 @@ To install it, run:
 
     ansible-galaxy install alban.andrieu.eclipse
 
-### Role dependencies
 
-- `alban.andrieu.common`
 
 ### Role variables
 
