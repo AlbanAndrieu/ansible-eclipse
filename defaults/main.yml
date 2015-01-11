@@ -30,9 +30,9 @@ eclipse_archive: "eclipse-jee-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
 #modeling
 #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
 #java
-#eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/eclipse-java-luna-SR1-linux-gtk-x86_64.tar.gz"
+#eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
 #javaee
-eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/eclipse-jee-luna-SR1-linux-gtk-x86_64.tar.gz"
+eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
 eclipse_home_dir: "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
 
 eclipse_plugins_enabled: yes                          # Enable plugins
