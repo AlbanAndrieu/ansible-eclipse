@@ -33,8 +33,14 @@
   when: eclipse_download.changed
   tags: eclipse_setup
 
+- name: eclipse | Install tar
+  apt:
+    pkg=tar
+    state="present"
+  tags: eclipse_setup
+
 - name: eclipse | Extract archive eclipse
-  command: tar xzf {{ eclipse_dir_tmp }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1  
+  command: tar xzf {{ eclipse_dir_tmp }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1
   when: eclipse_download.changed
 
 - name: eclipse | Change archive eclipse ownership
@@ -69,7 +75,7 @@
 #    group="{{eclipse_group}}"
   sudo: yes
   tags: eclipse_setup
-  
+
 - name: eclipse | Install eclipse MoDisco & EMF Facet plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
     -application org.eclipse.equinox.p2.director \
@@ -138,7 +144,7 @@
   -installIU com.cthing.cmakeed.feature.feature.group"
   when: eclipse_plugins_cmakeed_enabled and eclipse_plugins_enabled
   ignore_errors: True
-  
+
 #OpenInTerminal - Add option in context menu
 - name: eclipse | Install eclipse Open In Terminal plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
@@ -148,7 +154,7 @@
   -installIU OpenInTerminal.feature.group"
   when: eclipse_plugins_openinterminal_enabled and eclipse_plugins_enabled
   ignore_errors: True
-  
+
 #protobuf-dt - Google Protobuffer editor
 - name: eclipse | Install eclipse Proto buffer plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
@@ -167,7 +173,7 @@
   -installIU org.dadacoalition.yedit.feature.group"
   when: eclipse_plugins_yedit_enabled and eclipse_plugins_enabled
   ignore_errors: True
-  
+
 #shelled - Bash Script Editor
 - name: eclipse | Install eclipse Bash Script Editor plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
@@ -178,7 +184,7 @@
   when: eclipse_plugins_shelled_enabled and eclipse_plugins_enabled
   ignore_errors: True
   ignore_errors: True
-    
+
 #Web Page Editor
 - name: eclipse | Install eclipse Web Page Editor plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
@@ -188,8 +194,8 @@
   -installIU org.eclipse.jst.webpageeditor.feature.feature.group"
   when: eclipse_plugins_webpageed_enabled and eclipse_plugins_enabled
   ignore_errors: True
-  
-#Pydev  
+
+#Pydev
 - name: eclipse | Install python pexpect for adding Pydev certificat
   apt: pkg={{ item }} state=present
   when: ansible_distribution == 'Debian'
@@ -202,10 +208,10 @@
 - name: eclipse | Transfer eclipse Pydev certificate
   copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
-  
+
 - name: eclipse | Add eclipse Pydev certificate
   command: python {{ eclipse_dir_tmp }}/add_pydev_certificate.py
-  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled           
+  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
 
 - name: eclipse | Install eclipse Pydev plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
@@ -215,8 +221,8 @@
   -installIU org.python.pydev.feature.feature.group"
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   ignore_errors: True
-  
-#Subclipse  
+
+#Subclipse
 - name: eclipse | Install JavaHL for subclipse
   apt: pkg={{ item }} state=present
   sudo: yes
@@ -237,7 +243,7 @@
   -installIU org.tigris.subversion.subclipse.graph.feature.feature.group"
   when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
   ignore_errors: True
-  
+
 #Maven m2e
 - name: eclipse | Install eclipse Maven m2e plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
@@ -251,9 +257,9 @@
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
-  ignore_errors: yes  
+  ignore_errors: yes
   tags: eclipse_setup
-  
+
 - name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
   tags: eclipse_setup
