@@ -55,9 +55,19 @@ List of default variables available in the inventory:
     eclipse_name: "luna"
     eclipse_archive_extracted: "eclipse"
     #eclipse_archive: "eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz"
-    eclipse_archive: "eclipse-modeling-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
+    #modeling
+    #eclipse_archive: "eclipse-modeling-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
+    #java
+    #eclipse_archive: "eclipse-java-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
+    #javaee
+    eclipse_archive: "eclipse-jee-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
     
-    eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
+    #modeling
+    #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
+    #java
+    #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
+    #javaee
+    eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
     eclipse_home_dir: "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
     
     eclipse_plugins_enabled: yes                          # Enable plugins
@@ -71,7 +81,17 @@ List of default variables available in the inventory:
     eclipse_plugins_webpageed_enabled: no                 # Enable plugins
     eclipse_plugins_pydev_enabled: no                     # Enable plugins
     eclipse_plugins_m2e_enabled: no                       # Enable plugins
-    eclipse_plugins_subclipse_enabled: no                # Enable plugins
+    eclipse_plugins_subclipse_enabled: no                 # Enable plugins
+    
+    eclipse_ini_enabled: yes                              # Enable overriding eclipse.ini
+    #default is 256m
+    eclipse_launcher_XXMaxPermSize: "256m"
+    #default is 256m
+    eclipse_XXMaxPermSize: "1024m"
+    #default is -Xms40m
+    eclipse_Xms: "512m"
+    #default is -Xmx512m
+    eclipse_Xmx: "2048m"
     
     docker_files_generated_directory: "./"
     docker_files_enable: no

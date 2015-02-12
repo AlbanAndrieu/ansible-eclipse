@@ -48,6 +48,16 @@ eclipse_plugins_pydev_enabled: no                     # Enable plugins
 eclipse_plugins_m2e_enabled: no                       # Enable plugins
 eclipse_plugins_subclipse_enabled: no                 # Enable plugins
 
+eclipse_ini_enabled: yes                              # Enable overriding eclipse.ini
+#default is 256m
+eclipse_launcher_XXMaxPermSize: "256m"
+#default is 256m
+eclipse_XXMaxPermSize: "1024m"
+#default is -Xms40m
+eclipse_Xms: "512m"
+#default is -Xmx512m
+eclipse_Xmx: "2048m"
+
 docker_files_generated_directory: "./"
 docker_files_enable: no
 docker_volume_directory                  : "{{ eclipse_base_dir }}"

@@ -254,6 +254,22 @@
   when: eclipse_plugins_m2e_enabled and eclipse_plugins_enabled
   ignore_errors: True
 
+- name:  eclipse | Configure eclipse ini configuration (Launcher XXMaxPermSize)
+  lineinfile: regexp="^256m" line="{{ eclipse_launcher_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
+  when: eclipse_ini_enabled
+  
+- name:  eclipse | Configure eclipse ini configuration (XXMaxPermSize)
+  lineinfile: regexp="^-XX:MaxPermSize=256m" line="-XX:MaxPermSize={{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
+  when: eclipse_ini_enabled
+  
+- name:  eclipse | Configure eclipse ini configuration (Xms)
+  lineinfile: regexp="^-Xms40m" line="-Xms{{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
+  when: eclipse_ini_enabled
+  
+- name:  eclipse | Configure eclipse ini configuration (Xmx)
+  lineinfile: regexp="^-Xmx512m" line="--Xmx{{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
+  when: eclipse_ini_enabled
+  
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
