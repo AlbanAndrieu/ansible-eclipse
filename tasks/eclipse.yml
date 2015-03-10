@@ -275,6 +275,9 @@
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
   ignore_errors: yes
   tags: eclipse_setup
+  
+#TODO
+#sudo update-desktop-database  
 
 - name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
