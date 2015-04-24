@@ -267,7 +267,7 @@
   when: eclipse_ini_enabled
   
 - name:  eclipse | Configure eclipse ini configuration (Xmx)
-  lineinfile: regexp="^-Xmx512m" line="--Xmx{{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
+  lineinfile: regexp="^-Xmx512m" line="-Xmx{{ eclipse_Xmx }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
   when: eclipse_ini_enabled
   
 - name: eclipse | Configure eclipse icon
@@ -275,7 +275,10 @@
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
   ignore_errors: yes
   tags: eclipse_setup
-  
+
+- name: 'fix permissions for alban.andrieu.eclipse'
+  file: recurse=yes owner={{ eclipse_owner }} dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/configuration
+  tags: eclipse_setup 
 #TODO
 #sudo update-desktop-database  
 
