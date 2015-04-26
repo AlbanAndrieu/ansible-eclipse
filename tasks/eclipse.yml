@@ -16,13 +16,16 @@
   register: tempdir
   tags: eclipse_setup
 
-- name: eclipse | Download eclipse
-  get_url:
-    url="{{eclipse_url}}"
-    dest="{{ eclipse_dir_tmp }}/{{eclipse_archive}}"
+- name: eclipse | Download eclipse on 'master' if we don't have it
+  connection: local
+  sudo: False
+  get_url: url={{eclipse_url}}  dest={{cur_dir}}/{{eclipse_archive}} force=no
+
+- name: Copy eclipse into place
+  copy: src={{eclipse_archive}}  dest="{{ eclipse_dir_tmp }}/{{eclipse_archive}}" owner="{{eclipse_owner}}" group="{{eclipse_group}}" mode=644
   register: eclipse_download
   tags: eclipse_setup
-
+  
 - name: eclipse | Create base directory
   file:
     dest="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
