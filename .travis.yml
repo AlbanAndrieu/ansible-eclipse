@@ -5,7 +5,7 @@ env:
   #- ANSIBLE_VERSION=1.4
   #- ANSIBLE_VERSION=1.5
   #- ANSIBLE_VERSION=1.6
-  - ANSIBLE_VERSION=1.7
+  #- ANSIBLE_VERSION=1.7
   - ANSIBLE_VERSION=1.8
 before_install:
   - sudo apt-get update -qq
@@ -18,8 +18,8 @@ install:
   #- "printf '[defaults]\nroles_path = ../' > ansible.cfg"
 
   # Install dependencies.
-  #- ansible-galaxy install alban.andrieu.subversion  
-  #- ansible-galaxy install alban.andrieu.xvbf    
+  #- ansible-galaxy install alban.andrieu.subversion
+  #- ansible-galaxy install alban.andrieu.xvbf
   - git clone https://github.com/Stouts/Stouts.python.git python
   #- git clone https://github.com/debops/ansible-role-ansible.git ansible
   - git clone https://github.com/geerlingguy/ansible-role-ntp.git geerlingguy.ntp
@@ -34,7 +34,7 @@ script:
 #  - echo localhost > inventory
   - ansible-playbook -i hosts --syntax-check eclipse.yml
   - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
-  
+
 #notifications:
 #  email: false
 #  hipchat:
