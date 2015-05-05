@@ -18,14 +18,14 @@
 
 - name: eclipse | Download eclipse on 'master' if we don't have it
   connection: local
-  sudo: False
+  sudo: true
   get_url: url={{eclipse_url}}  dest={{cur_dir}}/{{eclipse_archive}} force=no
 
-- name: Copy eclipse into place
+- name: eclipse | Copy eclipse into place
   copy: src={{eclipse_archive}}  dest="{{ eclipse_dir_tmp }}/{{eclipse_archive}}" owner="{{eclipse_owner}}" group="{{eclipse_group}}" mode=644
   register: eclipse_download
   tags: eclipse_setup
-  
+
 - name: eclipse | Create base directory
   file:
     dest="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
@@ -260,30 +260,28 @@
 - name:  eclipse | Configure eclipse ini configuration (Launcher XXMaxPermSize)
   lineinfile: regexp="^256m" line="{{ eclipse_launcher_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
   when: eclipse_ini_enabled
-  
+
 - name:  eclipse | Configure eclipse ini configuration (XXMaxPermSize)
   lineinfile: regexp="^-XX:MaxPermSize=256m" line="-XX:MaxPermSize={{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
   when: eclipse_ini_enabled
-  
+
 - name:  eclipse | Configure eclipse ini configuration (Xms)
   lineinfile: regexp="^-Xms40m" line="-Xms{{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
   when: eclipse_ini_enabled
-  
+
 - name:  eclipse | Configure eclipse ini configuration (Xmx)
   lineinfile: regexp="^-Xmx512m" line="-Xmx{{ eclipse_Xmx }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
   when: eclipse_ini_enabled
-  
+
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
   ignore_errors: yes
   tags: eclipse_setup
 
-- name: 'fix permissions for alban.andrieu.eclipse'
+- name: eclipse | fix permissions eclipse home
   file: recurse=yes owner={{ eclipse_owner }} dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/configuration
-  tags: eclipse_setup 
-#TODO
-#sudo update-desktop-database  
+  tags: eclipse_setup
 
 - name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
