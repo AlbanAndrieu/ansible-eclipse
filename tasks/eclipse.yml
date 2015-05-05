@@ -22,7 +22,7 @@
   get_url: url={{eclipse_url}}  dest={{cur_dir}}/{{eclipse_archive}} force=no
 
 - name: eclipse | Copy eclipse into place
-  copy: src={{eclipse_archive}}  dest="{{ eclipse_dir_tmp }}/{{eclipse_archive}}" owner="{{eclipse_owner}}" group="{{eclipse_group}}" mode=644
+  copy: src={{cur_dir}}/{{eclipse_archive}}  dest="{{ eclipse_dir_tmp }}/{{eclipse_archive}}" owner="{{eclipse_owner}}" group="{{eclipse_group}}" mode=644
   register: eclipse_download
   tags: eclipse_setup
 
