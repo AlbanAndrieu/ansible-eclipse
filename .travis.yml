@@ -2,11 +2,10 @@
 language: python
 python: "2.7"
 env:
-  #- ANSIBLE_VERSION=1.4
-  #- ANSIBLE_VERSION=1.5
-  #- ANSIBLE_VERSION=1.6
-  #- ANSIBLE_VERSION=1.7
-  - ANSIBLE_VERSION=1.8
+  - ANSIBLE_VERSION=1.9.2
+cache: bundler
+#sudo: false
+sudo: required
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq python-apt python-pycurl
@@ -15,7 +14,7 @@ install:
   - pip install ansible==$ANSIBLE_VERSION
 
   # Add ansible.cfg to pick up roles path.
-  #- "printf '[defaults]\\nroles_path = ../' > ansible.cfg"
+  - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
   # Install dependencies.
   #- ansible-galaxy install alban.andrieu.subversion
@@ -30,7 +29,7 @@ install:
   #- git clone https://github.com/geerlingguy/ansible-role-firewall.git geerlingguy.firewall
 script:
   - ansible --version
-#  - export ANSIBLE_ROLES_PATH="../"
+  - export ANSIBLE_ROLES_PATH="../"
 #  - echo localhost > inventory
   - ansible-playbook -i hosts --syntax-check eclipse.yml
   - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
