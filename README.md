@@ -1,12 +1,8 @@
-## alban.andrieu.eclipse
-
-[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.eclipse-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
+## ansible-eclipse
 
 Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.
 Default settings is using Eclipse luna.
 This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with basic plugins. 
-
-This playbook is be used by [Docker Hub](https://hub.docker.com) to create a [Docker](http://docker.io) image.      
 
 Taken from
 ------------------
@@ -21,12 +17,6 @@ See available playbook on [GitHub](https://github.com/search?p=3&q=user%3AAlbanA
 ### Installation
 
 This role requires at least Ansible `v1.6.3`. 
-
-To install it, run:
-
-    ansible-galaxy install alban.andrieu.eclipse
-
-
 
 ### Role variables
 
@@ -120,10 +110,6 @@ Run the following command :
 `alban.andrieu.eclipse` role was written by:
 - [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
-
-### Feedback, bug-reports, requests, ...
-
-Are [welcome](https://github.com/AlbanAndrieu/ansible-eclipse/issues)!
 
 ***
 
