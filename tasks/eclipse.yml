@@ -230,12 +230,19 @@
   ignore_errors: True
 
 #Subclipse
-- name: eclipse | Install JavaHL for subclipse
+- name: eclipse | Install JavaHL for subclipse (apt)
   apt: pkg={{ item }} state=present
   sudo: yes
   with_items:
     - libsvn-java
   when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled and ansible_distribution == 'Debian'
+
+- name: eclipse | Install JavaHL for subclipse (yum)
+  yum: name={{ item }} state=present
+  sudo: yes
+  with_items:
+    - subversion-javahl
+  when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled and ansible_distribution == 'CentOS'
 
 - name: eclipse | Install eclipse Subversion plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
