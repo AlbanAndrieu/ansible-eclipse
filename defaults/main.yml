@@ -14,10 +14,10 @@ cur_dir: "{{lookup('pipe','pwd')}}"
 ## Most likely you dont need to edit 
 #todo eclipse_service_enabled   : 'yes'
 eclipse_major: "4"
-eclipse_minor: "4"
+eclipse_minor: "5"
 #kepler 3.7.2.1
 eclipse_version: "{{eclipse_major}}.{{eclipse_minor}}"
-eclipse_name: "luna"
+eclipse_name: "mars"
 eclipse_archive_extracted: "eclipse"
 #eclipse_archive: "eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz"
 #modeling
@@ -25,14 +25,14 @@ eclipse_archive_extracted: "eclipse"
 #java
 #eclipse_archive: "eclipse-java-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
 #javaee
-eclipse_archive: "eclipse-jee-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
+eclipse_archive: "eclipse-jee-{{eclipse_name}}-1-linux-gtk-x86_64.tar.gz"
 
 #modeling
 #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
 #java
 #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
 #javaee
-eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
+eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/1/{{eclipse_archive}}&r=1"
 eclipse_home_dir: "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
 
 eclipse_plugins_enabled: yes                          # Enable plugins
