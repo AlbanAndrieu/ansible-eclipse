@@ -36,11 +36,15 @@
   when: eclipse_download.changed
   tags: eclipse_setup
 
-- name: eclipse | Install tar
-  apt:
-    pkg=tar
-    state="present"
+- name: eclipse | Install tar (apt)
+  apt: name=tar state=present
   tags: eclipse_setup
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: eclipse | Install tar (yum)
+  yum: name=tar state=present
+  tags: eclipse_setup
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - name: eclipse | Extract archive eclipse
   command: tar xzf {{ eclipse_dir_tmp }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1
