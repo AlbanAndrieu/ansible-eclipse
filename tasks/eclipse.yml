@@ -203,12 +203,17 @@
   ignore_errors: True
 
 #Pydev
-- name: eclipse | Install python pexpect for adding Pydev certificat
+- name: eclipse | Install python pexpect for adding Pydev certificat (apt)
   apt: pkg={{ item }} state=present
-  when: ansible_distribution == 'Debian'
   with_items:
     - python-pexpect
-  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
+  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled and ansible_distribution == 'Debian'
+
+- name: eclipse | Install python pexpect for adding Pydev certificat (yum)
+  yum: name={{ item }} state=present
+  with_items:
+    - pexpect
+  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled and ansible_distribution == 'CentOS'
 
 #todo for RehHat : sudo yum install pexpect.noarch
 
