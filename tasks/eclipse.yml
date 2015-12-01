@@ -233,10 +233,9 @@
 - name: eclipse | Install JavaHL for subclipse
   apt: pkg={{ item }} state=present
   sudo: yes
-  when: ansible_distribution == 'Debian'
   with_items:
     - libsvn-java
-  when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
+  when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled and ansible_distribution == 'Debian'
 
 - name: eclipse | Install eclipse Subversion plugins
   command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
