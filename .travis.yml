@@ -6,12 +6,13 @@ env:
 cache: bundler
 #sudo: false
 sudo: required
+dist: trusty
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq python-apt python-pycurl
 install:
   # Install Ansible.
-  - pip install ansible==$ANSIBLE_VERSION
+  - sudo pip install ansible==$ANSIBLE_VERSION
 
   # Add ansible.cfg to pick up roles path.
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
@@ -28,14 +29,21 @@ install:
   - git clone https://github.com/AlbanAndrieu/ansible-common.git alban.andrieu.common
   #- git clone https://github.com/geerlingguy/ansible-role-firewall.git geerlingguy.firewall
 script:
-  - ansible --version
+  - sudo ansible --version
   - export ANSIBLE_ROLES_PATH="../"
 #  - echo localhost > inventory
+#  - ansible-galaxy install --role-file requirements.yml
   - ansible-playbook -i hosts --syntax-check eclipse.yml
   - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
 
-#notifications:
+notifications:
 #  email: false
 #  hipchat:
 #    rooms:
 #      secure: GPUtM44MpgqN/3+TXw4Onp7TpF6YOKpVQkB/sfwGYS1oHUCkp2eb3eGGfJAIUtNxkfFVkdUxM/Bp9GMCnpVjJwRRZP6hYUmlpjCHl8CiK2MjbLvzV65qqBAqYl5bLzKkmmRdPiC31m9ixMe4TiAhJFBK1NoETOP1LkCJ04ezL6U=
+  email:
+    recipients:
+      - alban.andrieu@nabla.mobi
+#      - other@example.com
+    on_success: [always|never|change] # default: change
+    on_failure: [always|never|change] # default: always
