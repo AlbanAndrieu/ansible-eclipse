@@ -35,13 +35,13 @@ script:
   # Prepare tests
   #- echo localhost > hosts
 
-#  - ansible-galaxy install --role-file requirements.yml
+#  - sudo ansible-galaxy install --role-file requirements.yml
 
   # Check syntax
-  - ansible-playbook -i hosts --syntax-check eclipse.yml
+  - sudo ansible-playbook -i hosts --syntax-check eclipse.yml
 
   # First run
-  - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
+  - sudo ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
 
 notifications:
 #  email: false
