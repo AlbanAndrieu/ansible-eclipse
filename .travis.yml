@@ -2,7 +2,7 @@
 language: python
 python: "2.7"
 env:
-  - ANSIBLE_VERSION=1.9.2
+  - ANSIBLE_VERSION=2.1.0.0
 cache: bundler
 #sudo: false
 sudo: required
@@ -28,12 +28,19 @@ install:
   - git clone https://github.com/AlbanAndrieu/ansible-java.git java
   - git clone https://github.com/AlbanAndrieu/ansible-common.git alban.andrieu.common
   #- git clone https://github.com/geerlingguy/ansible-role-firewall.git geerlingguy.firewall
+
 script:
   - sudo ansible --version
-  - export ANSIBLE_ROLES_PATH="../"
-#  - echo localhost > inventory
+
+  # Prepare tests
+  #- echo localhost > hosts
+
 #  - ansible-galaxy install --role-file requirements.yml
+
+  # Check syntax
   - ansible-playbook -i hosts --syntax-check eclipse.yml
+
+  # First run
   - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
 
 notifications:
