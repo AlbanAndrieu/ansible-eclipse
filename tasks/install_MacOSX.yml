@@ -1,0 +1,7 @@
+- homebrew_cask: name=eclipse-jee
+
+- set_fact: eclipse_folder='/Applications/Eclipse.app'
+
+- set_fact: eclipse_home="{{ eclipse_folder }}/Contents/Eclipse"
+
+- set_fact: eclipse="{{ eclipse_folder }}/Contents/MacOS/eclipse"
