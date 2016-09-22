@@ -40,16 +40,6 @@
   file: path={{ eclipse_home }} owner={{ eclipse_owner }} state=directory recurse=yes
   when: eclipse_download.changed
 
-- name: eclipse | Stat {{ eclipse_home }}
-  stat: path={{ eclipse_home }}
-  register: eclipse_archive_extracted_present
-
-- debug: msg=" eclipse | Path exists and is a directory"
-  when: eclipse_archive_extracted_present.stat.isdir is defined and eclipse_archive_extracted_present.stat.isdir == true
-
-- fail: msg=" eclipse | Whoops! file ownership has changed"
-  when: eclipse_archive_extracted_present.stat.pw_name != '{{ eclipse_owner }}'
-
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_desktop }}
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')

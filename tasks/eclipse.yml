@@ -167,7 +167,6 @@
   -installIU net.sourceforge.shelled.feature.group"
   when: eclipse_plugins_shelled_enabled and eclipse_plugins_enabled
   ignore_errors: true
-  ignore_errors: true
 
 #Web Page Editor
 #- name: eclipse | Install eclipse Web Page Editor plugins
@@ -182,10 +181,10 @@
 #Pydev
 - name: eclipse | Install python pexpect for adding Pydev certificat
   apt: pkg={{ item }} state=present
-  when: ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Debian' and eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   with_items:
     - python-pexpect
-  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
+
 
 #TODO for RehHat : sudo yum install pexpect.noarch
 
@@ -210,10 +209,9 @@
 - name: eclipse | Install JavaHL for subclipse
   apt: pkg={{ item }} state=present
   become: yes
-  when: ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Debian' and eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
   with_items:
     - libsvn-java
-  when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
 
 - name: eclipse | Install eclipse Subversion plugins
   command: "{{ eclipse }} -nosplash \
@@ -241,8 +239,18 @@
 - include: features.yml
 
 - name: eclipse | fix permissions eclipse home
-  file: recurse=yes owner={{ eclipse_owner }} dest={{ eclipse_home }}/configuration
+  file: recurse=yes owner={{ eclipse_owner }} dest={{ eclipse_home }}
   tags: eclipse_setup
+
+- name: eclipse | Stat {{ eclipse_home }}
+  stat: path={{ eclipse_home }}
+  register: eclipse_archive_extracted_present
+
+- debug: msg=" eclipse | Path exists and is a directory"
+  when: eclipse_archive_extracted_present.stat.isdir is defined and eclipse_archive_extracted_present.stat.isdir == true
+
+- fail: msg=" eclipse | Whoops! file ownership has changed"
+  when: eclipse_archive_extracted_present.stat.pw_name != '{{ eclipse_owner }}'
 
 - name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
