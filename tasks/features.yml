@@ -8,3 +8,4 @@
     - { repo: 'http://beust.com/eclipse/', feature: 'org.testng.eclipse.feature.group'}
     - { repo: 'http://download.jboss.org/jbosstools/updates/m2e-extensions/m2e-apt', feature: 'org.jboss.tools.maven.apt.feature.feature.group'}
     - { repo: 'https://raw.githubusercontent.com/wakatime/eclipse-wakatime/master/update-site/', feature: 'com.wakatime.eclipse.feature.feature.group'}
+    - { repo: 'http://download.eclipse.org/technology/dltk/updates/', feature: 'org.eclipse.jst.webpageeditor.feature.feature.group'}

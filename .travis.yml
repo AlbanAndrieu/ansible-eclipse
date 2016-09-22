@@ -10,9 +10,9 @@ dist: trusty
 
 env:
   - ANSIBLE_VERSION=2.1.1
-os:
-  - linux
-  - osx
+#os:
+#  - linux
+#  - osx
 
 services:
   - docker

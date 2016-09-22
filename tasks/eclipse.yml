@@ -60,9 +60,9 @@
   when: eclipse_ini_enabled
 
 - name: eclipse | Install eclipse MoDisco & EMF Facet plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
     -application org.eclipse.equinox.p2.director \
-    -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+    -destination {{ eclipse_home }} \
     -repository \
     http://download.eclipse.org/releases/{{ eclipse_name }}/,\
     http://download.eclipse.org/tools/orbit/downloads/drops/S20110515001817/repository/,\
@@ -104,10 +104,11 @@
     net.sf.eclipsecs.feature.group"
   when: eclipse_plugins_emf_enabled and eclipse_plugins_enabled
 
+#TODO failed
 - name: eclipse | Install eclipse CDT plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://download.eclipse.org/tools/cdt/releases/helios/ \
   -installIU org.eclipse.cdt.feature.group \
   -installIU org.eclipse.cdt.sdk.feature.group \
@@ -120,9 +121,9 @@
 
 #cmakeed - CMake editor
 - name: eclipse | Install eclipse CMake editor plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://cmakeed.sourceforge.net/eclipse/ \
   -installIU com.cthing.cmakeed.feature.feature.group"
   when: eclipse_plugins_cmakeed_enabled and eclipse_plugins_enabled
@@ -130,9 +131,9 @@
 
 #OpenInTerminal - Add option in context menu
 - name: eclipse | Install eclipse Open In Terminal plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://eclipse-openinterminal.googlecode.com/svn/trunk/site/ \
   -installIU OpenInTerminal.feature.group"
   when: eclipse_plugins_openinterminal_enabled and eclipse_plugins_enabled
@@ -140,18 +141,18 @@
 
 #protobuf-dt - Google Protobuffer editor
 - name: eclipse | Install eclipse Proto buffer plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/,http://protobuf-dt.googlecode.com/git/update-site \
   -installIU com.google.eclipse.protobuf.feature.group"
   when: eclipse_plugins_protobuf_enabled and eclipse_plugins_enabled
 
 #yedit - YAML Editor
 - name: eclipse | Install eclipse YAML Editor plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://dadacoalition.org/yedit \
   -installIU org.dadacoalition.yedit.feature.group"
   when: eclipse_plugins_yedit_enabled and eclipse_plugins_enabled
@@ -159,9 +160,9 @@
 
 #shelled - Bash Script Editor
 - name: eclipse | Install eclipse Bash Script Editor plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/technology/dltk/updates/,https://sourceforge.net/projects/shelled/files/shelled/update/ \
   -installIU net.sourceforge.shelled.feature.group"
   when: eclipse_plugins_shelled_enabled and eclipse_plugins_enabled
@@ -169,14 +170,14 @@
   ignore_errors: true
 
 #Web Page Editor
-- name: eclipse | Install eclipse Web Page Editor plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
-  -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
-  -repository http://download.eclipse.org/technology/dltk/updates/,https://sourceforge.net/projects/shelled/files/shelled/update/ \
-  -installIU org.eclipse.jst.webpageeditor.feature.feature.group"
-  when: eclipse_plugins_webpageed_enabled and eclipse_plugins_enabled
-  ignore_errors: true
+#- name: eclipse | Install eclipse Web Page Editor plugins
+#  command: "{{ eclipse }} -nosplash \
+#  -application org.eclipse.equinox.p2.director \
+#  -destination {{ eclipse_home }} \
+#  -repository http://download.eclipse.org/technology/dltk/updates/,https://sourceforge.net/projects/shelled/files/shelled/update/ \
+#  -installIU org.eclipse.jst.webpageeditor.feature.feature.group"
+#  when: eclipse_plugins_webpageed_enabled and eclipse_plugins_enabled
+#  ignore_errors: true
 
 #Pydev
 - name: eclipse | Install python pexpect for adding Pydev certificat
@@ -186,7 +187,7 @@
     - python-pexpect
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
 
-#todo for RehHat : sudo yum install pexpect.noarch
+#TODO for RehHat : sudo yum install pexpect.noarch
 
 - name: eclipse | Transfer eclipse Pydev certificate
   copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
@@ -197,9 +198,9 @@
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
 
 - name: eclipse | Install eclipse Pydev plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/technology/dltk/updates/,http://pydev.org/updates/ \
   -installIU org.python.pydev.feature.feature.group"
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
@@ -215,9 +216,9 @@
   when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
 
 - name: eclipse | Install eclipse Subversion plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://subclipse.tigris.org/update_1.10.x \
   -installIU org.tigris.subversion.subclipse.feature.group \
   -installIU org.tigris.subversion.clientadapter.feature.feature.group \
@@ -229,9 +230,9 @@
 
 #Maven m2e
 - name: eclipse | Install eclipse Maven m2e plugins
-  command: "{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://download.eclipse.org/technology/m2e/releases/1.5/1.5.0.20140606-0033 \
   -installIU org.eclipse.m2e.feature.feature.group,org.eclipse.m2e.logback.feature.feature.group"
   when: eclipse_plugins_m2e_enabled and eclipse_plugins_enabled
@@ -240,7 +241,7 @@
 - include: features.yml
 
 - name: eclipse | fix permissions eclipse home
-  file: recurse=yes owner={{ eclipse_owner }} dest={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/configuration
+  file: recurse=yes owner={{ eclipse_owner }} dest={{ eclipse_home }}/configuration
   tags: eclipse_setup
 
 - name: eclipse | Cleanup temporary directory
@@ -249,4 +250,4 @@
   ignore_errors: yes
   changed_when: false
 
-- debug: msg=" eclipse | Start eclipse {{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse"
+- debug: msg=" eclipse | Start eclipse {{ eclipse }}"

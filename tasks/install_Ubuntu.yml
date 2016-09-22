@@ -1,7 +1,7 @@
 
-- set_fact: eclipse_home={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}
+- set_fact: eclipse_home={{ eclipse_home_dir }}
 
-- set_fact: eclipse="{{ eclipse_home }}/eclipse"
+- set_fact: eclipse="{{ eclipse_home_dir }}/eclipse"
 
 - name: eclipse | Download eclipse on 'master' if we don't have it
   connection: local
@@ -15,7 +15,7 @@
 
 - name: eclipse | Create base directory
   file:
-    dest="{{ eclipse }}"
+    dest="{{ eclipse_home }}"
     state=directory
     owner="{{ eclipse_owner }}"
     group="{{ eclipse_group }}"
@@ -33,15 +33,15 @@
   tags: eclipse_setup
 
 - name: eclipse | Extract archive eclipse
-  command: tar xzf {{ eclipse_dir_tmp }}/{{ eclipse_archive }} -C {{ eclipse }} --strip-components=1
+  command: tar xzf {{ eclipse_dir_tmp }}/{{ eclipse_archive }} -C {{ eclipse_home }} --strip-components=1
   when: eclipse_download.changed
 
 - name: eclipse | Change archive eclipse ownership
-  file: path={{ eclipse }} owner={{ eclipse_owner }} state=directory recurse=yes
+  file: path={{ eclipse_home }} owner={{ eclipse_owner }} state=directory recurse=yes
   when: eclipse_download.changed
 
-- name: eclipse | Stat {{ eclipse }}
-  stat: path={{ eclipse }}
+- name: eclipse | Stat {{ eclipse_home }}
+  stat: path={{ eclipse_home }}
   register: eclipse_archive_extracted_present
 
 - debug: msg=" eclipse | Path exists and is a directory"
