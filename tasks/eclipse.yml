@@ -2,10 +2,10 @@
 # This playbook contains common plays to install eclipse.
 
 - name: eclipse | Check user exists
-  user: name={{eclipse_owner}} state=present
+  user: name={{ eclipse_owner }} state=present
 
 - name: eclipse | Check user home directory
-  stat: path={{eclipse_owner_home}}
+  stat: path={{ eclipse_owner_home }}
   register: home_present
 
 - debug: msg=" eclipse | Path exists and is a directory"
@@ -15,80 +15,61 @@
   shell: mktemp -d
   register: tempdir
   tags: eclipse_setup
+  changed_when: false
 
-- name: eclipse | Download eclipse on 'master' if we don't have it
-  connection: local
-  sudo: true
-  get_url: url={{eclipse_url}}  dest={{cur_dir}}/{{eclipse_archive}} force=no
+- include: install_{{ ansible_distribution }}.yml
 
-- name: eclipse | Copy eclipse into place
-  copy: src={{cur_dir}}/{{eclipse_archive}}  dest="{{ eclipse_dir_tmp }}/{{eclipse_archive}}" owner="{{eclipse_owner}}" group="{{eclipse_group}}" mode=644
-  register: eclipse_download
-  tags: eclipse_setup
+- debug: var=eclipse_home
+- debug: var=eclipse
 
-- name: eclipse | Create base directory
+- name: eclipse | Create a link to eclipse (1)
   file:
-    dest="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
-    state=directory
-    owner="{{eclipse_owner}}"
-    group="{{eclipse_group}}"
-  sudo : yes
+    src="{{ eclipse }}"
+    dest="{{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}"
+    state=link
+    owner="{{ eclipse_owner }}"
+#    group="{{eclipse_group}}"
+  become: yes
   when: eclipse_download.changed
-  tags: eclipse_setup
-
-- name: eclipse | Install tar (apt)
-  apt: name=tar state=present
-  tags: eclipse_setup
-  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: eclipse | Install tar (yum)
   yum: name=tar state=present
   tags: eclipse_setup
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
-- name: eclipse | Extract archive eclipse
-  command: tar xzf {{ eclipse_dir_tmp }}/{{eclipse_archive}} -C {{eclipse_base_dir}}/eclipse-{{eclipse_name}} --strip-components=1
-  when: eclipse_download.changed
-
-- name: eclipse | Change archive eclipse ownership
-  file: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}} owner={{eclipse_owner}} state=directory recurse=yes
-  when: eclipse_download.changed
-
-- name: eclipse | Stat {{eclipse_base_dir}}/eclipse-{{eclipse_name}}
-  stat: path={{eclipse_base_dir}}/eclipse-{{eclipse_name}}
-  register: eclipse_archive_extracted_present
-
-- debug: msg=" eclipse | Path exists and is a directory"
-  when: eclipse_archive_extracted_present.stat.isdir is defined and eclipse_archive_extracted_present.stat.isdir == true
-
-- fail: msg=" eclipse | Whoops! file ownership has changed"
-  when: eclipse_archive_extracted_present.stat.pw_name != '{{eclipse_owner}}'
-
-- name: eclipse | Create a link to eclipse (1)
-  file:
-    src="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
-    dest="{{eclipse_base_dir}}/eclipse-{{eclipse_major}}"
-    state=link
-    owner="{{eclipse_owner}}"
-#    group="{{eclipse_group}}"
-  tags: eclipse_setup
-
 - name: eclipse | Create a link to eclipse (2)
   file:
-    src="{{eclipse_base_dir}}/eclipse-{{eclipse_name}}"
-    dest="{{eclipse_link_base_dir}}/eclipse-{{eclipse_major}}"
+    src="{{ eclipse }}"
+    dest="{{ eclipse_link_base_dir }}/eclipse-{{ eclipse_major }}"
     state=link
-    owner="{{eclipse_owner}}"
+    owner="{{ eclipse_owner }}"
 #    group="{{eclipse_group}}"
-  sudo: yes
+  become: yes
   tags: eclipse_setup
 
+- name: eclipse | Create a link to eclipse (3)
+  file:
+    src="{{ eclipse }}"
+    dest="/usr/local/bin/eclipse"
+    state=link
+    owner="{{ eclipse_owner }}"
+#    group="{{eclipse_group}}"
+  become: yes
+  tags: eclipse_setup
+
+- include: cleanups.yml
+
+- include: lombok.yml
+
+- include: config.yml
+  when: eclipse_ini_enabled
+
 - name: eclipse | Install eclipse MoDisco & EMF Facet plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
     -application org.eclipse.equinox.p2.director \
-    -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
+    -destination {{ eclipse_home }} \
     -repository \
-    http://download.eclipse.org/releases/{{eclipse_name}}/,\
+    http://download.eclipse.org/releases/{{ eclipse_name }}/,\
     http://download.eclipse.org/tools/orbit/downloads/drops/S20110515001817/repository/,\
     http://download.eclipse.org/technology/swtbot/helios/dev-build/update-site,\
     http://eclipse-cs.sf.net/update/,\
@@ -128,11 +109,12 @@
     net.sf.eclipsecs.feature.group"
   when: eclipse_plugins_emf_enabled and eclipse_plugins_enabled
 
+#TODO failed
 - name: eclipse | Install eclipse CDT plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/releases/{{eclipse_name}}/,http://download.eclipse.org/tools/cdt/releases/helios/ \
+  -destination {{ eclipse_home }} \
+  -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://download.eclipse.org/tools/cdt/releases/helios/ \
   -installIU org.eclipse.cdt.feature.group \
   -installIU org.eclipse.cdt.sdk.feature.group \
   -installIU org.eclipse.cdt.platform.feature.group \
@@ -140,82 +122,79 @@
   -installIU org.eclipse.cdt.debug.edc.feature.group \
   -installIU org.eclipse.cdt.util.feature.group"
   when: eclipse_plugins_cdt_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+  ignore_errors: true
 
 #cmakeed - CMake editor
 - name: eclipse | Install eclipse CMake editor plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/releases/{{eclipse_name}}/,http://cmakeed.sourceforge.net/eclipse/ \
+  -destination {{ eclipse_home }} \
+  -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://cmakeed.sourceforge.net/eclipse/ \
   -installIU com.cthing.cmakeed.feature.feature.group"
   when: eclipse_plugins_cmakeed_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+  ignore_errors: true
 
 #OpenInTerminal - Add option in context menu
 - name: eclipse | Install eclipse Open In Terminal plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/releases/{{eclipse_name}}/,http://eclipse-openinterminal.googlecode.com/svn/trunk/site/ \
+  -destination {{ eclipse_home }} \
+  -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://eclipse-openinterminal.googlecode.com/svn/trunk/site/ \
   -installIU OpenInTerminal.feature.group"
   when: eclipse_plugins_openinterminal_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+  ignore_errors: true
 
 #protobuf-dt - Google Protobuffer editor
 - name: eclipse | Install eclipse Proto buffer plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/releases/{{eclipse_name}}/,http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/,http://protobuf-dt.googlecode.com/git/update-site \
+  -destination {{ eclipse_home }} \
+  -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/,http://protobuf-dt.googlecode.com/git/update-site \
   -installIU com.google.eclipse.protobuf.feature.group"
   when: eclipse_plugins_protobuf_enabled and eclipse_plugins_enabled
 
 #yedit - YAML Editor
 - name: eclipse | Install eclipse YAML Editor plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/releases/{{eclipse_name}}/,http://dadacoalition.org/yedit \
+  -destination {{ eclipse_home }} \
+  -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://dadacoalition.org/yedit \
   -installIU org.dadacoalition.yedit.feature.group"
   when: eclipse_plugins_yedit_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+  ignore_errors: true
 
 #shelled - Bash Script Editor
 - name: eclipse | Install eclipse Bash Script Editor plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/technology/dltk/updates/,https://sourceforge.net/projects/shelled/files/shelled/update/ \
   -installIU net.sourceforge.shelled.feature.group"
   when: eclipse_plugins_shelled_enabled and eclipse_plugins_enabled
-  ignore_errors: True
-  ignore_errors: True
+  ignore_errors: true
 
 #Web Page Editor
-- name: eclipse | Install eclipse Web Page Editor plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
-  -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/technology/dltk/updates/,https://sourceforge.net/projects/shelled/files/shelled/update/ \
-  -installIU org.eclipse.jst.webpageeditor.feature.feature.group"
-  when: eclipse_plugins_webpageed_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+#- name: eclipse | Install eclipse Web Page Editor plugins
+#  command: "{{ eclipse }} -nosplash \
+#  -application org.eclipse.equinox.p2.director \
+#  -destination {{ eclipse_home }} \
+#  -repository http://download.eclipse.org/technology/dltk/updates/,https://sourceforge.net/projects/shelled/files/shelled/update/ \
+#  -installIU org.eclipse.jst.webpageeditor.feature.feature.group"
+#  when: eclipse_plugins_webpageed_enabled and eclipse_plugins_enabled
+#  ignore_errors: true
 
 #Pydev
 - name: eclipse | Install python pexpect for adding Pydev certificat (apt)
   apt: pkg={{ item }} state=present
+  when: ansible_distribution == 'Debian' and eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   with_items:
     - python-pexpect
-  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled and ansible_distribution == 'Debian'
 
 - name: eclipse | Install python pexpect for adding Pydev certificat (yum)
   yum: name={{ item }} state=present
+  when: ansible_distribution == 'CentOS' and eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   with_items:
     - pexpect
-  when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled and ansible_distribution == 'CentOS'
-
-#todo for RehHat : sudo yum install pexpect.noarch
 
 - name: eclipse | Transfer eclipse Pydev certificate
   copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
@@ -226,80 +205,72 @@
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
 
 - name: eclipse | Install eclipse Pydev plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
+  -destination {{ eclipse_home }} \
   -repository http://download.eclipse.org/technology/dltk/updates/,http://pydev.org/updates/ \
   -installIU org.python.pydev.feature.feature.group"
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+  ignore_errors: true
 
 #Subclipse
 - name: eclipse | Install JavaHL for subclipse (apt)
   apt: pkg={{ item }} state=present
-  sudo: yes
+  become: yes
+  when: ansible_distribution == 'Debian' and eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
   with_items:
     - libsvn-java
-  when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled and ansible_distribution == 'Debian'
 
 - name: eclipse | Install JavaHL for subclipse (yum)
   yum: name={{ item }} state=present
-  sudo: yes
+  become: yes
+  when: ansible_distribution == 'CentOS' and eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
   with_items:
     - subversion-javahl
-  when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled and ansible_distribution == 'CentOS'
 
 - name: eclipse | Install eclipse Subversion plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/releases/{{eclipse_name}}/,http://subclipse.tigris.org/update_1.10.x \
+  -destination {{ eclipse_home }} \
+  -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://subclipse.tigris.org/update_1.10.x \
   -installIU org.tigris.subversion.subclipse.feature.group \
   -installIU org.tigris.subversion.clientadapter.feature.feature.group \
   -installIU org.tigris.subversion.clientadapter.svnkit.feature.feature.group \
   -installIU org.tigris.subversion.clientadapter.javahl.feature.feature.group \
   -installIU org.tigris.subversion.subclipse.graph.feature.feature.group"
   when: eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+  ignore_errors: true
 
 #Maven m2e
 - name: eclipse | Install eclipse Maven m2e plugins
-  command: "{{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse -nosplash \
+  command: "{{ eclipse }} -nosplash \
   -application org.eclipse.equinox.p2.director \
-  -destination {{eclipse_base_dir}}/eclipse-{{eclipse_major}} \
-  -repository http://download.eclipse.org/releases/{{eclipse_name}}/,http://download.eclipse.org/technology/m2e/releases/1.5/1.5.0.20140606-0033 \
+  -destination {{ eclipse_home }} \
+  -repository http://download.eclipse.org/releases/{{ eclipse_name }}/,http://download.eclipse.org/technology/m2e/releases/1.5/1.5.0.20140606-0033 \
   -installIU org.eclipse.m2e.feature.feature.group,org.eclipse.m2e.logback.feature.feature.group"
   when: eclipse_plugins_m2e_enabled and eclipse_plugins_enabled
-  ignore_errors: True
+  ignore_errors: true
 
-- name:  eclipse | Configure eclipse ini configuration (Launcher XXMaxPermSize)
-  lineinfile: regexp="^256m" line="{{ eclipse_launcher_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
-  when: eclipse_ini_enabled
-
-- name:  eclipse | Configure eclipse ini configuration (XXMaxPermSize)
-  lineinfile: regexp="^-XX:MaxPermSize=256m" line="-XX:MaxPermSize={{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
-  when: eclipse_ini_enabled
-
-- name:  eclipse | Configure eclipse ini configuration (Xms)
-  lineinfile: regexp="^-Xms40m" line="-Xms{{ eclipse_XXMaxPermSize }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
-  when: eclipse_ini_enabled
-
-- name:  eclipse | Configure eclipse ini configuration (Xmx)
-  lineinfile: regexp="^-Xmx512m" line="-Xmx{{ eclipse_Xmx }}" dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse.ini
-  when: eclipse_ini_enabled
-
-- name: eclipse | Configure eclipse icon
-  template: src=eclipse.desktop.j2 dest={{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop
-  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
-  ignore_errors: yes
-  tags: eclipse_setup
+- include: features.yml
 
 - name: eclipse | fix permissions eclipse home
-  file: recurse=yes owner={{ eclipse_owner }} dest={{eclipse_base_dir}}/eclipse-{{eclipse_major}}/configuration
+  file: recurse=yes owner={{ eclipse_owner }} dest={{ eclipse_home }}
   tags: eclipse_setup
+
+- name: eclipse | Stat {{ eclipse_home }}
+  stat: path={{ eclipse_home }}
+  register: eclipse_archive_extracted_present
+
+- debug: msg=" eclipse | Path exists and is a directory"
+  when: eclipse_archive_extracted_present.stat.isdir is defined and eclipse_archive_extracted_present.stat.isdir == true
+
+- fail: msg=" eclipse | Whoops! file ownership has changed"
+  when: eclipse_archive_extracted_present.stat.pw_name != '{{ eclipse_owner }}'
 
 - name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
   tags: eclipse_setup
+  ignore_errors: yes
+  changed_when: false
 
-- debug: msg=" eclipse | Start eclipse {{eclipse_base_dir}}/eclipse-{{eclipse_major}}/eclipse"
+- debug: msg=" eclipse | Start eclipse {{ eclipse }}"

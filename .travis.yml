@@ -1,12 +1,22 @@
 ---
-language: python
-python: "2.7"
-env:
-  - ANSIBLE_VERSION=1.9.2
+
+#language: python
+#python: "2.7"
+
 cache: bundler
 #sudo: false
 sudo: required
 dist: trusty
+
+env:
+  - ANSIBLE_VERSION=2.1.1
+#os:
+#  - linux
+#  - osx
+
+services:
+  - docker
+
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq python-apt python-pycurl
@@ -17,26 +27,22 @@ install:
   # Add ansible.cfg to pick up roles path.
   - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
-  # Install dependencies.
-  #- ansible-galaxy install alban.andrieu.subversion
-  #- ansible-galaxy install alban.andrieu.xvbf
-  - git clone https://github.com/Stouts/Stouts.python.git python
-  #- git clone https://github.com/debops/ansible-role-ansible.git ansible
-  - git clone https://github.com/geerlingguy/ansible-role-ntp.git geerlingguy.ntp
-  - git clone https://github.com/AlbanAndrieu/ansible-locale.git locale
-  - git clone https://github.com/AlbanAndrieu/ansible-hostname.git alban.andrieu.hostname
-  - git clone https://github.com/AlbanAndrieu/ansible-java.git java
-  - git clone https://github.com/AlbanAndrieu/ansible-common.git alban.andrieu.common
-  #- git clone https://github.com/geerlingguy/ansible-role-firewall.git geerlingguy.firewall
 script:
   - sudo ansible --version
-  - export ANSIBLE_ROLES_PATH="../"
-#  - echo localhost > inventory
-#  - ansible-galaxy install --role-file requirements.yml
-  - ansible-playbook -i hosts --syntax-check eclipse.yml
-  - ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
+
+  # Prepare tests
+  #- echo localhost > hosts
+
+#  - sudo ansible-galaxy install --role-file requirements.yml
+
+  # Check syntax
+  - sudo ansible-playbook -i hosts --syntax-check eclipse.yml
+
+  # First run
+  - travis_wait 30 sudo ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
 
 notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
 #  email: false
 #  hipchat:
 #    rooms:

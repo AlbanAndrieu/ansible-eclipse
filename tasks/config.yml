@@ -1,0 +1,23 @@
+
+- name:  eclipse | Configure eclipse ini configuration (-Xverify:none)
+  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-Xverify:none'
+
+- name:  eclipse | Configure eclipse ini configuration (clean)
+  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-clean' insertbefore='-startup'
+
+#- name:  eclipse | Configure eclipse ini configuration (lombok)
+#  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-javaagent:/usr/local/eclipse/eclipse-luna-ok/lombok.jar'
+
+- name:  eclipse | Configure eclipse ini configuration (Launcher XXMaxPermSize)
+#  lineinfile: regexp="(--launcher\.XXMaxPermSize)\n256m" line='\1\n{{ eclipse_launcher_XXMaxPermSize }}' dest={{ eclipse_home }}/eclipse.ini
+  replace: dest={{ eclipse_home }}/eclipse.ini regexp='(--launcher\.XXMaxPermSize)\n256m' replace='\1\n{{ eclipse_launcher_XXMaxPermSize }}'
+
+- name:  eclipse | Configure eclipse ini configuration (XXMaxPermSize)
+  lineinfile: regexp="^-XX:MaxPermSize=256m" line="-XX:MaxPermSize={{ eclipse_XXMaxPermSize }}" dest={{ eclipse_home }}/eclipse.ini
+
+- name:  eclipse | Configure eclipse ini configuration (Xms)
+  lineinfile: regexp="^-Xms40m" line="-Xms{{ eclipse_Xms }}" dest={{ eclipse_home }}/eclipse.ini
+
+- name:  eclipse | Configure eclipse ini configuration (Xmx)
+  lineinfile: regexp="^-Xmx512m" line="-Xmx{{ eclipse_Xmx }}" dest={{ eclipse_home }}/eclipse.ini
+

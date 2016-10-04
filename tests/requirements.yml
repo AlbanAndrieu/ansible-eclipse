@@ -1,0 +1,4 @@
+- src: https://github.com/AlbanAndrieu/ansible-java.git
+  name: java
+  #path: roles
+  scm: git

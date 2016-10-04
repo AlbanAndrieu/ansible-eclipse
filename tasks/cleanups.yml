@@ -1,0 +1,13 @@
+- file: path="{{ item }}" state=absent
+  with_fileglob:
+    - "{{ eclipse_home }}/plugins/org.eclipse.jpt.*"
+    - "{{ eclipse_home }}/features/org.eclipse.jpt.*"
+    - "{{ eclipse_home }}/plugins/*jgit*"
+    - "{{ eclipse_home }}/features/*jgit*"
+    - "{{ eclipse_home }}/plugins/*egit*"
+    - "{{ eclipse_home }}/features/*egit*"
+    # those seems to break some stuff, need more testing...
+    # - "{{ eclipse_home }}/plugins/org.eclipse.pde*"
+    # - "{{ eclipse_home }}/features/org.eclipse.pde*"
+    # - "{{ eclipse_home }}/plugins/*validation*"
+    # - "{{ eclipse_home }}/features/*validation*"

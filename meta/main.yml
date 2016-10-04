@@ -1,76 +1,24 @@
 ---
 dependencies: []
-#dependencies:
-  #- { role: alban.andrieu.common }
-  # List your role dependencies here, one per line. Only
-  # dependencies available via galaxy should be listed here.
-  # Be sure to remove the '[]' above if you add dependencies
-  # to this list.
-  
+
 galaxy_info:
   author: Alban Andrieu
   description: A role for installing eclipse
   company: Nabla
   license: GPLv3
-  min_ansible_version: 1.6.3
+  min_ansible_version: 2.1.1
   platforms:
-  - name: Ubuntu
-    versions:
-    - all
-    - lucid
-    - maverick
-    - natty
-    - oneiric
-    - precise
-    - quantal
-    - raring
-    - saucy
-    - trusty
-  categories:
-  - development
-
-ansigenome_info:
-  galaxy_id: '1776'
-  galaxy_user: 'alban.andrieu'
-  galaxy_name: 'eclipse'
-  
-  travis: True
-  
-  authors:
-    - name:  'Alban Andrieu'
-      url: 'fr.linkedin.com/in/nabla/'
-      email: 'alban.andrieu@free.fr'
-      twitter: 'AlbanAndrieu'
-      github: 'AlbanAndrieu'
-      
-  synopsis: |
-    Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.
-    Default settings is using Eclipse luna.
-    This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with basic plugins. 
-    
-    This playbook is be used by [Docker Hub](https://hub.docker.com) to create a [Docker](http://docker.io) image.      
-    
-    Taken from
-    ------------------
-    
-    https://www.eclipse.org/downloads/
-    
-    ###Requirements
-    
-    Tools which might be needed by [Eclipse](https://www.eclipse.org), like jdk, maven...
-    See available playbook on [GitHub](https://github.com/search?p=3&q=user%3AAlbanAndrieu+ansible%2A&type=Repositories)
-    
-  usage: |
-    Use :
-    
-        `docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
-    
-    Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created by [Docker Hub](https://registry.hub.docker.com/), 
-    so please do not hesitate to enhance ansible script it will then improve docker image automatically.
-    
-    Run the following command :
-    
-         `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-sudo-pass | tee setup.log`
-    
-  #custom: |
-  #  Any custom output you want after the usage section..
+    - name: Ubuntu
+      versions:
+        - all
+    - name: EL
+      versions:
+        - all
+    - name: MacOSX
+      versions:
+        - all
+  galaxy_tags:
+    - development
+    - ide
+    - java
+    - eclipse

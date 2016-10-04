@@ -1,0 +1,11 @@
+- shell: eclipse -application org.eclipse.equinox.p2.director -noSplash -repository {{ item.repo }} -installIUs {{ item.feature }}
+  with_items:
+    - { repo: 'http://update.eclemma.org/', feature: 'com.mountainminds.eclemma.feature.feature.group'}
+    - { repo: 'http://download.eclipse.org/technology/m2e/releases/', feature: 'org.eclipse.m2e.feature.feature.group'}
+    - { repo: 'http://download.jboss.org/jbosstools/mars/development/updates/', feature: 'org.jboss.ide.eclipse.as.feature.feature.group'}
+    - { repo: 'http://velo.github.io/maven-formatter-plugin/p2/1.5.0', feature: 'com.marvinformatics.formatter.feature.feature.group'}
+    - { repo: 'http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-buildhelper/0.15.0/N/0.15.0.201405280027/', feature: 'org.sonatype.m2e.buildhelper.feature.feature.group'}
+    - { repo: 'http://beust.com/eclipse/', feature: 'org.testng.eclipse.feature.group'}
+    - { repo: 'http://download.jboss.org/jbosstools/updates/m2e-extensions/m2e-apt', feature: 'org.jboss.tools.maven.apt.feature.feature.group'}
+    - { repo: 'https://raw.githubusercontent.com/wakatime/eclipse-wakatime/master/update-site/', feature: 'com.wakatime.eclipse.feature.feature.group'}
+    - { repo: 'http://download.eclipse.org/technology/dltk/updates/', feature: 'org.eclipse.jst.webpageeditor.feature.feature.group'}

@@ -1,12 +1,18 @@
 ## alban.andrieu.eclipse
 
-[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse) [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master) [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)  [![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.eclipse-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776) [![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
+[![Travis CI](http://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](http://travis-ci.org/AlbanAndrieu/ansible-eclipse)
+[![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master)
+[![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)
+[![Ansible Galaxy](http://img.shields.io/badge/galaxy-alban.andrieu.eclipse-blue.svg?style=flat)](https://galaxy.ansible.com/list#/roles/1776)
+[![Platforms](http://img.shields.io/badge/platforms-ubuntu-lightgrey.svg?style=flat)](#)
+[![Gittip](http://img.shields.io/gittip/alban.andrieu.svg)](https://www.gittip.com/alban.andrieu/)
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=alban.andrieu&url=https://github.com/alban.andrieu/ansible-phpvirtualbox&title=Ansible Role: PhpVirtualbox&language=&tags=github&category=software)
 
 Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.
 Default settings is using Eclipse luna.
-This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with basic plugins. 
+This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with basic plugins.
 
-This playbook is be used by [Docker Hub](https://hub.docker.com) to create a [Docker](http://docker.io) image.      
+This playbook is be used by [Docker Hub](https://hub.docker.com) to create a [Docker](http://docker.io) image.
 
 Taken from
 ------------------
@@ -20,13 +26,22 @@ See available playbook on [GitHub](https://github.com/search?p=3&q=user%3AAlbanA
 
 ### Installation
 
-This role requires at least Ansible `v1.6.3`. 
+This role requires at least Ansible `v1.9.6`.
 
-To install it, run:
+Using `ansible-galaxy`:
+```shell
+$ ansible-galaxy install alban.andrieu.eclipse
+```
 
-    ansible-galaxy install alban.andrieu.eclipse
+Using `arm` ([Ansible Role Manager](https://github.com/mirskytech/ansible-role-manager/)):
+```shell
+$ arm install alban.andrieu.eclipse
+```
 
-
+Using `git`:
+```shell
+$ git clone https://github.com/alban.andrieu/ansible-eclipse.git
+```
 
 ### Role variables
 
@@ -34,7 +49,7 @@ List of default variables available in the inventory:
 
 ```yaml
         eclipse_enabled: yes                       # Enable module
-    
+
     #user: 'albandri' #please override me
     user: "{{ lookup('env','USER') }}"
     eclipse_owner: "{{ user }}"
@@ -45,8 +60,8 @@ List of default variables available in the inventory:
     eclipse_base_dir: "/usr/local/eclipse"
     eclipse_link_base_dir: "/opt"
     eclipse_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
-    
-    ## Most likely you dont need to edit 
+
+    ## Most likely you dont need to edit
     #todo eclipse_service_enabled   : 'yes'
     eclipse_major: "4"
     eclipse_minor: "4"
@@ -61,7 +76,7 @@ List of default variables available in the inventory:
     #eclipse_archive: "eclipse-java-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
     #javaee
     eclipse_archive: "eclipse-jee-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
-    
+
     #modeling
     #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
     #java
@@ -69,7 +84,7 @@ List of default variables available in the inventory:
     #javaee
     eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
     eclipse_home_dir: "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
-    
+
     eclipse_plugins_enabled: yes                          # Enable plugins
     eclipse_plugins_emf_enabled: no                       # Enable plugins
     eclipse_plugins_cdt_enabled: no                       # Enable plugins
@@ -82,7 +97,7 @@ List of default variables available in the inventory:
     eclipse_plugins_pydev_enabled: no                     # Enable plugins
     eclipse_plugins_m2e_enabled: no                       # Enable plugins
     eclipse_plugins_subclipse_enabled: no                 # Enable plugins
-    
+
     eclipse_ini_enabled: yes                              # Enable overriding eclipse.ini
     #default is 256m
     eclipse_launcher_XXMaxPermSize: "256m"
@@ -92,7 +107,7 @@ List of default variables available in the inventory:
     eclipse_Xms: "512m"
     #default is -Xmx512m
     eclipse_Xmx: "2048m"
-    
+
     docker_files_generated_directory: "./"
     docker_files_enable: no
     docker_volume_directory                  : "{{ eclipse_base_dir }}"
@@ -107,7 +122,7 @@ Use :
 
     `docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
 
-Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created by [Docker Hub](https://registry.hub.docker.com/), 
+Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created by [Docker Hub](https://registry.hub.docker.com/),
 so please do not hesitate to enhance ansible script it will then improve docker image automatically.
 
 Run the following command :
@@ -121,9 +136,20 @@ Run the following command :
 - [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 
+Copyright (c) 2014 [Alban Andrieu](http://alban-andrieu.com/)
+
 ### Feedback, bug-reports, requests, ...
 
 Are [welcome](https://github.com/AlbanAndrieu/ansible-eclipse/issues)!
+
+## Contributing
+In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests and examples for any new or changed functionality.
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
 
 ***
 

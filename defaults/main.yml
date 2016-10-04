@@ -10,30 +10,34 @@ eclipse_owner_home: "{{ home }}"
 eclipse_base_dir: "/usr/local/eclipse"
 eclipse_link_base_dir: "/opt"
 eclipse_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
-cur_dir: "{{lookup('pipe','pwd')}}"
-## Most likely you dont need to edit 
+#cur_dir: "{{lookup('pipe','pwd')}}"
+## Most likely you dont need to edit
 #todo eclipse_service_enabled   : 'yes'
+
+#eclipse_name: "kepler" 3.7.2.1
+#eclipse_name: "luna" 4.4
+#eclipse_name: "mars" 4.5
+#eclipse_name: "neon" 4.6
+eclipse_name: "neon"
 eclipse_major: "4"
-eclipse_minor: "5"
-#kepler 3.7.2.1
+eclipse_minor: "6"
 eclipse_version: "{{eclipse_major}}.{{eclipse_minor}}"
-eclipse_name: "mars"
+
 eclipse_archive_extracted: "eclipse"
-#eclipse_archive: "eclipse-jee-kepler-SR2-linux-gtk-x86_64.tar.gz"
 #modeling
 #eclipse_archive: "eclipse-modeling-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
 #java
 #eclipse_archive: "eclipse-java-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
 #javaee
-eclipse_archive: "eclipse-jee-{{eclipse_name}}-1-linux-gtk-x86_64.tar.gz"
+#eclipse_archive: "eclipse-jee-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
+eclipse_archive: "eclipse-jee-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
 
-#modeling
 #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
-#java
-#eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/SR1/{{eclipse_archive}}&r=1"
-#javaee
-eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/1/{{eclipse_archive}}&r=1"
-eclipse_home_dir: "{{eclipse_base_dir}}/{{eclipse_name}}-{{eclipse_version}}"
+eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}"
+
+eclipse_home_dir: "{{ eclipse_base_dir }}/{{ eclipse_name }}-{{ eclipse_version }}"
+#eclipse_desktop: "/usr/share/applications/eclipse.desktop"
+eclipse_desktop: "{{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop"
 
 eclipse_plugins_enabled: yes                          # Enable plugins
 eclipse_plugins_emf_enabled: no                       # Enable plugins
@@ -50,7 +54,7 @@ eclipse_plugins_subclipse_enabled: no                 # Enable plugins
 
 eclipse_ini_enabled: yes                              # Enable overriding eclipse.ini
 #default is 256m
-eclipse_launcher_XXMaxPermSize: "256m"
+eclipse_launcher_XXMaxPermSize: "512m"
 #default is 256m
 eclipse_XXMaxPermSize: "1024m"
 #default is -Xms40m

@@ -5,16 +5,17 @@ Version={{ eclipse_major }}
 Name=Eclipse {{ eclipse_version }}
 GenericName=Text Editor
 
-Exec={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse
+Exec={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/eclipse %F
 Terminal=false
 #Icon=/usr/lib/eclipse/icon.xpm
 #** something like /opt/eclipse/icon.xpm **
 Icon={{ eclipse_base_dir }}/eclipse-{{ eclipse_major }}/icon.xpm
 Type=Application
-Categories=IDE;Development
+MimeType=text/plain
+Categories=TextEditor;Development;Utility;IDE;Development
 Comment=Integrated Development Environment
 NoDisplay=false
-StartupNotify=false
+StartupNotify=true
 StartupWMClass=Eclipse
 OnlyShowIn=Unity;
 X-UnityGenerated=true
