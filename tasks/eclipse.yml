@@ -30,7 +30,7 @@
     owner="{{ eclipse_owner }}"
 #    group="{{eclipse_group}}"
   become: yes
-  tags: eclipse_setup
+  when: eclipse_download.changed
 
 - name: eclipse | Create a link to eclipse (2)
   file:
@@ -179,14 +179,17 @@
 #  ignore_errors: true
 
 #Pydev
-- name: eclipse | Install python pexpect for adding Pydev certificat
+- name: eclipse | Install python pexpect for adding Pydev certificat (apt)
   apt: pkg={{ item }} state=present
   when: ansible_distribution == 'Debian' and eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
   with_items:
     - python-pexpect
 
-
-#TODO for RehHat : sudo yum install pexpect.noarch
+- name: eclipse | Install python pexpect for adding Pydev certificat (yum)
+  yum: name={{ item }} state=present
+  when: ansible_distribution == 'CentOS' and eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
+  with_items:
+    - pexpect
 
 - name: eclipse | Transfer eclipse Pydev certificate
   copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
@@ -206,12 +209,19 @@
   ignore_errors: true
 
 #Subclipse
-- name: eclipse | Install JavaHL for subclipse
+- name: eclipse | Install JavaHL for subclipse (apt)
   apt: pkg={{ item }} state=present
   become: yes
   when: ansible_distribution == 'Debian' and eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
   with_items:
     - libsvn-java
+
+- name: eclipse | Install JavaHL for subclipse (yum)
+  yum: name={{ item }} state=present
+  become: yes
+  when: ansible_distribution == 'CentOS' and eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
+  with_items:
+    - subversion-javahl
 
 - name: eclipse | Install eclipse Subversion plugins
   command: "{{ eclipse }} -nosplash \
