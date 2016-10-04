@@ -32,11 +32,6 @@
   become: yes
   when: eclipse_download.changed
 
-- name: eclipse | Install tar (yum)
-  yum: name=tar state=present
-  tags: eclipse_setup
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
-
 - name: eclipse | Create a link to eclipse (2)
   file:
     src="{{ eclipse }}"

@@ -1,0 +1,45 @@
+
+- set_fact: eclipse_home={{ eclipse_home_dir }}
+
+- set_fact: eclipse="{{ eclipse_home_dir }}/eclipse"
+
+- name: eclipse | Download eclipse on 'master' if we don't have it
+  connection: local
+  get_url: url={{ eclipse_url }} dest={{ eclipse_dir_tmp }}/{{ eclipse_archive }} force=no
+  register: eclipse_download
+
+- name: eclipse | Copy eclipse into place
+  copy: src={{ eclipse_dir_tmp }}/{{ eclipse_archive }} dest="{{ eclipse_dir_tmp }}/{{ eclipse_archive }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" mode=644
+  become: true
+  tags: eclipse_setup
+
+- name: eclipse | Create base directory
+  file:
+    dest="{{ eclipse_home }}"
+    state=directory
+    owner="{{ eclipse_owner }}"
+    group="{{ eclipse_group }}"
+  become: true
+  when: eclipse_download.changed
+  tags: eclipse_setup
+
+#TODO
+#- unarchive: src=/tmp/eclipse.tar.gz dest=/opt
+
+- name: eclipse | Install tar
+  yum: name=tar state=present
+  tags: eclipse_setup
+
+- name: eclipse | Extract archive eclipse
+  command: tar xzf {{ eclipse_dir_tmp }}/{{ eclipse_archive }} -C {{ eclipse_home }} --strip-components=1
+  when: eclipse_download.changed
+
+- name: eclipse | Change archive eclipse ownership
+  file: path={{ eclipse_home }} owner={{ eclipse_owner }} state=directory recurse=yes
+  when: eclipse_download.changed
+
+- name: eclipse | Configure eclipse icon
+  template: src=eclipse.desktop.j2 dest={{ eclipse_desktop }}
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
+  ignore_errors: yes
+  tags: eclipse_setup
