@@ -31,9 +31,11 @@ ansigenome_info:
   travis: True
 
   authors:
+    - name:  'Yngve Inntjore Levinsen'
+      github: ' Eothred'
     - name:  'Alban Andrieu'
+      email: 'alban.andrieu@free.com'
       url: 'fr.linkedin.com/in/nabla/'
-      email: 'alban.andrieu@free.fr'
       twitter: 'AlbanAndrieu'
       github: 'AlbanAndrieu'
 
@@ -67,4 +69,8 @@ ansigenome_info:
          `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-sudo-pass | tee setup.log`
 
   custom: |
-    Any custom output you want after the usage section..
+    ### Contributor
+
+    - Yngve Inntjore Levinsen
+    - Alban Andrieu, alban.andrieu@free.com
+
