@@ -39,7 +39,7 @@
   when: eclipse_download.changed
 
 - name: eclipse | Configure eclipse icon
-  template: src=eclipse.desktop.j2 dest=/usr/local/share/applications/eclipse.desktop
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  template: src=eclipse.desktop.j2 dest={{ eclipse_desktop }}
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
   ignore_errors: yes
   tags: eclipse_setup
