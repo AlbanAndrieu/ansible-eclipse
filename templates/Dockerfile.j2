@@ -14,6 +14,16 @@ ENV         WORKDIR /home/vagrant
 # Working dir
 WORKDIR {{ docker_working_directory }}
 
+# Because docker replaces /sbin/init: https://github.com/dotcloud/docker/issues/1024
+RUN dpkg-divert --local --rename --add /sbin/initctl
+
+# Make sure the package repository is up to date.
+RUN apt-get clean && apt-get -y update
+
+# Install ansible
+RUN apt-get install -y python-dev python-yaml python-jinja2 git unzip python-pip
+RUN pip2 install paramiko PyYAML jinja2 httplib2 boto --upgrade && pip2 install ansible==2.1.1
+
 # ADD
 ADD defaults $WORKDIR/ansible-eclipse/defaults
 ADD meta $WORKDIR/ansible-eclipse/meta
