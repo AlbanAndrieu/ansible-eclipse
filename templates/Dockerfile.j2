@@ -21,8 +21,11 @@ RUN dpkg-divert --local --rename --add /sbin/initctl
 RUN apt-get clean && apt-get -y update
 
 # Install ansible
-RUN apt-get install -y python-dev python-yaml python-jinja2 git unzip python-pip
-RUN pip2 install paramiko PyYAML jinja2 httplib2 boto --upgrade && pip2 install ansible==2.1.1
+RUN apt-get install -y git unzip
+RUN apt-get install -y python-dev python-yaml python-jinja2 python-pip
+RUN apt-get install -y ansible
+#RUN pip2 install paramiko PyYAML jinja2 httplib2 boto --upgrade
+#RUN pip install ansible==2.0.0
 
 # ADD
 ADD defaults $WORKDIR/ansible-eclipse/defaults
