@@ -21,3 +21,5 @@
 - name:  eclipse | Configure eclipse ini configuration (Xmx)
   lineinfile: regexp="^-Xmx512m" line="-Xmx{{ eclipse_Xmx }}" dest={{ eclipse_home }}/eclipse.ini
 
+#TODO add
+#-Djava.net.preferIPv4Stack=true

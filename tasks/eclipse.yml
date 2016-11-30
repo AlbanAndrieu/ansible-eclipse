@@ -192,7 +192,7 @@
     - pexpect
 
 - name: eclipse | Transfer eclipse Pydev certificate
-  copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner="{{eclipse_owner}}" group="{{eclipse_group}}"
+  copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner={{ eclipse_owner }} group={{ eclipse_group }}
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
 
 - name: eclipse | Add eclipse Pydev certificate
@@ -249,7 +249,7 @@
 - include: features.yml
 
 - name: eclipse | fix permissions eclipse home
-  file: recurse=yes owner={{ eclipse_owner }} dest={{ eclipse_home }}
+  file: recurse=yes owner={{ eclipse_owner }} group={{ eclipse_group }} dest={{ eclipse_home }}
   tags: eclipse_setup
 
 - name: eclipse | Stat {{ eclipse_home }}
