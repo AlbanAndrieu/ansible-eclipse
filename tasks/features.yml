@@ -12,4 +12,7 @@
 
 #TODO install dbeaver https://marketplace.eclipse.org/content/dbeaver
 #TODO valgrind http://download.eclipse.org/linuxtools/update
-
+#TODO install Shell Script Editor for Eclipse https://marketplace.eclipse.org/category/free-tagging/shell-script
+#    - { repo: 'http://download.eclipse.org/technology/dltk/updates/', feature: 'org.eclipse.dltk.sh.feature.group'}
+#TODO See https://mcuoneclipse.com/2012/06/25/5-best-eclipse-plugins-1-eclox-with-doxygen-graphviz-and-mscgen/
+#http://download.gna.org/eclox/update/

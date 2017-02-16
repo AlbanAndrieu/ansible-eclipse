@@ -45,3 +45,12 @@
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
   ignore_errors: yes
   tags: eclipse_setup
+
+- name: eclipse | Install eclipse javaHL requirement
+  action: "{{ ansible_pkg_mgr }} name={{ item }} state={{ util_pkg_state|default('present') }} update_cache=yes"
+  become: yes
+  when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (ansible_distribution_version not in ['12.04'])
+  tags: eclipse_setup
+  with_items:
+   - libsvn-java
+   
