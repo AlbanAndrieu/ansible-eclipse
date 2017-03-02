@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookmarks>
+   <site url="http://eclipse.sonarlint.org/" selected="true" name="&quot;SonarLint for Eclipse Update Site&quot;"/>
+   <site url="http://download.eclipse.org/tools/ajdt/36/update" selected="true" name="AJDT Update Site"/>
+   <site url="http://download.eclipse.org/tools/cdt/releases/9.1" selected="false" name="CDT"/>
+   <site url="http://download.eclipse.org/tools/cdt/releases/9.2" selected="false" name="CDT"/>
+   <site url="http://sourceforge.net/projects/cmakeed/files/updates/" selected="true" name="cmakeed Update"/>
+   <site url="http://eclipse-color-theme.github.com/update" selected="true" name="com.github.eclipsecolortheme.updatesite"/>
+   <site url="http://ifedorenko.github.com/m2e-extras/" selected="true" name="com.ifedorenko.m2e m2e extensions"/>
+   <site url="http://dbeaver.jkiss.org/update/latest/" selected="true" name="DBeaver CE Repository"/>
+   <site url="http://download.eclipse.org/technology/dltk/updates/" selected="true" name="DLTK Updates"/>
+   <site url="http://download.eclipse.org/technology/dltk/updates-dev/latest/" selected="true" name="Dynamic Languages Toolkit - latest stable"/>
+   <site url="http://update.eclemma.org/" selected="true" name="EclEmma"/>
+   <site url="http://eclipse-cs.sourceforge.net/update" selected="true" name="Eclipse Checkstyle Plugin"/>
+   <site url="http://opensource.cpupk.com/decompiler/update/" selected="true" name="Eclipse Class Decompiler Project Update"/>
+   <site url="http://download.eclipse.org/releases/kepler/" selected="true" name="Eclipse Kepler repository"/>
+   <site url="http://download.gna.org/eclox/update/" selected="true" name="eclox"/>
+   <site url="http://download.eclipse.org/egit/updates" selected="true" name="EGit P2 Repository"/>
+   <site url="http://download.eclipse.org/tools/cdt/releases/helios/" selected="true" name="file:/home/data/users/vkong/downloads/tools/cdt/releases/helios/ - metadata"/>
+   <site url="http://findbugs.cs.umd.edu/eclipse" selected="true" name="file:/home/pugh/findbugs-git/eclipsePlugin/bin_build/site/eclipse/ - metadata"/>
+   <site url="http://download.jboss.org/jbosstools/mars/development/updates/" selected="true" name="JBoss Tools - Core + Central Update Site"/>
+   <site url="http://download.jboss.org/jbosstools/neon/stable/updates/" selected="true" name="JBoss Tools - Core + Central Update Site"/>
+   <site url="http://download.eclipse.org/releases/kepler/201306260900" selected="true" name="Kepler"/>
+   <site url="http://download.eclipse.org/linuxtools/update" selected="false" name="Linux Tools"/>
+   <site url="http://download.eclipse.org/linuxtools/update-docker-2.1.0/" selected="true" name="Linux Tools Docker p2 Repository"/>
+   <site url="http://download.eclipse.org/linuxtools/update-docker" selected="false" name="Linux Tools Docker Tooling"/>
+   <site url="http://download.eclipse.org/linuxtools/update-5.2.0" selected="true" name="linuxtools"/>
+   <site url="http://bitstrings.github.com/m2e-connectors-p2/releases" selected="true" name="m2e :: Connectors :: Eclipse Repository"/>
+   <site url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-antlr/0.15.0/N/0.15.0.201207090124/" selected="true" name="M2E Antlr Connector"/>
+   <site url="http://theit.github.com/m2e-lifecycle-axistools" selected="true" name="m2e axistools :: site"/>
+   <site url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-buildhelper/0.15.0/N/0.15.0.201405280027/" selected="true" name="M2E Buildhelper Connector"/>
+   <site url="http://coderplus.com/m2e-update-sites/jaxws-maven-plugin/" selected="true" name="m2e connector for jaxws-maven-plugin (site)"/>
+   <site url="http://ianbrandt.github.io/m2e-maven-dependency-plugin/0.0.4/" selected="true" name="m2e Connector for Maven Dependency Plugin Site"/>
+   <site url="http://coderplus.com/m2e-update-sites/maven-remote-resources-plugin/" selected="true" name="m2e connector for maven-remote-resources-plugin (site)"/>
+   <site url="http://coderplus.com/m2e-update-sites/yuicompressor-maven-plugin/" selected="true" name="m2e connector for yuicompressor-maven-plugin (site)"/>
+   <site url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-plexus/0.15.0/N/0.15.0.201207090126/" selected="true" name="M2E Plexus Annotations Connector"/>
+   <site url="http://download.eclipse.org/technology/m2e/releases/" selected="true" name="m2e releases repository"/>
+   <site url="http://download.jboss.org/jbosstools/updates/m2e-extensions/m2e-apt" selected="true" name="m2e-apt updates"/>
+   <site url="http://download.jboss.org/jbosstools/updates/m2e-extensions/m2e-jdt-compiler/" selected="true" name="m2e-jdt-compiler updates"/>
+   <site url="http://download.jboss.org/jbosstools/updates/m2e-extensions/m2e-wro4j/" selected="true" name="m2e-wro4j updates"/>
+   <site url="http://m2e-code-quality.github.com/m2e-code-quality/site/latest/" selected="true" name="M2Eclipse Code Quality Plugins Update Site"/>
+   <site url="http://download.eclipse.org/technology/m2e/releases/1.5/1.5.0.20140606-0033" selected="true" name="Maven Integration for Eclipse Update Site"/>
+   <site url="http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-egit/0.14.0/N/LATEST/" selected="true" name="Maven SCM Handler for EGit Repository"/>
+   <site url="http://download.eclipse.org/releases/neon" selected="true" name="Neon"/>
+   <site url="http://download.eclipse.org/tools/orbit/downloads/drops/R20150821153341/repository/" selected="true" name="Orbit-R20150821153341"/>
+   <site url="http://dist.springsource.org/snapshot/GRECLIPSE/e4.6" selected="true" name="org.codehaus.groovy.eclipse.site"/>
+   <site url="http://dadacoalition.org/yedit" selected="true" name="org.dadacoalition.yedit.site"/>
+   <site url="http://download.eclipse.org/e4/snapshots/org.eclipse.e4.ui" selected="true" name="org.eclipse.e4.ui update site"/>
+   <site url="http://download.eclipse.org/mat/1.5/update-site/" selected="true" name="org.eclipse.mat.updatesite"/>
+   <site url="http://download.eclipse.org/mat/1.6.1/update-site/" selected="true" name="org.eclipse.mat.updatesite"/>
+   <site url="http://dist.springsource.org/release/AJDT/configurator-v2/" selected="true" name="org.maven.ide.eclipse.ajdt.site"/>
+   <site url="http://beust.com/eclipse" selected="true" name="org.testng.eclipse.updatesite"/>
+   <site url="http://www.pydev.org/updates/" selected="true" name="Pydev p2 Repository"/>
+   <site url="http://www.sconsolidator.com/update" selected="true" name="Sconsolidator"/>
+   <site url="http://downloads.sonarsource.com/eclipse/eclipse/" selected="true" name="sonarqube"/>
+   <site url="http://subclipse.tigris.org/update_1.10.x" selected="true" name="Subclipse 1.10.x Update Site"/>
+   <site url="https://dl.bintray.com/subclipse/archive/release/1.12.x/" selected="true" name="Subclipse 1.12.x Update Site"/>
+   <site url="http://download.eclipse.org/eclipse/updates/4.6" selected="true" name="The Eclipse Project Updates"/>
+   <site url="http://download.eclipse.org/webtools/repository/neon" selected="true" name="The Eclipse Web Tools Platform (WTP) software repository"/>
+   <site url="http://download.eclipse.org/tracecompass/master/repository" selected="false" name="Trace Compass"/>
+   <site url="http://cmakeed.sourceforge.net/eclipse/" selected="true" name="update site: http://cmakeed.sourceforge.net/eclipse/"/>
+   <site url="http://basepom.github.io/basepom-m2e/update-site/latest/" selected="true" name="update-site"/>
+   <site url="http://www.genuitec.com/updates/webclipse/ci/" selected="true" name="Webclipse CI Update Site"/>
+   <site url="http://downloads.genuitec.com/downloads/products/webclipse/updates/wc2017ci3" selected="true" name="Webclipse Suite"/>
+   <site url="http://decompiler.chenchao.tk/update" selected="false" name=""/>
+   <site url="http://dev.eclipse.org/svnroot/dsdp/org.eclipse.tm.tcf/releases/0.3.0" selected="false" name=""/>
+   <site url="http://downloads.sourceforge.net/project/cmakeed/eclipse/" selected="false" name=""/>
+   <site url="http://eclipse.tmatesoft.com/svnkit/1.8.x/" selected="false" name=""/>
+   <site url="http://m2e-code-quality.github.io/m2e-code-quality/site/" selected="false" name=""/>
+   <site url="http://pmd.sourceforge.net/eclipse" selected="false" name=""/>
+   <site url="http://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site" selected="true" name=""/>
+   <site url="http://theit.github.com/m2e-lifecycle-axistools/site" selected="false" name=""/>
+   <site url="http://update.zeroturnaround.com/update-site" selected="true" name=""/>
+</bookmarks>
