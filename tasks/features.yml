@@ -6,23 +6,24 @@
     - { repo: 'http://download.jboss.org/jbosstools/mars/development/updates/', feature: 'org.jboss.ide.eclipse.as.feature.feature.group'}
     - { repo: 'http://velo.github.io/maven-formatter-plugin/p2/1.5.0', feature: 'com.marvinformatics.formatter.feature.feature.group'}
     - { repo: 'http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-buildhelper/0.15.0/N/0.15.0.201405280027/', feature: 'org.sonatype.m2e.buildhelper.feature.feature.group'}
-    - { repo: 'http://beust.com/eclipse/', feature: 'org.testng.eclipse.feature.group'}
+#    - { repo: 'http://beust.com/eclipse/', feature: 'org.testng.eclipse.feature.group'}
     - { repo: 'http://download.jboss.org/jbosstools/updates/m2e-extensions/m2e-apt', feature: 'org.jboss.tools.maven.apt.feature.feature.group'}
     - { repo: 'https://raw.githubusercontent.com/wakatime/eclipse-wakatime/master/update-site/', feature: 'com.wakatime.eclipse.feature.feature.group'}
     - { repo: 'http://download.eclipse.org/technology/dltk/updates/', feature: 'org.eclipse.jst.webpageeditor.feature.feature.group'}
 #TODO install dbeaver https://marketplace.eclipse.org/content/dbeaver
 #DBeaver Core	3.8.5	org.jkiss.dbeaver.core.feature.feature.group	Serge Rider
-    - { repo: 'http://dbeaver.jkiss.org/update/latest/', feature: 'org.jkiss.dbeaver.core.feature.feature.group'}  
+#    - { repo: 'http://dbeaver.jkiss.org/update/latest/', feature: 'org.jkiss.dbeaver.core.feature.feature.group'}  
 #TODO valgrind http://download.eclipse.org/linuxtools/update
 #  Vagrant Tooling	2.2.0.201612072123	org.eclipse.linuxtools.vagrant.feature.feature.group	Eclipse Linux Tools
-    - { repo: 'http://download.eclipse.org/linuxtools/update/', feature: 'org.eclipse.linuxtools.vagrant.feature.feature.group'}
+#    - { repo: 'http://download.eclipse.org/linuxtools/update/', feature: 'org.eclipse.linuxtools.vagrant.feature.feature.group'}
 #TODO install Shell Script Editor for Eclipse https://marketplace.eclipse.org/category/free-tagging/shell-script
 #  Dynamic Languages Toolkit - ShellEd IDE	5.7.0.201610180416	org.eclipse.dltk.sh.feature.group	Eclipse DLTK
-    - { repo: 'http://download.eclipse.org/technology/dltk/updates/', feature: 'org.eclipse.dltk.sh.feature.group'}
+#    - { repo: 'http://download.eclipse.org/technology/dltk/updates/', feature: 'org.eclipse.dltk.sh.feature.group'}
 #TODO See https://mcuoneclipse.com/2012/06/25/5-best-eclipse-plugins-1-eclox-with-doxygen-graphviz-and-mscgen/
 #http://download.gna.org/eclox/update/
 #TODO install groovy compiler
 #See https://stackoverflow.com/questions/22875051/eclipse-cant-create-groovy-class-in-4-3-2
 #Groovy-Eclipse Feature	2.9.2.xx-201702282040-e46	org.codehaus.groovy.eclipse.feature.feature.group	Codehaus.org
-    - { repo: 'http://dist.springsource.org/snapshot/GRECLIPSE/e4.6', feature: 'org.codehaus.groovy.eclipse.feature.feature.group'}
- 
+#    - { repo: 'http://dist.springsource.org/snapshot/GRECLIPSE/e4.6', feature: 'org.codehaus.groovy.eclipse.feature.feature.group'}
+#TODO sconsolidator
+#http://www.sconsolidator.com/update
