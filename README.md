@@ -6,12 +6,11 @@
 [![License](http://img.shields.io/:license-apache-blue.svg?style=flat-square)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Travis CI](https://img.shields.io/travis/AlbanAndrieu/ansible-eclipse.svg?style=flat)](https://travis-ci.org/AlbanAndrieu/ansible-eclipse)
 [![Branch](http://img.shields.io/github/tag/AlbanAndrieu/ansible-eclipse.svg?style=flat-square)](https://github.com/AlbanAndrieu/ansible-eclipse/tree/master)
-[![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/AlbanAndrieu)
-[![test-suite](https://img.shields.io/badge/test--suite-ansible--alban__andrieu__eclipse-blue.svg?style=flat)](https://github.com/AlbanAndrieu/test-suite/tree/master/ansible-alban_andrieu_eclipse/)
-[![Ansible Galaxy](https://img.shields.io/badge/galaxy-alban.andrieu.eclipse-660198.svg?style=flat)](https://galaxy.ansible.com/detail#/role/1776)
+[![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/~AlbanAndrieu)
+<!--[![Ansible Galaxy](https://img.shields.io/badge/galaxy-alban.andrieu.eclipse-660198.svg?style=flat)](https://galaxy.ansible.com/detail#/role/1776)-->
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-alban.andrieu.eclipse-660198.svg?style=flat)](https://galaxy.ansible.com/alban.andrieu/eclipse)
 [![Platforms](http://img.shields.io/badge/platforms-el%20/%20macosx%20/%20ubuntu-lightgrey.svg?style=flat)](#)
-[![Gittip](http://img.shields.io/gittip/alban.andrieu.svg)](https://www.gittip.com/alban.andrieu/)
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=AlbanAndrieu&url=https://github.com/alban.andrieu/ansible-phpvirtualbox&title=Ansible Role: PhpVirtualbox&language=&tags=github&category=software)
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=AlbanAndrieu&url=https://github.com/AlbanAndrieu/ansible-eclipse&title=ansible-eclipse&language=en_GB&tags=github&category=software)
 
 Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.
 Default settings is using Eclipse luna.
@@ -32,7 +31,7 @@ See available playbook on [GitHub](https://github.com/search?p=3&q=user%3AAlbanA
 
 ### Installation
 
-This role requires at least Ansible `v2.1.1`. To install it, run:
+This role requires at least Ansible `v2.3.0.0`. To install it, run:
 
 Using `ansible-galaxy`:
 ```shell
@@ -46,13 +45,15 @@ $ arm install alban.andrieu.eclipse
 
 Using `git`:
 ```shell
-$ git clone https://github.com/alban.andrieu/ansible-eclipse.git
+$ git clone https://github.com/AlbanAndrieu/ansible-eclipse.git
 ```
 
 ### Documentation
 
+<!---
 More information about `alban.andrieu.eclipse` can be found in the
 [official alban.andrieu.eclipse documentation](https://docs.debops.org/en/latest/ansible/roles/ansible-eclipse/docs/).
+-->
 
 
 ### Role variables
@@ -92,10 +93,12 @@ eclipse_archive_extracted: "eclipse"
 #eclipse_archive: "eclipse-java-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
 #javaee
 #eclipse_archive: "eclipse-jee-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
-eclipse_archive: "eclipse-jee-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
+#eclipse_archive: "eclipse-jee-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
+eclipse_archive: "eclipse-jee-{{eclipse_name}}-3-RC3-linux-gtk-x86_64.tar.gz"
 
 #eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
-eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}"
+#eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}"
+eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{eclipse_name}}/3.RC3/{{eclipse_archive}}"
 
 eclipse_home_dir: "{{ eclipse_base_dir }}/{{ eclipse_name }}-{{ eclipse_version }}"
 #eclipse_desktop: "/usr/share/applications/eclipse.desktop"
@@ -116,9 +119,11 @@ eclipse_plugins_subclipse_enabled: no                 # Enable plugins
 
 eclipse_ini_enabled: yes                              # Enable overriding eclipse.ini
 #default is 256m
-eclipse_launcher_XXMaxPermSize: "512m"
+#eclipse_launcher_XXMaxPermSize: "512m"
+eclipse_launcher_XXMaxPermSize: ""
 #default is 256m
-eclipse_XXMaxPermSize: "1024m"
+#eclipse_XXMaxPermSize: "1024m"
+eclipse_XXMaxPermSize: ""
 #default is -Xms40m
 eclipse_Xms: "512m"
 #default is -Xmx512m
@@ -150,16 +155,20 @@ Run the following command :
      `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-sudo-pass | tee setup.log`
 
 
-Any custom output you want after the usage section..
+### Contributor
+
+- Yngve Inntjore Levinsen
+- Alban Andrieu, alban.andrieu@free.com
 ### Authors and license
 
 `alban_andrieu_eclipse` role was written by:
 
-- [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.fr) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
+- Yngve Inntjore Levinsen | [GitHub](https://github.com/ Eothred)
+- [Alban Andrieu](fr.linkedin.com/in/nabla/) | [e-mail](mailto:alban.andrieu@free.com) | [Twitter](https://twitter.com/AlbanAndrieu) | [GitHub](https://github.com/AlbanAndrieu)
 
 - License: [GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
 
-Copyright (c) 2016 [Alban Andrieu](https://alban-andrieu.com/)
+Copyright (c) 2017 [Alban Andrieu](https://alban.andrieu.com/)
 
 ### Feedback, bug-reports, requests, ...
 
