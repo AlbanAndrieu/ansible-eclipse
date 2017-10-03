@@ -6,7 +6,7 @@ galaxy_info:
   description: A role for installing eclipse
   company: Nabla
   license: Apache
-  min_ansible_version: 2.3.0.0
+  min_ansible_version: 2.3.1.0
   platforms:
     - name: Ubuntu
       versions:

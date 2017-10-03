@@ -1,25 +1,27 @@
 ---
-
-#language: python
-#python: "2.7"
-
+language: python
+python:
+  - 2.7
+#  - 3.3
+#  - 3.4
+#  - 3.5
+cache:
+  directories:
+    - $HOME/.cache/pip
+env:
+  - ANSIBLE_VERSION=2.3.1.0
 cache: bundler
 #sudo: false
 sudo: required
 dist: trusty
-
-env:
-  - ANSIBLE_VERSION=2.1.1
-#os:
-#  - linux
-#  - osx
-
-services:
-  - docker
-
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq python-apt python-pycurl
+#os:
+#  - linux
+#  - osx
+services:
+  - docker
 install:
   # Install Ansible.
   - sudo pip install ansible==$ANSIBLE_VERSION
@@ -36,10 +38,10 @@ script:
 #  - sudo ansible-galaxy install --role-file requirements.yml
 
   # Check syntax
-  - sudo ansible-playbook -i hosts --syntax-check eclipse.yml
+  - sudo ansible-playbook -i hosts --syntax-check eclipse.yml -e "python_versions=[2.7]"
 
   # First run
-  - travis_wait 30 sudo ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml
+  - travis_wait 30 sudo ansible-playbook -i hosts --connection=local --sudo -vvvv eclipse.yml -e "python_versions=[2.7]"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

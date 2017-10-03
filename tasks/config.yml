@@ -5,8 +5,9 @@
 - name:  eclipse | Configure eclipse ini configuration (clean)
   lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-clean' insertbefore='-startup'
 
-#- name:  eclipse | Configure eclipse ini configuration (lombok)
-#  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-javaagent:/usr/local/eclipse/eclipse-luna-ok/lombok.jar'
+- name:  eclipse | Configure eclipse ini configuration (Launcher GTK_version 2)
+  replace: dest={{ eclipse_home }}/eclipse.ini regexp='(--launcher\.XXMaxPermSize)\n256m' replace='\1\n{{ eclipse_launcher_XXMaxPermSize }}'
+  when: eclipse_launcher_XXMaxPermSize | length > 0  
 
 - name:  eclipse | Configure eclipse ini configuration (Launcher XXMaxPermSize)
 #  lineinfile: regexp="(--launcher\.XXMaxPermSize)\n256m" line='\1\n{{ eclipse_launcher_XXMaxPermSize }}' dest={{ eclipse_home }}/eclipse.ini
@@ -27,3 +28,5 @@
   
 #TODO add
 #-Djava.net.preferIPv4Stack=true
+
+- lineinfile: dest={{ eclipse_home }}/eclipse.ini line='--launcher.GTK_version\n2'
