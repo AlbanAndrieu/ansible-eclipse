@@ -6,7 +6,7 @@
 [![Donate](https://img.shields.io/gratipay/AlbanAndrieu.svg?style=flat)](https://www.gratipay.com/~AlbanAndrieu)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-alban.andrieu.eclipse-660198.svg?style=flat)](https://galaxy.ansible.com/alban.andrieu/eclipse)
 [![Platforms](http://img.shields.io/badge/platforms-el%20/%20macosx%20/%20ubuntu-lightgrey.svg?style=flat)](#)
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=AlbanAndrieu&url=https://github.com/AlbanAndrieu/ansible-eclipse&title=ansible-eclipse&language=en_GB&tags=github&category=software)
+[![Docker Hub](https://dockerbuildbadges.quelltext.eu/status.svg?organization=nabla&repository=ansible-eclipse)](https://hub.docker.com/r/nabla/ansible-eclipse/)
 
 Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.
 Default settings is using Eclipse luna.
