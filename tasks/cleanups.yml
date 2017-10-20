@@ -11,3 +11,4 @@
     # - "{{ eclipse_home }}/features/org.eclipse.pde*"
     # - "{{ eclipse_home }}/plugins/*validation*"
     # - "{{ eclipse_home }}/features/*validation*"
+  ignore_errors: true
