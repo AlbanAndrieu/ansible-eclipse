@@ -27,6 +27,7 @@ ansigenome_info:
   galaxy_id: '1776'
   galaxy_user: 'alban.andrieu'
   galaxy_name: 'eclipse'
+  galaxy_docker_name: 'ansible-eclipse'
 
   travis: True
 
