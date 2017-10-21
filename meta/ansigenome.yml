@@ -46,7 +46,7 @@ ansigenome_info:
 
     This playbook is be used by [Docker Hub](https://hub.docker.com) to create a [Docker](http://docker.io) image.
     
-    See role [ansible-jenkins-slave-docker](https://github.com/AlbanAndrieu/ansible-jenkins-slave-docker) and image [ansible-eclipse](https://hub.docker.com/r/nabla/ansible-eclipse/)
+    See role [ansible-eclipse](https://github.com/AlbanAndrieu/ansible-eclipse) and image [ansible-eclipse](https://hub.docker.com/r/nabla/ansible-eclipse/)
 
     Taken from
     ------------------
