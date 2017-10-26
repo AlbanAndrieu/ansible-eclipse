@@ -265,8 +265,8 @@
 - name: eclipse | Cleanup temporary directory
   file: name={{ tempdir.stdout }} state=absent
   tags: eclipse_setup
-  changed_when: false    
-  ignore_errors: "{{ ansible_check_mode }}"    
+  changed_when: false
+#  ignore_errors: "{{ ansible_check_mode }}"
   become: yes
 
 - debug: msg=" eclipse | Start eclipse {{ eclipse }}"

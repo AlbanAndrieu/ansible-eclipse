@@ -27,3 +27,4 @@
 #    - { repo: 'http://dist.springsource.org/snapshot/GRECLIPSE/e4.6', feature: 'org.codehaus.groovy.eclipse.feature.feature.group'}
 #TODO sconsolidator
 #http://www.sconsolidator.com/update
+  ignore_errors: true
