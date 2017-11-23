@@ -9,7 +9,8 @@ home: "{{ lookup('env','HOME') }}"
 eclipse_owner_home: "{{ home }}"
 eclipse_base_dir: "/usr/local/eclipse"
 eclipse_link_base_dir: "/opt"
-eclipse_dir_tmp: "/tmp" # or override with "{{ tempdir.stdout }} in order to have be sure to download the file"
+#eclipse_dir_tmp: "/tmp" #
+eclipse_dir_tmp: "{{ tempdir.stdout }}"
 #cur_dir: "{{lookup('pipe','pwd')}}"
 ## Most likely you dont need to edit
 #todo eclipse_service_enabled   : 'yes'
