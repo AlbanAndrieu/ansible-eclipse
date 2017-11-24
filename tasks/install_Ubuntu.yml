@@ -11,6 +11,7 @@
 - name: eclipse | Copy eclipse into place
   copy: src={{ eclipse_dir_tmp }}/{{ eclipse_archive }} dest="{{ eclipse_dir_tmp }}/{{ eclipse_archive }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" mode=644
   become: true
+  ignore_errors: yes  
   tags: eclipse_setup
 
 - name: eclipse | Create base directory
