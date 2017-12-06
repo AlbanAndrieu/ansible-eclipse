@@ -17,6 +17,6 @@
         eclipse_plugins_shelled_enabled: no,
         eclipse_plugins_webpageed_enabled: no,
         eclipse_plugins_pydev_enabled: no,
-        eclipse_plugins_m2e_enabled: yes,
+        eclipse_plugins_m2e_enabled: no,
         eclipse_plugins_subclipse_enabled: yes,
       }
