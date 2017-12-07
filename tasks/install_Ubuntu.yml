@@ -11,7 +11,7 @@
 - name: eclipse | Copy eclipse into place
   copy: src={{ eclipse_dir_tmp }}/{{ eclipse_archive }} dest="{{ eclipse_dir_tmp }}/{{ eclipse_archive }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" mode=644
   become: true
-  ignore_errors: yes  
+  ignore_errors: yes
   tags: eclipse_setup
 
 - name: eclipse | Create base directory
@@ -40,6 +40,7 @@
 - name: eclipse | Change archive eclipse ownership
   file: path={{ eclipse_home }} owner={{ eclipse_owner }} state=directory recurse=yes
   when: eclipse_download.changed
+  become: true
 
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_desktop }}
@@ -49,9 +50,8 @@
 
 - name: eclipse | Install eclipse javaHL requirement
   action: "{{ ansible_pkg_mgr }} name={{ item }} state={{ util_pkg_state|default('present') }} update_cache=yes"
-  become: yes
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (ansible_distribution_version not in ['12.04'])
   tags: eclipse_setup
   with_items:
    - libsvn-java
-   
+  become: yes
