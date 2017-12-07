@@ -252,12 +252,12 @@
   file: recurse=yes owner={{ eclipse_owner }} group={{ eclipse_group }} dest={{ eclipse_home }}
   tags: eclipse_setup
   become: yes
-  
+
 - name: eclipse | Stat {{ eclipse_home }}
   stat: path={{ eclipse_home }}
   register: eclipse_archive_extracted_present
   become: yes
-  
+
 - debug: msg=" eclipse | Path exists and is a directory"
   when: eclipse_archive_extracted_present.stat.isdir is defined and eclipse_archive_extracted_present.stat.isdir == true
 
