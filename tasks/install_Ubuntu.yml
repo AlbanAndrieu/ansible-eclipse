@@ -35,6 +35,7 @@
 
 - name: eclipse | Extract archive eclipse
   command: tar xzf {{ eclipse_dir_tmp }}/{{ eclipse_archive }} -C {{ eclipse_home }} --strip-components=1
+  become: true  
   when: eclipse_download.changed
 
 - name: eclipse | Change archive eclipse ownership
