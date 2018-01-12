@@ -1,6 +1,6 @@
 - shell: eclipse -application org.eclipse.equinox.p2.director -noSplash -repository {{ item.repo }} -installIUs {{ item.feature }}
   with_items:
-#EclEmma Java Code Coverage	2.3.3.201602231923	com.mountainminds.eclemma.feature.feature.group	Mountainminds GmbH & Co. KG  
+#EclEmma Java Code Coverage	2.3.3.201602231923	com.mountainminds.eclemma.feature.feature.group	Mountainminds GmbH & Co. KG
     - { repo: 'http://update.eclemma.org/', feature: 'com.mountainminds.eclemma.feature.feature.group'}
     - { repo: 'http://download.eclipse.org/technology/m2e/releases/', feature: 'org.eclipse.m2e.feature.feature.group'}
     - { repo: 'http://download.jboss.org/jbosstools/mars/development/updates/', feature: 'org.jboss.ide.eclipse.as.feature.feature.group'}
@@ -12,7 +12,7 @@
 #    - { repo: 'http://download.eclipse.org/technology/dltk/updates/', feature: 'org.eclipse.jst.webpageeditor.feature.feature.group'}
 #TODO install dbeaver https://marketplace.eclipse.org/content/dbeaver
 #DBeaver Core	3.8.5	org.jkiss.dbeaver.core.feature.feature.group	Serge Rider
-#    - { repo: 'http://dbeaver.jkiss.org/update/latest/', feature: 'org.jkiss.dbeaver.core.feature.feature.group'}  
+#    - { repo: 'http://dbeaver.jkiss.org/update/latest/', feature: 'org.jkiss.dbeaver.core.feature.feature.group'}
 #TODO valgrind http://download.eclipse.org/linuxtools/update
 #  Vagrant Tooling	2.2.0.201612072123	org.eclipse.linuxtools.vagrant.feature.feature.group	Eclipse Linux Tools
 #    - { repo: 'http://download.eclipse.org/linuxtools/update/', feature: 'org.eclipse.linuxtools.vagrant.feature.feature.group'}
