@@ -194,10 +194,12 @@
 - name: eclipse | Transfer eclipse Pydev certificate
   copy: src=add_pydev_certificate.py dest={{ eclipse_dir_tmp }} mode=0777 force=yes owner={{ eclipse_owner }} group={{ eclipse_group }}
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: eclipse | Add eclipse Pydev certificate
   command: python {{ eclipse_dir_tmp }}/add_pydev_certificate.py
   when: eclipse_plugins_pydev_enabled and eclipse_plugins_enabled
+  ignore_errors: "{{ ansible_check_mode }}"
 
 - name: eclipse | Install eclipse Pydev plugins
   command: "{{ eclipse }} -nosplash \
