@@ -49,6 +49,7 @@
     state=link
     owner="{{ eclipse_owner }}"
 #    group="{{eclipse_group}}"
+    mode=0755
   become: yes
   tags: eclipse_setup
 

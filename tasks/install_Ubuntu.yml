@@ -23,10 +23,9 @@
   become: true
   when: eclipse_download.changed
   tags: eclipse_setup
-  
+
 - name: eclipse | Copy eclipse into place
-  copy: src={{ eclipse_dir_tmp }}/eclipse/ dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" 
-  #mode=644
+  copy: src={{ eclipse_dir_tmp }}/eclipse/ dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}"
   become: true
   tags: eclipse_setup
 
