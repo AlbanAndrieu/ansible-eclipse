@@ -19,9 +19,11 @@ eclipse_dir_tmp: "{{ tempdir.stdout }}"
 #eclipse_name: "luna" 4.4
 #eclipse_name: "mars" 4.5
 #eclipse_name: "neon" 4.6
-eclipse_name: "oxygen"
+#eclipse_name: "oxygen" 4.7
+#eclipse_name: "photon" 4.8
+eclipse_name: "2018-09"
 eclipse_major: "4"
-eclipse_minor: "7"
+eclipse_minor: "9"
 eclipse_version: "{{eclipse_major}}.{{eclipse_minor}}"
 
 eclipse_archive_extracted: "eclipse"
@@ -33,11 +35,17 @@ eclipse_archive_extracted: "eclipse"
 #eclipse_archive: "eclipse-jee-{{eclipse_name}}-SR1-linux-gtk-x86_64.tar.gz"
 #eclipse_archive: "eclipse-jee-{{eclipse_name}}-R-linux-gtk-x86_64.tar.gz"
 #eclipse_archive: "eclipse-jee-{{eclipse_name}}-3-RC3-linux-gtk-x86_64.tar.gz"
-eclipse_archive: "eclipse-jee-{{eclipse_name}}-M6-linux-gtk-x86_64.tar.gz"
+#eclipse_archive: "eclipse-jee-{{eclipse_name}}-M6-linux-gtk-x86_64.tar.gz"
+eclipse_archive: "eclipse-jee-{{eclipse_name}}-linux-gtk-x86_64.tar.gz"
 
-#eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}&r=1"
-#eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{eclipse_name}}/R/{{eclipse_archive}}"
-eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{eclipse_name}}/M6/{{eclipse_archive}}"
+#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-dsl-2018-09-linux-gtk-x86_64.tar.gz
+#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-jee-2018-09-linux-gtk-x86_64.tar.gz
+#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-modeling-2018-09-linux-gtk-x86_64.tar.gz
+#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-committers-2018-09-linux-gtk-x86_64.tar.gz
+#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-cpp-2018-09-linux-gtk-x86_64.tar.gz
+
+#eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{eclipse_name}}/M6/{{eclipse_archive}}"
+eclipse_url: "https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release//{{eclipse_name}}/R/{{eclipse_archive}}"
 
 eclipse_home_dir: "{{ eclipse_base_dir }}/{{ eclipse_name }}-{{ eclipse_version }}"
 #eclipse_desktop: "/usr/share/applications/eclipse.desktop"
