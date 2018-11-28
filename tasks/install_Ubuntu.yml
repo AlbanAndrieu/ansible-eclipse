@@ -25,14 +25,15 @@
   tags: eclipse_setup
   
 - name: eclipse | Copy eclipse into place
-  copy: src={{ eclipse_dir_tmp }}/eclipse/ dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" mode=644
+  copy: src={{ eclipse_dir_tmp }}/eclipse/ dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" 
+  #mode=644
   become: true
   tags: eclipse_setup
 
 - name: eclipse | Install tar
   apt:
     pkg=tar
-    state="present"
+    state=present
   tags: eclipse_setup
 
 - name: eclipse | Configure eclipse icon
