@@ -48,3 +48,5 @@
   with_items:
    - libsvn-java
   become: yes
+  ignore_errors: yes
+  
