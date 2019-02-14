@@ -47,6 +47,6 @@
   tags: eclipse_setup
   with_items:
    - libsvn-java
-  become: yes
+  become: true
   ignore_errors: yes
   

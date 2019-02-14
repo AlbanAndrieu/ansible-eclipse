@@ -12,11 +12,15 @@
   when: home_present.stat.isdir is defined and home_present.stat.isdir == true
 
 - name: eclipse | Create temporary directory
-  shell: mktemp -d
+  tempfile:
+    state: directory
+    suffix: staging
+#    path: "{{ lookup('env', 'HOME') }}"
   register: tempdir
-  connection: local  
-  tags: eclipse_setup
+  connection: local
   changed_when: false
+  become: true
+  tags: eclipse_setup
 
 - include: install_{{ ansible_distribution }}.yml
 
@@ -30,7 +34,7 @@
     state=link
     owner="{{ eclipse_owner }}"
 #    group="{{eclipse_group}}"
-  become: yes
+  become: true
   when: eclipse_download.changed
 
 - name: eclipse | Create a link to eclipse (2)
@@ -40,7 +44,7 @@
     state=link
     owner="{{ eclipse_owner }}"
 #    group="{{eclipse_group}}"
-  become: yes
+  become: true
   tags: eclipse_setup
 
 - name: eclipse | Create a link to eclipse (3)
@@ -50,7 +54,7 @@
     state=link
     owner="{{ eclipse_owner }}"
     mode=0755
-  become: yes
+  become: true
   tags: eclipse_setup
 
 - include: cleanups.yml
@@ -214,14 +218,14 @@
 #Subclipse
 - name: eclipse | Install JavaHL for subclipse (apt)
   apt: pkg={{ item }} state=present
-  become: yes
+  become: true
   when: ansible_distribution == 'Debian' and eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
   with_items:
     - libsvn-java
 
 - name: eclipse | Install JavaHL for subclipse (yum)
   yum: name={{ item }} state=present
-  become: yes
+  become: true
   when: ansible_distribution == 'CentOS' and eclipse_plugins_subclipse_enabled and eclipse_plugins_enabled
   with_items:
     - subversion-javahl
@@ -254,12 +258,12 @@
 - name: eclipse | fix permissions eclipse home
   file: recurse=yes owner={{ eclipse_owner }} group={{ eclipse_group }} dest={{ eclipse_home }}
   tags: eclipse_setup
-  become: yes
+  become: true
 
 - name: eclipse | Stat {{ eclipse_home }}
   stat: path={{ eclipse_home }}
   register: eclipse_archive_extracted_present
-  become: yes
+  become: true
 
 - debug: msg=" eclipse | Path exists and is a directory"
   when: eclipse_archive_extracted_present.stat.isdir is defined and eclipse_archive_extracted_present.stat.isdir == true
@@ -273,6 +277,6 @@
   connection: local  
   changed_when: false
 #  ignore_errors: "{{ ansible_check_mode }}"
-  become: yes
+  become: true
 
 - debug: msg=" eclipse | Start eclipse {{ eclipse }}"
