@@ -48,7 +48,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN chmod +x /usr/local/eclipse/eclipse-4/eclipse
 
-RUN ln -sf /dev/stdout /var/log/eclipse.log &&
+RUN ln -sf /dev/stdout /var/log/eclipse.log && \
     ln -sf /dev/stderr hs_err_pid*.log
 
 #EXPOSE 21:9999
