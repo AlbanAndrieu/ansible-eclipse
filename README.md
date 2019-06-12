@@ -144,6 +144,7 @@ List of internal variables used by the role:
 Use :
 
     `docker run -e "DISPLAY=`ipconfig getifaddr en0`:0.0" nabla/ansible-eclipse`
+    `docker run  -it --entrypoint /bin/bash nabla/ansible-eclipse`
 
 Once [Eclipse](https://www.eclipse.org) is installed using ansible, a [Docker](https://www.docker.com/) [image](https://registry.hub.docker.com/u/nabla/ansible-eclipse/) is automatically created by [Docker Hub](https://registry.hub.docker.com/),
 so please do not hesitate to enhance ansible script it will then improve docker image automatically.
