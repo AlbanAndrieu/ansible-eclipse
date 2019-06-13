@@ -4,8 +4,6 @@ FROM ubuntu:16.04
 # Volume can be accessed outside of container
 VOLUME [/usr/local/eclipse]
 
-MAINTAINER Alban Andrieu "https://github.com/AlbanAndrieu"
-
 ENV DEBIAN_FRONTEND noninteractive
 ENV ECLIPSE_HOME /usr/local/eclipse
 ENV WORKDIR /home/vagrant
@@ -48,8 +46,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN chmod +x /usr/local/eclipse/eclipse-4/eclipse
 
-RUN ln -sf /dev/stdout /var/log/eclipse.log && \
-    ln -sf /dev/stderr hs_err_pid*.log
+RUN ln -sf /dev/stdout /var/log/eclipse.log
+#    && ln -sf /dev/stderr hs_err_pid*.log
 
 #EXPOSE 21:9999
 ENTRYPOINT  ["/usr/local/eclipse/eclipse-4/eclipse"]
