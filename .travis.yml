@@ -1,4 +1,8 @@
 ---
+
+sudo: required
+dist: travis_lts
+
 language: python
 python:
 #  - 2.7
@@ -6,28 +10,56 @@ python:
 #  - 3.4
 #  - 3.5
   - 3.6
+
 services:
   - docker
+
 cache:
   bundler:
   directories:
     - $HOME/.cache/pip
+
 env:
   global:
-    - JENKINS_HOME=/home/jenkins
-    - JENKINS_UID=3000
-    - DOCKER_GID=999
+    - JENKINS_HOME: /home/jenkins
+    - JENKINS_UID: 3000
+    - DOCKER_GID: 999
     - secure: MD73NCVzctbVmi2QnQtwtH/ISXN2K0alsLbixoaXl7gr3XvTB4sYB0u+KKtPV46jbeAlQqTRObPfQouPrsLsiNDYcpuN0I5bKsn3TTs4ZHIkD0I2Q9Wh3qNM2fYf9mw3ZUhvXVTEod0W7jzkVGb6kitRCJj8rioKKzvE/YdVsG4=
   matrix:
-#  - ANSIBLE_VERSION=latest
-    - ANSIBLE_VERSION=2.7.2
-sudo: required
-dist: travis_lts
+#  - ANSIBLE_VERSION: latest
+    - ANSIBLE_VERSION: 2.7.2
+    - ANSIBLE_VERSION: 2.8.1
+
+matrix:
+  fast_finish: true
+  allow_failures:
+  - env: ANSIBLE_VERSION=2.8.1
+
 branches:
   only:
   - master
+
+notifications:
+  webhooks:
+    urls:
+    - https://webhooks.gitter.im/e/47b10b81867bd0063cf5
+    - https://galaxy.ansible.com/api/v1/notifications/
+    on_success: change
+    on_failure: always
+    on_start: false
+#  email: false
+#  hipchat:
+#    rooms:
+#      secure: GPUtM44MpgqN/3+TXw4Onp7TpF6YOKpVQkB/sfwGYS1oHUCkp2eb3eGGfJAIUtNxkfFVkdUxM/Bp9GMCnpVjJwRRZP6hYUmlpjCHl8CiK2MjbLvzV65qqBAqYl5bLzKkmmRdPiC31m9ixMe4TiAhJFBK1NoETOP1LkCJ04ezL6U=
+  email:
+    recipients:
+      - alban.andrieu@nabla.mobi
+    on_success: [always|never|change]         # default: change
+    on_failure: [always|never|change]         # default: always
+
 virtualenv:
   system_site_packages: false
+
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install curl
@@ -72,15 +104,3 @@ script:
 
   # First run
   - travis_wait 30 ansible-playbook -i ./hosts --connection=local -vvvv eclipse.yml -e "python_versions=[2.7, 3.5]" -e "docker_gid=${DOCKER_GID}" -e "jenkins_id=${JENKINS_UID}" -e "python_enabled=false"
-
-notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
-#  email: false
-#  hipchat:
-#    rooms:
-#      secure: GPUtM44MpgqN/3+TXw4Onp7TpF6YOKpVQkB/sfwGYS1oHUCkp2eb3eGGfJAIUtNxkfFVkdUxM/Bp9GMCnpVjJwRRZP6hYUmlpjCHl8CiK2MjbLvzV65qqBAqYl5bLzKkmmRdPiC31m9ixMe4TiAhJFBK1NoETOP1LkCJ04ezL6U=
-  email:
-    recipients:
-      - alban.andrieu@nabla.mobi
-    on_success: [always|never|change]         # default: change
-    on_failure: [always|never|change]         # default: always
