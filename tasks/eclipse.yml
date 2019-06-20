@@ -22,6 +22,8 @@
   become: true
   tags: eclipse_setup
 
+- set_fact: eclipse_dir_tmp="{{ tempdir.stdout }}"  | "/tmp"
+
 - include: install_{{ ansible_distribution }}.yml
 
 - debug: var=eclipse_home
