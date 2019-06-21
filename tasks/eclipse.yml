@@ -22,7 +22,7 @@
   become: true
   tags: eclipse_setup
 
-- set_fact: eclipse_dir_tmp="{{ tempdir.stdout }}"  | "/tmp"
+- set_fact: eclipse_dir_tmp="{{ tempdir.stdout }}"
 
 - include: install_{{ ansible_distribution }}.yml
 
