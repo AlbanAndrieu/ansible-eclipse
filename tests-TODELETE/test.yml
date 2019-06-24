@@ -1,6 +1,5 @@
 ---
 
-
 - hosts: all
 
   pre_tasks:
@@ -20,5 +19,5 @@
 
   roles:
     - { role: ../,
-        sudoers_enabled: no
-      }
+        sudoers_enabled: false
+    }

@@ -1,4 +1,6 @@
+---
+# ansible-galaxy install -r requirements.yml -p ./roles/ --ignore-errors
+
 - src: https://github.com/AlbanAndrieu/ansible-java.git
   name: java
-  #path: roles
   scm: git

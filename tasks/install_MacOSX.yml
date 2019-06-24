@@ -1,3 +1,4 @@
+---
 - homebrew_cask: name=eclipse-jee
 
 - set_fact: eclipse_folder='/Applications/Eclipse.app'

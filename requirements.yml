@@ -1,6 +1,5 @@
-# from galaxy
-# ansible-galaxy install -r requirements.yml -p ./roles/ --ignore-errors
 ---
+# ansible-galaxy install -r requirements.yml -p ./roles/ --ignore-errors
 
 - src: 'https://github.com/AlbanAndrieu/ansible-administration'
   name: 'alban.andrieu.administration'

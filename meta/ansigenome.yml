@@ -9,7 +9,7 @@ ansigenome_info:
   travis: true
 
   authors:
-    - name:  'Yngve Inntjore Levinsen'
+    - name: 'Yngve Inntjore Levinsen'
       github: ' Eothred'
     - name: 'Alban Andrieu'
       url: 'fr.linkedin.com/in/nabla/'
@@ -23,7 +23,7 @@ ansigenome_info:
     This ``Simple`` role allows you to install [Eclipse](https://www.eclipse.org) with basic plugins.
 
     This playbook is be used by [Docker Hub](https://hub.docker.com) to create a [Docker](http://docker.io) image.
-    
+
     See role [ansible-eclipse](https://github.com/AlbanAndrieu/ansible-eclipse) and image [ansible-eclipse](https://hub.docker.com/r/nabla/ansible-eclipse/)
 
     Taken from

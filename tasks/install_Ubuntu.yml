@@ -1,4 +1,4 @@
-
+---
 - set_fact: eclipse_home={{ eclipse_home_dir }}
 
 - set_fact: eclipse="{{ eclipse_home_dir }}/eclipse"
@@ -9,10 +9,10 @@
   register: eclipse_download
   become: true
 
-#- name: eclipse | Change eclipse ownership
-#  file: path={{ eclipse_dir_tmp }} owner={{ eclipse_owner }} state=directory recurse=yes
-#  when: eclipse_download.changed
-#  become: true
+# - name: eclipse | Change eclipse ownership
+#   file: path={{ eclipse_dir_tmp }} owner={{ eclipse_owner }} state=directory recurse=yes
+#   when: eclipse_download.changed
+#   become: true
 
 - name: eclipse | Create base directory
   file:
@@ -38,7 +38,7 @@
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_desktop }}
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu')
-  ignore_errors: yes
+  ignore_errors: true
   tags: eclipse_setup
 
 - name: eclipse | Install eclipse javaHL requirement
@@ -46,7 +46,6 @@
   when: (ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and (ansible_distribution_version not in ['12.04'])
   tags: eclipse_setup
   with_items:
-   - libsvn-java
+    - libsvn-java
   become: true
-  ignore_errors: yes
-  
+  ignore_errors: true

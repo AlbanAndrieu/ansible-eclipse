@@ -10,7 +10,7 @@ env:
     version: 7
     init: /usr/lib/systemd/systemd
     run_opts: "--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distribution: ubuntu # phusion/baseimage
+  - distribution: ubuntu              # phusion/baseimage
     version: 14.04
     init: /sbin/my_init
     run_opts: ""

@@ -5,10 +5,6 @@ dist: travis_lts
 
 language: python
 python:
-#  - 2.7
-#  - 3.3
-#  - 3.4
-#  - 3.5
   - 3.6
 
 services:
@@ -26,7 +22,7 @@ env:
     - DOCKER_GID: 999
     - secure: MD73NCVzctbVmi2QnQtwtH/ISXN2K0alsLbixoaXl7gr3XvTB4sYB0u+KKtPV46jbeAlQqTRObPfQouPrsLsiNDYcpuN0I5bKsn3TTs4ZHIkD0I2Q9Wh3qNM2fYf9mw3ZUhvXVTEod0W7jzkVGb6kitRCJj8rioKKzvE/YdVsG4=
   matrix:
-#  - ANSIBLE_VERSION: latest
+    # - ANSIBLE_VERSION: latest
     - ANSIBLE_VERSION: 2.7.2
     - ANSIBLE_VERSION: 2.8.1
 
@@ -47,10 +43,10 @@ notifications:
     on_success: change
     on_failure: always
     on_start: false
-#  email: false
-#  hipchat:
-#    rooms:
-#      secure: GPUtM44MpgqN/3+TXw4Onp7TpF6YOKpVQkB/sfwGYS1oHUCkp2eb3eGGfJAIUtNxkfFVkdUxM/Bp9GMCnpVjJwRRZP6hYUmlpjCHl8CiK2MjbLvzV65qqBAqYl5bLzKkmmRdPiC31m9ixMe4TiAhJFBK1NoETOP1LkCJ04ezL6U=
+    #  email: false
+    #  hipchat:
+    #    rooms:
+    #      secure: GPUtM44MpgqN/3+TXw4Onp7TpF6YOKpVQkB/sfwGYS1oHUCkp2eb3eGGfJAIUtNxkfFVkdUxM/Bp9GMCnpVjJwRRZP6hYUmlpjCHl8CiK2MjbLvzV65qqBAqYl5bLzKkmmRdPiC31m9ixMe4TiAhJFBK1NoETOP1LkCJ04ezL6U=
   email:
     recipients:
       - alban.andrieu@nabla.mobi
@@ -64,25 +60,25 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install curl
   - sudo apt-get install -qq python-apt python-pycurl
-#os:
-#  - linux
-#  - osx
+# os:
+#   - linux
+#   - osx
 install:
   # Install Ansible.
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible; else pip install ansible==$ANSIBLE_VERSION; fi
   - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install ansible-lint; fi
 
   # Add ansible.cfg to pick up roles path.
-  #- "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
+  # - "{ echo '[defaults]'; echo 'roles_path = ../'; } >> ansible.cfg"
 
   # Prepare tests
   # Add user jenkins to the image (travis is 2000)
   - id -a
-  - getent passwd 3000 || true # 3000 not found we can use it for jenkins user
-#  - groupadd -g ${DOCKER_GID} docker && \
+  - getent passwd 3000 || true          # 3000 not found we can use it for jenkins user
+  # - groupadd -g ${DOCKER_GID} docker && \
   - sudo adduser --quiet --disabled-password --shell /bin/bash --uid ${JENKINS_UID} --gid ${DOCKER_GID} --home ${JENKINS_HOME} --gecos "Jenkins" jenkins
   # Set password for the jenkins user (you may want to alter this).
-#  - sudo echo "jenkins:jenkins1234" | sudo chpasswd
+  # - sudo echo "jenkins:jenkins1234" | sudo chpasswd
 
   - pip install molecule
 

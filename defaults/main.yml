@@ -1,83 +1,84 @@
-eclipse_enabled: yes                       # Enable module
+---
+eclipse_enabled: true                       # Enable module
 
-#user: 'albandri' #please override me
+# user: 'albandri' #please override me
 user: "{{ lookup('env','USER') }}"
 eclipse_owner: "{{ user }}"
 eclipse_group: "{{ eclipse_owner }}"
-#home: '~' #please override me
+# home: '~' #please override me
 home: "{{ lookup('env','HOME') }}"
 eclipse_owner_home: "{{ home }}"
 eclipse_base_dir: "/usr/local/eclipse"
 eclipse_link_base_dir: "/opt"
 eclipse_dir_tmp: "/tmp"
-#eclipse_dir_tmp: "{{ tempdir.stdout }}"
-#cur_dir: "{{lookup('pipe','pwd')}}"
-## Most likely you dont need to edit
-#todo eclipse_service_enabled   : 'yes'
+# eclipse_dir_tmp: "{{ tempdir.stdout }}"
+# cur_dir: "{{lookup('pipe','pwd')}}"
+# # Most likely you dont need to edit
+# todo eclipse_service_enabled   : 'yes'
 
-#eclipse_name: "kepler" 3.7.2.1
-#eclipse_name: "luna" 4.4
-#eclipse_name: "mars" 4.5
-#eclipse_name: "neon" 4.6
-#eclipse_name: "oxygen" 4.7
-#eclipse_name: "photon" 4.8
+# eclipse_name: "kepler" 3.7.2.1
+# eclipse_name: "luna" 4.4
+# eclipse_name: "mars" 4.5
+# eclipse_name: "neon" 4.6
+# eclipse_name: "oxygen" 4.7
+# eclipse_name: "photon" 4.8
 eclipse_name: "2018-09"
 eclipse_major: "4"
 eclipse_minor: "9"
 eclipse_version: "{{ eclipse_major }}.{{ eclipse_minor }}"
 
 eclipse_archive_extracted: "eclipse"
-#modeling
-#eclipse_archive: "eclipse-modeling-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
-#java
-#eclipse_archive: "eclipse-java-{{ eclipse_name }}-SR1-linux-gtk-x86_64.tar.gz"
-#javaee
-#eclipse_archive: "eclipse-jee-{{ eclipse_name }}-SR1-linux-gtk-x86_64.tar.gz"
-#eclipse_archive: "eclipse-jee-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
-#eclipse_archive: "eclipse-jee-{{ eclipse_name }}-3-RC3-linux-gtk-x86_64.tar.gz"
-#eclipse_archive: "eclipse-jee-{{ eclipse_name }}-M6-linux-gtk-x86_64.tar.gz"
+# modeling
+# eclipse_archive: "eclipse-modeling-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
+# java
+# eclipse_archive: "eclipse-java-{{ eclipse_name }}-SR1-linux-gtk-x86_64.tar.gz"
+# javaee
+# eclipse_archive: "eclipse-jee-{{ eclipse_name }}-SR1-linux-gtk-x86_64.tar.gz"
+# eclipse_archive: "eclipse-jee-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
+# eclipse_archive: "eclipse-jee-{{ eclipse_name }}-3-RC3-linux-gtk-x86_64.tar.gz"
+# eclipse_archive: "eclipse-jee-{{ eclipse_name }}-M6-linux-gtk-x86_64.tar.gz"
 eclipse_archive: "eclipse-jee-{{ eclipse_name }}-linux-gtk-x86_64.tar.gz"
 
-#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-dsl-2018-09-linux-gtk-x86_64.tar.gz
-#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-jee-2018-09-linux-gtk-x86_64.tar.gz
-#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-modeling-2018-09-linux-gtk-x86_64.tar.gz
-#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-committers-2018-09-linux-gtk-x86_64.tar.gz
-#https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-cpp-2018-09-linux-gtk-x86_64.tar.gz
+# https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-dsl-2018-09-linux-gtk-x86_64.tar.gz
+# https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-jee-2018-09-linux-gtk-x86_64.tar.gz
+# https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-modeling-2018-09-linux-gtk-x86_64.tar.gz
+# https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-committers-2018-09-linux-gtk-x86_64.tar.gz
+# https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-cpp-2018-09-linux-gtk-x86_64.tar.gz
 
-#eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{ eclipse_name }}/M6/{{eclipse_archive}}"
+# eclipse_url: "http://eclipse.mirror.triple-it.nl/technology/epp/downloads/release/{{ eclipse_name }}/M6/{{eclipse_archive}}"
 eclipse_url: "http://ftp.halifax.rwth-aachen.de/eclipse/technology/epp/downloads/release/{{ eclipse_name }}/R/{{eclipse_archive}}"
 
 eclipse_home_dir: "{{ eclipse_base_dir }}/{{ eclipse_name }}-{{ eclipse_version }}"
-#eclipse_desktop: "/usr/share/applications/eclipse.desktop"
+# eclipse_desktop: "/usr/share/applications/eclipse.desktop"
 eclipse_desktop: "{{ eclipse_owner_home }}/.local/share/applications/eclipse.desktop"
 
-eclipse_plugins_enabled: yes                          # Enable plugins
-eclipse_plugins_emf_enabled: no                       # Enable plugins
-eclipse_plugins_cdt_enabled: no                       # Enable plugins
-eclipse_plugins_cmakeed_enabled: no                   # Enable plugins
-eclipse_plugins_openinterminal_enabled: no            # Enable plugins
-eclipse_plugins_protobuf_enabled: no                  # Enable plugins
-eclipse_plugins_yedit_enabled: no                     # Enable plugins
-eclipse_plugins_shelled_enabled: no                   # Enable plugins
-eclipse_plugins_webpageed_enabled: no                 # Enable plugins
-eclipse_plugins_pydev_enabled: no                     # Enable plugins
-eclipse_plugins_m2e_enabled: no                       # Enable plugins
-eclipse_plugins_subclipse_enabled: no                 # Enable plugins
+eclipse_plugins_enabled: true                            # Enable plugins
+eclipse_plugins_emf_enabled: false                       # Enable plugins
+eclipse_plugins_cdt_enabled: false                       # Enable plugins
+eclipse_plugins_cmakeed_enabled: false                   # Enable plugins
+eclipse_plugins_openinterminal_enabled: false            # Enable plugins
+eclipse_plugins_protobuf_enabled: false                  # Enable plugins
+eclipse_plugins_yedit_enabled: false                     # Enable plugins
+eclipse_plugins_shelled_enabled: false                   # Enable plugins
+eclipse_plugins_webpageed_enabled: false                 # Enable plugins
+eclipse_plugins_pydev_enabled: false                     # Enable plugins
+eclipse_plugins_m2e_enabled: false                       # Enable plugins
+eclipse_plugins_subclipse_enabled: false                 # Enable plugins
 
-eclipse_ini_enabled: yes                              # Enable overriding eclipse.ini
-#default is 256m
-#eclipse_launcher_XXMaxPermSize: "512m"
+eclipse_ini_enabled: true                              # Enable overriding eclipse.ini
+# default is 256m
+# eclipse_launcher_XXMaxPermSize: "512m"
 eclipse_launcher_XXMaxPermSize: ""
-#default is 256m
-#eclipse_XXMaxPermSize: "1024m"
+# default is 256m
+# eclipse_XXMaxPermSize: "1024m"
 eclipse_XXMaxPermSize: ""
-#default is -Xms40m
+# default is -Xms40m
 eclipse_Xms: "512m"
-#default is -Xmx512m
+# default is -Xmx512m
 eclipse_Xmx: "2048m"
 
 docker_files_generated_directory: "./"
-docker_files_enable: no
-docker_volume_directory                  : "{{ eclipse_base_dir }}"
-docker_working_directory                 : "/home/vagrant"
-docker_image_name                        : "nabla/ansible-eclipse"
+docker_files_enable: false
+docker_volume_directory: "{{ eclipse_base_dir }}"
+docker_working_directory: "/home/vagrant"
+docker_image_name: "nabla/ansible-eclipse"

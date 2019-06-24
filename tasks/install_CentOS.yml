@@ -1,4 +1,4 @@
-
+---
 - set_fact: eclipse_home={{ eclipse_home_dir }}
 
 - set_fact: eclipse="{{ eclipse_home_dir }}/eclipse"
@@ -33,5 +33,5 @@
 - name: eclipse | Configure eclipse icon
   template: src=eclipse.desktop.j2 dest={{ eclipse_desktop }}
   when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux')
-  ignore_errors: yes
+  ignore_errors: true
   tags: eclipse_setup

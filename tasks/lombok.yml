@@ -1,3 +1,4 @@
+---
 - get_url: url=http://projectlombok.org/downloads/lombok.jar dest={{ eclipse_home }}/lombok.jar
   become: true
 
