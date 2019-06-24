@@ -97,10 +97,10 @@ script:
   - ansible --version
 
   # Check syntax
-  - sudo ansible-playbook -i ./hosts --syntax-check ./eclipse.yml -vvvv --connection=local -e "python_versions=[2.7, 3.5]" -e "docker_gid=${DOCKER_GID}" -e "jenkins_id=${JENKINS_UID}" -e "python_enabled=false"
+  - ansible-playbook -i ./hosts --syntax-check ./eclipse.yml -vvvv --connection=local -e "python_versions=[2.7, 3.5]" -e "docker_gid=${DOCKER_GID}" -e "jenkins_id=${JENKINS_UID}" -e "python_enabled=false"
 
   # Molecule test
   # - molecule test
 
   # First run
-  - travis_wait 30 sudo ansible-playbook -i ./hosts --connection=local -vvvv ./eclipse.yml -e "python_versions=[2.7, 3.5]" -e "docker_gid=${DOCKER_GID}" -e "jenkins_id=${JENKINS_UID}" -e "python_enabled=false"
+  - travis_wait 30 ansible-playbook -i ./hosts --connection=local -vvvv ./eclipse.yml -e "python_versions=[2.7, 3.5]" -e "docker_gid=${DOCKER_GID}" -e "jenkins_id=${JENKINS_UID}" -e "python_enabled=false"
