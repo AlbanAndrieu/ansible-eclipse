@@ -23,8 +23,8 @@ eclipse_dir_tmp: "/tmp"
 # eclipse_name: "oxygen" 4.7
 # eclipse_name: "photon" 4.8
 eclipse_name: "2019-12"
-eclipse_major: "5"
-eclipse_minor: "0"
+eclipse_major: "4"
+eclipse_minor: "14"
 eclipse_version: "{{ eclipse_major }}.{{ eclipse_minor }}"
 
 eclipse_archive_extracted: "eclipse"
