@@ -33,7 +33,14 @@
   when: eclipse_Xmx | length > 0
   become: true
 
-# TODO add
-# -Djava.net.preferIPv4Stack=true
+- name: eclipse | Configure eclipse ini configuration (M2E)
+  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='{{ eclipse_m2e_discovery_url }}'
+  when: eclipse_m2e_discovery_url | length > 0
+  become: true
+
+- name: eclipse | Configure eclipse ini configuration (IPV4)
+  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='{{ eclipse_ipv4 }}'
+  when: eclipse_ipv4 | length > 0
+  become: true
 
 # - lineinfile: dest={{ eclipse_home }}/eclipse.ini line='--launcher.GTK_version\n'
