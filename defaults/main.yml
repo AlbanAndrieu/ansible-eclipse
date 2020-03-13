@@ -78,7 +78,7 @@ eclipse_XXMaxPermSize: ""
 eclipse_Xms: "512m"
 # default is -Xmx512m
 eclipse_Xmx: "2048m"
-eclipse_m2e_discovery_url: "-Dm2e.discovery.url=http://download.eclipse.org/technology/m2e/discovery/directory-1.9.xml"
+eclipse_m2e_discovery_url: "-Dm2e.discovery.url=http://download.eclipse.org/technology/m2e/discovery/directory-1.15.xml"
 eclipse_ipv4: : "-Djava.net.preferIPv4Stack=true"
 
 docker_files_generated_directory: "./"
