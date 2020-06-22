@@ -9,11 +9,6 @@
   register: eclipse_download
   become: true
 
-# - name: eclipse | Change eclipse ownership
-#   file: path={{ eclipse_dir_tmp }} owner={{ eclipse_owner }} state=directory recurse=yes
-#   when: eclipse_download.changed
-#   become: true
-
 - name: eclipse | Create base directory
   file:
     dest="{{ eclipse_home }}"
@@ -24,8 +19,14 @@
   when: eclipse_download.changed
   tags: eclipse_setup
 
+- name: eclipse | Change eclipse ownership
+  file: path="{{ eclipse_dir_tmp }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" state=directory recurse=yes
+#   when: eclipse_download.changed
+  become: true
+  tags: eclipse_setup
+
 - name: eclipse | Copy eclipse into place
-  copy: src={{ eclipse_dir_tmp }}/eclipse/ dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}"
+  copy: src="{{ eclipse_dir_tmp }}/eclipse/" dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}"
   become: true
   tags: eclipse_setup
 

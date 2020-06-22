@@ -34,7 +34,7 @@
   become: true
 
 - name: eclipse | Configure eclipse ini configuration (M2E)
-  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='{{ eclipse_m2e_discovery_url }}'
+  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-Dm2e.discovery.url={{ eclipse_m2e_discovery_url }}'
   when: eclipse_m2e_discovery_url | length > 0
   become: true
 
