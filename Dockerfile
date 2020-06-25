@@ -11,11 +11,19 @@ ENV WORKDIR /home/vagrant
 # Working dir
 WORKDIR /home/vagrant
 
-# Make sure the package repository is up to date.
-RUN apt-get clean && apt-get -y update
-
 # Install ansible
-RUN apt-get install -y git unzip python-dev python-yaml python-jinja2 python-pip ansible openjdk-8-jdk
+RUN apt-get -q update &&\
+    apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
+    git bzip2 zip unzip python-yaml python-jinja2 python-pip rsyslog gpg-agent \
+    ocl-icd-libopencl1 ocl-icd-opencl-dev clinfo numactl libnuma1 pciutils \
+    apt-utils apt-transport-https ca-certificates software-properties-common \
+    locales xz-utils ksh wget tzdata sudo curl lsof sshpass \
+    systemd systemd-cron \
+    python3-setuptools python3 python3-pip python3-dev python3-apt \
+    openjdk-8-jdk maven gcc g++ make \
+    net-tools iputils-ping x11-apps \
+    gnome-keyring gnome-keyring gnupg2 pass \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # ADD
 ADD defaults $WORKDIR/ansible-eclipse/defaults
