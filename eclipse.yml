@@ -6,7 +6,7 @@
 
   roles:
     - { role: ./,
-        docker_files_enable: true,
+        docker_files_enable: false,
         user: "root",
         home: "/root",
         eclipse_dir_tmp: "{{ tempdir.stdout }}",

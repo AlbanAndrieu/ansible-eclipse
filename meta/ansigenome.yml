@@ -16,19 +16,19 @@ ansigenome_info:
       email: 'alban.andrieu@free.fr'
       twitter: 'AlbanAndrieu'
       github: 'AlbanAndrieu'
-      
+
   description: A role for installing eclipse
   company: Nabla
   license: Apache
   min_ansible_version: 2.7.8
-  
+
   platforms:
     - name: Ubuntu
       versions:
       - all
   categories:
     - development
-    
+
   synopsis: |
     Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.
     Default settings is using Eclipse luna.
@@ -59,6 +59,10 @@ ansigenome_info:
     Run the following command :
 
          `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-sudo-pass | tee setup.log`
+
+    Build the docker image :
+
+         `scripts/docker-build.sh
 
   custom: |
     ### Contributor

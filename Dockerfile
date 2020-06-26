@@ -14,7 +14,7 @@ WORKDIR /home/vagrant
 # Install ansible
 RUN apt-get -q update &&\
     apt-get -q install -y -o Dpkg::Options::="--force-confnew" --no-install-recommends \
-    git bzip2 zip unzip python-yaml python-jinja2 python-pip rsyslog gpg-agent \
+    git bzip2 zip unzip python-yaml python-jinja2 rsyslog gpg-agent \
     ocl-icd-libopencl1 ocl-icd-opencl-dev clinfo numactl libnuma1 pciutils \
     apt-utils apt-transport-https ca-certificates software-properties-common \
     locales xz-utils ksh wget tzdata sudo curl lsof sshpass \
@@ -24,6 +24,14 @@ RUN apt-get -q update &&\
     net-tools iputils-ping x11-apps \
     gnome-keyring gnome-keyring gnupg2 pass \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN python3 -m pip install --upgrade pip==20.0.2 \
+    && pip3 install ansible==2.9.7 zabbix-api==0.5.4 docker-compose==1.25.3
+
+# Install Ansible inventory file.
+RUN mkdir -p /etc/ansible
+RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+ENV ANSIBLE_CONFIG=${JENKINS_USER_HOME}/ansible.cfg
 
 # ADD
 ADD defaults $WORKDIR/ansible-eclipse/defaults
@@ -37,11 +45,12 @@ ADD templates $WORKDIR/ansible-eclipse/templates
 # Here we continue to use add because
 # there are a limited number of RUNs
 # allowed.
-ADD hosts /etc/ansible/hosts
 ADD eclipse.yml $WORKDIR/ansible-eclipse/eclipse.yml
 
 # Execute
-RUN echo localhost > hosts && ansible-playbook $WORKDIR/ansible-eclipse/eclipse.yml -c local -vvvv
+RUN ansible-playbook $WORKDIR/ansible-eclipse/eclipse.yml -c local \
+ -e "python_interpreter=python3" \
+ -vvvv
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
