@@ -3,9 +3,9 @@
 
 - set_fact: eclipse="{{ eclipse_home_dir }}/eclipse"
 
-- name: eclipse | Download eclipse on 'master' if we don't have it
+- name: eclipse | Download eclipse
   connection: local
-  unarchive: src={{ eclipse_url }} dest={{ eclipse_dir_tmp }} copy=no
+  unarchive: src="{{ eclipse_url }}" dest="{{ eclipse_dir_tmp }}" copy=no
   register: eclipse_download
   become: true
 
