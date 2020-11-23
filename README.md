@@ -31,6 +31,7 @@ See role [ansible-eclipse](https://github.com/AlbanAndrieu/ansible-eclipse) and 
   * [Role variables](#role-variables)
   * [Detailed usage guide](#detailed-usage-guide)
   * [Contributor](#contributor)
+- [Ansible lint](#ansible-lint)
 - [Update README.md Table of Contents](#update-readmemd-table-of-contents)
   * [Contributing](#contributing)
   * [Authors and license](#authors-and-license)
@@ -181,6 +182,14 @@ Run the following command :
 ```shell
 $ ansible-galaxy install alban.andrieu.eclipse
 $ vagrant up
+```
+
+Ansible lint
+------------
+
+```shell
+$ git add tasks/features.yml # First add your file, then
+$ pre-commit run ansible-lint
 ```
 
 Update README.md Table of Contents
