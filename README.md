@@ -172,7 +172,7 @@ so please do not hesitate to enhance ansible script it will then improve docker 
 
 Run the following command :
 
-     `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-sudo-pass | tee setup.log`
+     `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-become-pass | tee setup.log`
 
 
 ### Contributor

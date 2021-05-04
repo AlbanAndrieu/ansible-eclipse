@@ -5,7 +5,7 @@
 
 - name: eclipse | Download eclipse
   connection: local
-  unarchive: src="{{ eclipse_url }}" dest="{{ eclipse_dir_tmp }}" copy=no
+  unarchive: src="{{ eclipse_url }}" dest="/tmp" copy=no
   register: eclipse_download
   become: true
 
@@ -20,13 +20,13 @@
   tags: eclipse_setup
 
 - name: eclipse | Change eclipse ownership
-  file: path="{{ eclipse_dir_tmp }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" state=directory recurse=yes
+  file: path="/tmp" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}" state=directory recurse=yes
 #   when: eclipse_download.changed
   become: true
   tags: eclipse_setup
 
 - name: eclipse | Copy eclipse into place
-  copy: src="{{ eclipse_dir_tmp }}/eclipse/" dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}"
+  copy: src="/tmp/eclipse/" dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}"
   become: true
   tags: eclipse_setup
 
