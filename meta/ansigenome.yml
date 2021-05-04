@@ -1,5 +1,6 @@
 ---
-ansigenome_info:
+
+ansigenome_info: # noqa 701
   galaxy_id: '1776'
   galaxy_url: 'https://galaxy.ansible.com/alban.andrieu/eclipse/'
   galaxy_user: 'alban.andrieu'
