@@ -274,11 +274,12 @@
   when: eclipse_archive_extracted_present.stat.pw_name != '{{ eclipse_owner }}'
 
 - name: eclipse | Cleanup temporary directory
-  file: name={{ tempdir.path }} state=absent
+  file: name={{ eclipse_dir_tmp }} state=absent
   tags: eclipse_setup
   connection: local
   changed_when: false
   # ignore_errors: "{{ ansible_check_mode }}"
+  ignore_errors: true
   become: true
 
 - debug: msg=" eclipse | Start eclipse {{ eclipse }}"

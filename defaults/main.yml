@@ -23,9 +23,10 @@ eclipse_dir_tmp: "/tmp"
 # eclipse_name: "oxygen" 4.7
 # eclipse_name: "photon" 4.8
 #eclipse_name: "2019-12"
-eclipse_name: "2020-06"
+#eclipse_name: "2020-06"
+eclipse_name: "2021-03"
 eclipse_major: "4"
-eclipse_minor: "15"
+eclipse_minor: "16"
 eclipse_version: "{{ eclipse_major }}.{{ eclipse_minor }}"
 
 eclipse_archive_extracted: "eclipse"
@@ -38,7 +39,8 @@ eclipse_archive_extracted: "eclipse"
 # eclipse_archive: "eclipse-jee-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
 # eclipse_archive: "eclipse-jee-{{ eclipse_name }}-3-RC3-linux-gtk-x86_64.tar.gz"
 # eclipse_archive: "eclipse-jee-{{ eclipse_name }}-M6-linux-gtk-x86_64.tar.gz"
-eclipse_archive: "eclipse-jee-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
+#eclipse_archive: "eclipse-jee-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
+eclipse_archive: "eclipse-java-{{ eclipse_name }}-R-linux-gtk-x86_64.tar.gz"
 
 # https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2019-12/R/eclipse-jee-2019-12-R-linux-gtk-x86_64.tar.gz
 # https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2018-09/R/eclipse-dsl-2018-09-linux-gtk-x86_64.tar.gz
