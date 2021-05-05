@@ -1,27 +1,21 @@
 ---
-- name: eclipse | Configure eclipse ini configuration (-Xverify:none)
-  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-Xverify:none'
-  become: true
+#- name: eclipse | Configure eclipse ini configuration (-Xverify:none)
+#  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-Xverify:none'
+#  become: true
 
 - name: eclipse | Configure eclipse ini configuration (clean)
   lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-clean' insertbefore='-startup'
   become: true
 
-- name: eclipse | Configure eclipse ini configuration (Launcher GTK_version 2)
-  replace: dest={{ eclipse_home }}/eclipse.ini regexp='(--launcher\.XXMaxPermSize)\n256m' replace='\1\n{{ eclipse_launcher_XXMaxPermSize }}'
-  when: eclipse_launcher_XXMaxPermSize | length > 0
-  become: true
-
-- name: eclipse | Configure eclipse ini configuration (Launcher XXMaxPermSize)
-  # lineinfile: regexp="(--launcher\.XXMaxPermSize)\n256m" line='\1\n{{ eclipse_launcher_XXMaxPermSize }}' dest={{ eclipse_home }}/eclipse.ini
-  replace: dest={{ eclipse_home }}/eclipse.ini regexp='(--launcher\.XXMaxPermSize)\n256m' replace='\1\n{{ eclipse_launcher_XXMaxPermSize }}'
-  when: eclipse_launcher_XXMaxPermSize | length > 0
-  become: true
-
-- name: eclipse | Configure eclipse ini configuration (XXMaxPermSize)
-  lineinfile: regexp="^-XX:MaxPermSize=256m" line="-XX:MaxPermSize={{ eclipse_XXMaxPermSize }}" dest={{ eclipse_home }}/eclipse.ini
-  when: eclipse_XXMaxPermSize | length > 0
-  become: true
+#- name: eclipse | Configure eclipse ini configuration (Launcher XXMaxPermSize)
+#  replace: dest={{ eclipse_home }}/eclipse.ini regexp='(--launcher\.XXMaxPermSize)\n256m' replace='\1\n{{ eclipse_launcher_XXMaxPermSize }}'
+#  when: eclipse_launcher_XXMaxPermSize | length > 0
+#  become: true
+#
+#- name: eclipse | Configure eclipse ini configuration (XXMaxPermSize)
+#  lineinfile: regexp="^-XX:MaxPermSize=256m" line="-XX:MaxPermSize={{ eclipse_XXMaxPermSize }}" dest={{ eclipse_home }}/eclipse.ini
+#  when: eclipse_XXMaxPermSize | length > 0
+#  become: true
 
 - name: eclipse | Configure eclipse ini configuration (Xms)
   lineinfile: regexp="^-Xms40m" line="-Xms{{ eclipse_Xms }}" dest={{ eclipse_home }}/eclipse.ini
@@ -33,14 +27,14 @@
   when: eclipse_Xmx | length > 0
   become: true
 
-- name: eclipse | Configure eclipse ini configuration (M2E)
-  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-Dm2e.discovery.url={{ eclipse_m2e_discovery_url }}'
-  when: eclipse_m2e_discovery_url | length > 0
-  become: true
+#- name: eclipse | Configure eclipse ini configuration (M2E)
+#  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='-Dm2e.discovery.url={{ eclipse_m2e_discovery_url }}'
+#  when: eclipse_m2e_discovery_url | length > 0
+#  become: true
 
-- name: eclipse | Configure eclipse ini configuration (IPV4)
-  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='{{ eclipse_ipv4 }}'
-  when: eclipse_ipv4 | length > 0
-  become: true
+#- name: eclipse | Configure eclipse ini configuration (IPV4)
+#  lineinfile: dest={{ eclipse_home }}/eclipse.ini line='{{ eclipse_ipv4 }}'
+#  when: eclipse_ipv4 | length > 0
+#  become: true
 
 # - lineinfile: dest={{ eclipse_home }}/eclipse.ini line='--launcher.GTK_version\n'

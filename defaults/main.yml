@@ -26,7 +26,7 @@ eclipse_dir_tmp: "/tmp"
 #eclipse_name: "2020-06"
 eclipse_name: "2021-03"
 eclipse_major: "4"
-eclipse_minor: "16"
+eclipse_minor: "19"
 eclipse_version: "{{ eclipse_major }}.{{ eclipse_minor }}"
 
 eclipse_archive_extracted: "eclipse"
