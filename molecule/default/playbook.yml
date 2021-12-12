@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   roles:
-    - role: alban.andrieu.eclipse
+    - role: albanandrieu.eclipse
       verbose: true
   no_log: false
