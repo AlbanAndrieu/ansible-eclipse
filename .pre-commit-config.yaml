@@ -46,6 +46,7 @@ repos:
         exclude: >
           (?x)^(
               molecule/default/tests/.*|
+              .*test_default\.py|
           )$
       - id: end-of-file-fixer
       - id: fix-encoding-pragma
