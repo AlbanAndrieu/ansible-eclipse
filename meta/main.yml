@@ -4,8 +4,8 @@ dependencies: []
 galaxy_info:
   author: Alban Andrieu
   description: A role for installing eclipse
-  role_name: ansible-eclipse
-  namespace: AlbanAndrieu
+  role_name: eclipse
+  namespace: albanandrieu
   company: Nabla
   license: GPLv3
   min_ansible_version: 2.7.8

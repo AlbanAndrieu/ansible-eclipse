@@ -384,13 +384,13 @@
 #  name: 'vagrant'
 #  version: master
 #
-- src: https://github.com/AlbanAndrieu/ansible-galaxy.ubuntu.virtualbox.git
-  name: albanandrieu.virtualbox
-  version: master
-
-- src: https://github.com/dj-wasabi/ansible-zabbix-agent.git
-  name: dj-wasabi.zabbix-agent
-  version: master
+#- src: https://github.com/AlbanAndrieu/ansible-galaxy.ubuntu.virtualbox.git
+#  name: albanandrieu.virtualbox
+#  version: master
+#
+#- src: https://github.com/dj-wasabi/ansible-zabbix-agent.git
+#  name: dj-wasabi.zabbix-agent
+#  version: master
 
 #- src: 'https://github.com/LIP-Computing/ansible-role-nvidia'
 #  name: 'opencl'
@@ -441,6 +441,6 @@
   name: chrome
   version: master
 
-- src: https://github.com/andrewrothstein/ansible-terraform.git
-  name: andrewrothstein.terraform
-  version: master
+#- src: https://github.com/andrewrothstein/ansible-terraform.git
+#  name: andrewrothstein.terraform
+#  version: master
