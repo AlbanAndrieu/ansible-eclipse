@@ -1,8 +1,8 @@
 ---
 
-ansigenome_info: # noqa 701
+ansigenome_info:  # noqa 701
   galaxy_id: '1776'
-  galaxy_url: 'https://galaxy.ansible.com/alban.andrieu/eclipse/'
+  galaxy_url: 'https://galaxy.ansible.com/AlbanAndrieu/eclipse/'
   galaxy_user: 'alban.andrieu'
   galaxy_name: 'eclipse'
   galaxy_docker_name: 'ansible-eclipse'
@@ -26,9 +26,18 @@ ansigenome_info: # noqa 701
   platforms:
     - name: Ubuntu
       versions:
-      - all
-  categories:
+        - all
+    - name: EL
+      versions:
+        - all
+    - name: MacOSX
+      versions:
+        - all
+  galaxy_tags:
     - development
+    - ide
+    - java
+    - eclipse
 
   synopsis: |
     Ensures that eclipse is properly installed and configured on `Ubuntu` using `Ansible` script.

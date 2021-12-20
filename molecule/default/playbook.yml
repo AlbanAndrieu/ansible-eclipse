@@ -1,7 +1,8 @@
 ---
+
 - name: Converge
   hosts: all
   roles:
-    - role: albanandrieu.eclipse
+    - role: ../  # albanandrieu.eclipse
       verbose: true
   no_log: false

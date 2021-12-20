@@ -23,7 +23,7 @@ env:
     - secure: MD73NCVzctbVmi2QnQtwtH/ISXN2K0alsLbixoaXl7gr3XvTB4sYB0u+KKtPV46jbeAlQqTRObPfQouPrsLsiNDYcpuN0I5bKsn3TTs4ZHIkD0I2Q9Wh3qNM2fYf9mw3ZUhvXVTEod0W7jzkVGb6kitRCJj8rioKKzvE/YdVsG4=
   matrix:
     # - ANSIBLE_VERSION: latest
-    #- ANSIBLE_VERSION: 2.7.2
+    # - ANSIBLE_VERSION: 2.7.2
     - ANSIBLE_VERSION: 2.8.1
     - ANSIBLE_VERSION: 2.10.3
 
