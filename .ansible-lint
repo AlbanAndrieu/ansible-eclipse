@@ -21,3 +21,4 @@ skip_list:
 #   - run_this_tag
 use_default_rules: true
 # verbosity: 1
+offline: true
