@@ -1,0 +1,29 @@
+{
+  "version": "0.1",
+  "language": "en",
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "**/.git/**",
+    ".vscode",
+    "package-lock.json",
+    "playbooks/files/python/**",
+    "requirements.txt",
+    "roles/**",
+    "report"
+  ],
+  "words": [
+    "Andrieu",
+    "Alban",
+    "Nabla",
+    "albandri",
+    "albandrieu",
+    "virtualenv",
+    "tocstop",
+    "toc",
+    "Jenkinsfile",
+    "graphviz",
+    "kubernetes",
+    "skaffold"
+  ]
+}
