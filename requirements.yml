@@ -437,10 +437,6 @@
 #  name: 'andrewrothstein.kubectl'
 #  version: master
 
-- src: https://github.com/AlbanAndrieu/devbox.chrome.git
-  name: chrome
-  version: master
-
 #- src: https://github.com/andrewrothstein/ansible-terraform.git
 #  name: andrewrothstein.terraform
 #  version: master
