@@ -1,0 +1,111 @@
+---
+# Configuration file for MegaLinter
+# See all available variables at https://oxsecurity.github.io/megalinter/configuration/ and in linters documentation
+
+APPLY_FIXES: all  # all, none, or list of linter keys
+DEFAULT_BRANCH: master  # Usually master or main
+ENABLE: TERRAFORM,BASH
+ENABLE_LINTERS:  # If you use ENABLE_LINTERS variable, all other linters will be disabled by default
+  - REPOSITORY_SECRETLINT
+  - REPOSITORY_GITLEAKS
+  - TERRAFORM_TERRASCAN
+  - BASH_SHELLCHECK
+DISABLE:
+  - CLOUDFORMATION
+  # - COPYPASTE  # Uncomment to disable checks of abusive copy-pastes
+  - EDITORCONFIG
+  # - MARKDOWN
+  # - SPELL  # Uncomment to disable checks of spelling mistakes
+  - JAVASCRIPT
+  - TEKTON
+  - SPELL_LYCHEE
+  # - YAML_PRETTIER
+DISABLE_LINTERS:
+  - REPOSITORY_DEVSKIM
+  - REPOSITORY_CHECKOV
+  - REPOSITORY_TRIVY
+  - REPOSITORY_SYFT
+  - REPOSITORY_TRUFFLEHOG
+  - TERRAFORM_TERRAGRUNT
+  - TERRAFORM_TERRASCAN
+  - TERRAFORM_KICS
+  - REPOSITORY_GRYPE
+  # - PYTHON_MYPY
+  # - PYTHON_PYRIGHT
+  # - PYTHON_PYLINT
+  - JAVASCRIPT_STANDARD # Using JAVASCRIPT_ES
+  - SPELL_LYCHEE
+IGNORE_GITIGNORED_FILES: true
+FILTER_REGEX_EXCLUDE: (megalinter-reports/|\.automation/test|\.automation/generated|\.github/workflows|\.venv/|\.direnv/|\.mypy_cache/|docs/javascripts|docs/overrides|docs/json-schemas|flavors|clj-kondo|TEMPLATES|tests)
+JSON_JSONLINT_FILTER_REGEX_EXCLUDE: (\.vscode/)
+YAML_YAMLLINT_FILTER_REGEX_EXCLUDE: (templates/\.mega-linter\.yml|terraform\/nomad\/jobs\/files\/kong\.yml|terraform\/templates\/cg_network_GRA1_private\.yml)
+# YAML_YAMLLINT_CONFIG_FILE: .yamllint.yml
+YAML_PRETTIER_FILTER_REGEX_EXCLUDE: (templates/\.mega-linter\.yml|mkdocs\.yml|terraform\/nomad\/jobs\/files)
+YAML_V8R_FILTER_REGEX_EXCLUDE: (descriptors|templates/\.mega-linter\.yml|\.codecov\.yml)
+JSON_V8R_FILTER_REGEX_EXCLUDE: (test\|.vscode\/settings\.json|Brewfile.lock.json|package-lock.json|bower.json|kics-config.json|\.mega-linter\.yml|\.codecov\.yml)
+BASH_FILTER_REGEX_EXCLUDE: (lib)
+MARKDOWN_FILTER_REGEX_EXCLUDE: (license\.md)
+MARKDOWN_MARKDOWN_LINK_CHECK_DISABLE_ERRORS: true
+SPELL_MISSPELL_FILTER_REGEX_EXCLUDE: (\.automation/generated|docs/descriptors)
+DOCKERFILE_HADOLINT_ARGUMENTS:
+  --ignore DL3003 --ignore DL3007 --ignore DL3013 --ignore DL3016 --ignore DL3018 --ignore DL3028 --ignore DL4001 --ignore DL4006 --ignore
+  SC2015 --ignore SC2016 --ignore SC2039 --ignore SC2086 --ignore SC1091
+# DISABLE_ERRORS: true  # Uncomment if you want MegaLinter to detect errors but not block CI to pass
+REPOSITORY_DEVSKIM_DISABLE_ERRORS: true
+REPOSITORY_DEVSKIM_DISABLE_ERRORS_IF_LESS_THAN: 10
+# See https://github.com/oxsecurity/megalinter/issues/1993
+REPOSITORY_DEVSKIM_ARGUMENTS: --severity critical,important --skip-git-ignored-files # --ignore-globs **/.git/**,**/bin/**,.mypy_cache/**,**/tests/**,**/README.md
+REPOSITORY_TRIVY_DISABLE_ERRORS: false
+REPOSITORY_TRIVY_ARGUMENTS: --security-checks vuln,config,secret --vuln-type os,library --ignore-unfixed --ignorefile .trivyignore.yaml --skip-dirs .direnv --skip-dirs .venv --skip-dirs megalinter-reports --skip-files pip.conf --skip-files Pipfile --skip-files /usr/bin/nomad --skip-files terraform/nomad/jobs/4-2-keycloak.nomad
+REPOSITORY_TRIVY_DISABLE_ERRORS_IF_LESS_THAN: 3
+REPOSITORY_CHECKOV_DISABLE_ERRORS_IF_LESS_THAN: 1
+TERRAFORM_TERRASCAN_ARGUMENTS: -i terraform -t docker -t github -d terraform # -f myfile.tf
+TERRAFORM_TERRASCAN_DISABLE_ERRORS: true
+REPOSITORY_KICS_DISABLE_ERRORS_IF_LESS_THAN: 230
+REPOSITORY_GITLEAKS_DISABLE_ERRORS: false
+REPOSITORY_GITLEAKS_ARGUMENTS: --no-git
+REPOSITORY_GITLEAKS_PR_COMMITS_SCAN: true
+REPOSITORY_SECRETLINT_DISABLE_ERRORS: false
+ANSIBLE_ANSIBLE_LINT_DISABLE_ERRORS_IF_LESS_THAN: 10
+BASH_SHFMT_DISABLE_ERRORS_IF_LESS_THAN: 6
+BASH_SHELLCHECK_DISABLE_ERRORS_IF_LESS_THAN: 6
+# BASH_SHELLCHECK_DISABLE_ERRORS: true
+PYTHON_BANDIT_DISABLE_ERRORS: true
+# PYTHON_MYPY_DISABLE_ERRORS: true
+# PYTHON_PYLINT_DISABLE_ERRORS: true
+# PYTHON_PYRIGHT_DISABLE_ERRORS: true
+YAML_V8R_FILE_NAMES_REGEX:
+  [
+    '.codeclimate.yml',
+    '.dive.yaml',
+    '.gitlab-ci.yml',
+    '.mega-linter.yml',
+    '.checkov.yml',
+    'terraform/nomad/jobs/files/alertmanager/alertmanager.yml',
+    'terraform/nomad/jobs/files/prometheus/prom-nomad-rules.yml',
+  ]
+EXCLUDED_DIRECTORIES:
+  ['.github', '.gitlab-ci', 'node_modules', '.venv', '.direnv', '.mypy_cache']
+SHOW_ELAPSED_TIME: true
+JSON_REPORTER: true
+SARIF_REPORTER: true
+FILEIO_REPORTER: true
+VALIDATE_ALL_CODEBASE: false
+PLUGINS:
+  - https://raw.githubusercontent.com/nvuillam/mega-linter/master/.automation/test/mega-linter-plugin-test/test.megalinter-descriptor.yml
+#  - https://raw.githubusercontent.com/oxsecurity/megalinter/master/.automation/test/mega-linter-plugin-test/test.megalinter-descriptor.yml
+PRE_COMMANDS:
+  # - command: pip install flake8-cognitive-complexity
+  #   venv: flake8 # Will be run within flake8 python virtualenv. There is one virtualenv per python-based linter, with the same name
+  - command: echo "This is Mega-Linter PRE_COMMAND on own Mega-Linter ! :)"
+    cwd: root
+  - command: |-
+      echo $(ls -lah .gitignore | sed 's/\s\+/ /g' | cut -d ' ' -f3,4 | sed 's/ /\:/') > perms.txt
+    cwd: 'workspace'
+POST_COMMANDS:
+  - command: echo "This is Mega-Linter POST_COMMAND on own Mega-Linter ! :)"
+    cwd: workspace
+  - command: |-
+      find . -user root -group root -exec chown $(cat perms.txt) {} \;
+      rm perms.txt
+    cwd: 'workspace'

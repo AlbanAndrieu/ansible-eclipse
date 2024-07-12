@@ -1,17 +1,34 @@
+# vi: ft=yaml.ansible.jinja2
 ---
-
+fail_fast: true
+minimum_pre_commit_version: 3.7.1
+exclude: "docs/_build/"
+ci:
+  # format compatible with commitlint
+  autoupdate_commit_msg: 'chore: pre-commit autoupdate'
+  autoupdate_schedule: monthly
+  autofix_commit_msg: |
+    chore: auto fixes from pre-commit.com hooks
+    for more information, see https://pre-commit.ci
+  skip:
+    # https://github.com/pre-commit-ci/issues/issues/55
+    - pip-compile
+    - schemas
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks.git
-    rev: v4.1.0  # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04 AND python3.8 on Ubuntu 20.04
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-added-large-files
-        args: ["--maxkb=123"]
+        args: ['--maxkb=123']
         exclude: >
           (?x)^(
-              .pnp.cjs|
-              package-lock.json|
+            .pnp.cjs|
+            package-lock.json|
+            npm-shrinkwrap.json|
+            Pipfile.lock|
+            poetry.lock|
           )$
       - id: check-case-conflict
       - id: check-docstring-first
@@ -26,7 +43,9 @@ repos:
       - id: check-json
         exclude: ^.vscode/
       - id: check-xml
+        exclude: files/startpage.xml/
       - id: check-yaml
+        args: [--unsafe] # for could not determine a constructor for the tag '!reference
         exclude: >
           (?x)^(
               k8s/.*|
@@ -53,30 +72,16 @@ repos:
       - id: requirements-txt-fixer
       - id: sort-simple-yaml
       - id: file-contents-sorter
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.6.0
-    hooks:
-      - id: autopep8
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2  # Use the sha / tag you want to point at
-    hooks:
-      - id: flake8
-        args: [--max-line-length=120]
   - repo: https://github.com/pre-commit/pre-commit.git
-    rev: v2.16.0
+    rev: v3.7.1
     hooks:
       - id: validate_manifest
-  - repo: https://github.com/asottile/reorder_python_imports.git
-    rev: v2.6.0
-    hooks:
-      - id: reorder-python-imports
-        exclude: ^.cache/
   - repo: https://github.com/asottile/add-trailing-comma
-    rev: v2.2.1
+    rev: v3.1.0
     hooks:
       - id: add-trailing-comma
   - repo: https://github.com/willthames/ansible-lint.git
-    rev: v5.3.2
+    rev: v24.7.0
     hooks:
       - id: ansible-lint
         files: \.(yaml|yml)$
@@ -91,6 +96,10 @@ repos:
     rev: b3680b6ebf9f7cf29b19307f246adef66756feef
     hooks:
       - id: hindent
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.8.0-1
+    hooks:
+      - id: shfmt-docker # Docker image (requires Docker to run)
   - repo: https://github.com/detailyang/pre-commit-shell
     rev: 1.0.5
     hooks:
@@ -101,29 +110,27 @@ repos:
               mvnw|
               hooks|
           )$
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v2.31.0
-    hooks:
-      - id: pyupgrade
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v1.6.0
-    hooks:
-      - id: autopep8
   - repo: https://github.com/IamTheFij/ansible-pre-commit
     rev: v0.1.2
     hooks:
       - id: encryption-check
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: v1.1.1
+    rev: v1.1.2
     hooks:
       - id: htmlhint
         args: [--config, .htmlhintrc]
       - id: markdown-toc
         args: [--maxdepth, "3", -i]
   - repo: https://github.com/AlbanAndrieu/nabla-hooks.git
-    rev: v1.0.3
+    rev: v1.0.4
     hooks:
       - id: git-branches-check
         always_run: true
         args: [--max=3]
         verbose: true
+  - repo: https://github.com/oxsecurity/megalinter
+    rev: v7.13.0
+    hooks:
+      - id: megalinter-incremental # Faster, less thorough
+        stages:
+          - commit
