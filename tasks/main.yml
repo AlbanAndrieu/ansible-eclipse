@@ -1,7 +1,7 @@
 ---
 # This playbook contains common plays that will be run on all nodes.
 
-- include: eclipse.yml
+- import_tasks: eclipse.yml
   when: eclipse_enabled
   # and not ansible_check_mode
   tags: [eclipse]

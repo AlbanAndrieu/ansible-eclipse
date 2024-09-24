@@ -3,134 +3,179 @@
 fail_fast: true
 minimum_pre_commit_version: 3.7.1
 exclude: "docs/_build/"
-ci:
-  # format compatible with commitlint
-  autoupdate_commit_msg: 'chore: pre-commit autoupdate'
-  autoupdate_schedule: monthly
-  autofix_commit_msg: |
-    chore: auto fixes from pre-commit.com hooks
-    for more information, see https://pre-commit.ci
-  skip:
-    # https://github.com/pre-commit-ci/issues/issues/55
-    - pip-compile
-    - schemas
+#  default_language_version:
+#    python: python3.6  # Ubuntu 18.04.3
+#    python: python3.7  # Ubuntu 19.04
+#    python: python3.9  # Ubuntu 20.04
+#    python: python3.10  # Ubuntu 22.04
+#    python: python3.11  # Ubuntu 24.04
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks.git
-    rev: v4.6.0
+    # pre-commit-hooks is not working on both environment
+    # You will have to switch
+    # pre-commit-hooks.git from v2.1.0 to v2.4.0
+    #    rev: v2.1.0 # ok python3.6  # 18.04.3
+    #    rev: v2.2.3 # ok python3.6  # 19.04 but failing on 18.04.3
+    rev: v4.6.0  # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: check-added-large-files
-        args: ['--maxkb=123']
+        args: ["--maxkb=123"]
         exclude: >
           (?x)^(
-            .pnp.cjs|
-            package-lock.json|
-            npm-shrinkwrap.json|
-            Pipfile.lock|
-            poetry.lock|
+              package-lock.json|
+              npm-shrinkwrap.json
           )$
       - id: check-case-conflict
       - id: check-docstring-first
       - id: check-executables-have-shebangs
         exclude: >
           (?x)^(
+              env/home/log4j.xml
               clean.bat|
               build.bat|
               mvnw.cmd|
-              .mvn/
+              .mvn/|
+              env/winnt|
           )$
       - id: check-json
         exclude: ^.vscode/
       - id: check-xml
-        exclude: files/startpage.xml/
       - id: check-yaml
-        args: [--unsafe] # for could not determine a constructor for the tag '!reference
         exclude: >
           (?x)^(
+              packs/.*|
               k8s/.*|
           )$
       - id: check-symlinks
       - id: check-merge-conflict
       - id: debug-statements
-        exclude: ^.cache/
+        exclude: >
+          (?x)^(
+              env/scripts/zodclient.py|
+              env/scripts/server-connector.py
+          )$
       - id: detect-private-key
         exclude: >
           (?x)^(
-              README.md|
               .ssh/id_rsa|
+              roles/jenkins-master/defaults/main.yml|
+              roles/jenkins-master/README.md|
+              env/scripts/server-connector.py
           )$
       - id: double-quote-string-fixer
       - id: name-tests-test
         exclude: >
           (?x)^(
-              molecule/default/tests/.*|
-              .*test_default\.py|
+              molecule/default/tests/test_default.py|
           )$
+      #      - id: no-commit-to-branch
+      #        args: [--branch, develop, --branch, master, --branch, release/*]
       - id: end-of-file-fixer
       - id: fix-encoding-pragma
       - id: requirements-txt-fixer
       - id: sort-simple-yaml
       - id: file-contents-sorter
-  - repo: https://github.com/pre-commit/pre-commit.git
-    rev: v3.7.1
-    hooks:
-      - id: validate_manifest
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v3.1.0
     hooks:
       - id: add-trailing-comma
-  - repo: https://github.com/willthames/ansible-lint.git
-    rev: v24.7.0
-    hooks:
-      - id: ansible-lint
-        files: \.(yaml|yml)$
-        exclude: >
-          (?x)^(
-              .travis.yml|
-              docker/|
-              requirements.yml|
-              playbooks/group_vars/all/vault.yml|
-          )$
+  # - repo: https://github.com/willthames/ansible-lint.git
+  #   rev: v24.2.2
+  #   hooks:
+  #     - id: ansible-lint
+  #       files: \.(yaml|yml)$
+  #       exclude: ".travis.yml"
   - repo: https://github.com/doublify/pre-commit-hindent.git
     rev: b3680b6ebf9f7cf29b19307f246adef66756feef
     hooks:
       - id: hindent
-  - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.8.0-1
-    hooks:
-      - id: shfmt-docker # Docker image (requires Docker to run)
   - repo: https://github.com/detailyang/pre-commit-shell
     rev: 1.0.5
     hooks:
       - id: shell-lint
+        # entry: pre_commit_hooks/shell-lint.sh -x
         args: [-x]
         exclude: >
           (?x)^(
               mvnw|
               hooks|
+              env/linux/.*|
+              env/home/dev.env.sh|
+              env/home/dotfiles/.*|
+              .git-prompt.sh|
           )$
+  #  - repo: https://github.com/PyCQA/flake8
+  #    rev: 3.9.2
+  #    hooks:
+  #      - id: flake8
+  #        args: [--max-line-length=120]
+  #        exclude: >
+  #          (?x)^(
+  #              env/scripts/zodclient.py|
+  #              env/scripts/server-connector.py
+  #          )$
+  #  - repo: https://github.com/PyCQA/bandit
+  #    rev: master
+  #    hooks:
+  #    - id: bandit
   - repo: https://github.com/IamTheFij/ansible-pre-commit
     rev: v0.1.2
     hooks:
       - id: encryption-check
+        exclude: >
+          (?x)^(
+              .github/workflows/vault.yml|
+              infra/terraform/nomad/jobs/vault-backup.nomad|
+              infra/terraform/vault/.*|
+          )$
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
     rev: v1.1.2
     hooks:
       - id: htmlhint
         args: [--config, .htmlhintrc]
-      - id: markdown-toc
-        args: [--maxdepth, "3", -i]
-  - repo: https://github.com/AlbanAndrieu/nabla-hooks.git
-    rev: v1.0.4
+  #      - id: markdown-toc
+  #        args: [--maxdepth, "3", -i]
+  #      - id: dockerfile_lint
+  #        args: [--permissive, --verbose, --dockerfile, ./docker/ubuntu20/Dockerfile]
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.15.2 # NOK v8.18.4
     hooks:
-      - id: git-branches-check
-        always_run: true
-        args: [--max=3]
-        verbose: true
-  - repo: https://github.com/oxsecurity/megalinter
-    rev: v7.13.0
+      - id: gitleaks
+        args: [--config, .gitleaks.toml]
+      # diff: line 0: git-crypt: not found
+      # - id: gitleaks-docker
+      #   entry: zricethezav/gitleaks protect --verbose --redact --staged # --config .gitleaks.toml
+      #   #entry: zricethezav/gitleaks detect --verbose --config .gitleaks.toml
+  #  - repo: https://github.com/bridgecrewio/checkov.git
+  #    rev: '2.0.1145' # change to tag or sha
+  #    hooks:
+  #    - id: checkov
+  #      verbose: true
+  #      args: [--soft-fail]
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.28.5
     hooks:
-      - id: megalinter-incremental # Faster, less thorough
-        stages:
-          - commit
+      - id: check-github-workflows
+      - id: check-gitlab-ci
+  - repo: https://github.com/gitguardian/ggshield
+    rev: v1.28.0
+    hooks:
+      - id: ggshield
+        language_version: python3
+        stages: [commit]
+        # args: ['secret', 'scan', 'pre-commit']
+#  - repo: https://github.com/Checkmarx/kics
+#    rev: "v1.5.9"
+#    hooks:
+#      #- id: kics
+#      #  exclude: >
+#      #    (?x)^(
+#      #        .direnv$|
+#      #        .*\.terraform.*$|
+#      #        .*\.tfvars$|
+#      #    )$
+#      - id: kics-scan
+#        verbose: true
+#        args: [--ignore-on-exit, "all", --config, "kics-config.json"]
