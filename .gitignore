@@ -81,7 +81,7 @@ target/
 .ipynb_checkpoints
 
 # pyenv
-# .python-version
+#.python-version
 
 # celery beat schedule file
 celerybeat-schedule
@@ -92,11 +92,13 @@ celerybeat-schedule
 # Environments
 .env
 .venv
+.direnv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+.direnv/
 
 # Spyder project settings
 .spyderproject
