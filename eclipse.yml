@@ -1,6 +1,18 @@
 ---
+- hosts: localhost
+  gather_facts: yes
+
+  tasks:
+    - name: run_command
+      action: run_cmd cmd=date
+      register: user
+
+    - debug: msg="{{ user.msg }}"
+
+    - debug: msg="Hostname is {{ ansible_hostname }}"
+
 - name: Install eclipse to all nodes
-  hosts: all
+  hosts: localhost
   gather_facts: false
   # become: true
 
