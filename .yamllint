@@ -1,18 +1,40 @@
 ---
-extends: default
-
+# Usage : yamllint . --config-file .yamllint
+# extends: default
+extends: relaxed
 rules:
+  # to match ansible-lint --write
   braces:
+    min-spaces-inside: 1
     max-spaces-inside: 1
     level: error
   brackets:
     max-spaces-inside: 1
     level: error
+  comments:
+    min-spaces-from-content: 1
   line-length: disable
+  indentation:
+    spaces: 2
+  # document-start: disable
+  # truthy: disable
   # NOTE(retr0h): Templates no longer fail this lint rule.
   #               Uncomment if running old Molecule templates.
-  # truthy: disable
-ignore: |
+  truthy:
+    allowed-values: ['true', 'false', 'on']
+  # https://github.com/adrienverge/yamllint/issues/141
+  # comments-indentation: disable
+ignore: |-
+  .direnv/
+  .venv/
+  .git/
   .tox
   .cache
-  roles/geerlingguy.nodejs
+  roles/
+  .ansible-lint
+  .github/
+  .gitlab-ci.yml
+  node_modules/
+  .pre-commit-config.yaml
+  .megalinter-reports/
+  .gitguardian.yaml

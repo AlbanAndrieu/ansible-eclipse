@@ -1,36 +1,31 @@
 ---
-- hosts: localhost
-  gather_facts: yes
+    - hosts: all
+      tasks:
+          - name: check that i have log file for all hosts on my local machine
+            stat: path=/var/log/hosts/{{inventory_hostname}}.log
+            delegate_to: localhost
 
-  tasks:
-    - name: run_command
-      action: run_cmd cmd=date
-      register: user
+    - hosts: localhost
+      gather_facts: true
 
-    - debug: msg="{{ user.msg }}"
+      tasks:
+          - name: run_command
+      # ansible.builtin.command: date
+            ansible.builtin.shell: date
+            delegate_to: localhost
+            register: user
 
-    - debug: msg="Hostname is {{ ansible_hostname }}"
+          - debug: msg="{{ user.stdout }}"
 
-- name: Install eclipse to all nodes
-  hosts: localhost
-  gather_facts: false
+          - debug: msg="Hostname is {{ ansible_hostname }}"
+
+    - name: Install eclipse to all nodes
+      hosts: localhost
+      gather_facts: false
   # become: true
 
-  roles:
-    - { role: ./,
-        docker_files_enable: false,
-        user: "root",
-        home: "/root",
-        eclipse_dir_tmp: "{{ tempdir.stdout }}",
-        eclipse_plugins_emf_enabled: false,
-        eclipse_plugins_cdt_enabled: true,
-        eclipse_plugins_cmakeed_enabled: true,
-        eclipse_plugins_openinterminal_enabled: false,
-        eclipse_plugins_protobuf_enabled: false,
-        eclipse_plugins_yedit_enabled: false,
-        eclipse_plugins_shelled_enabled: false,
-        eclipse_plugins_webpageed_enabled: false,
-        eclipse_plugins_pydev_enabled: false,
-        eclipse_plugins_m2e_enabled: false,
-        eclipse_plugins_subclipse_enabled: true,
-    }
+      roles:
+          - {role: ./, docker_files_enable: false, user: root, home: /root, eclipse_dir_tmp: '{{ tempdir.stdout }}', eclipse_plugins_emf_enabled: false,
+            eclipse_plugins_cdt_enabled: true, eclipse_plugins_cmakeed_enabled: true, eclipse_plugins_openinterminal_enabled: false, eclipse_plugins_protobuf_enabled: false,
+            eclipse_plugins_yedit_enabled: false, eclipse_plugins_shelled_enabled: false, eclipse_plugins_webpageed_enabled: false, eclipse_plugins_pydev_enabled: false,
+            eclipse_plugins_m2e_enabled: false, eclipse_plugins_subclipse_enabled: true}

@@ -173,8 +173,14 @@ so please do not hesitate to enhance ansible script it will then improve docker 
 
 Run the following command :
 
-     `ansible-playbook -i hosts -c local -v eclipse.yml -vvvv --ask-become-pass | tee setup.log`
-
+```bash
+ansible -m setup localhost
+cd roles
+ln -s ../ albanandrieu.eclipse
+cd ..
+ansible-playbook -i hosts -c local eclipse.yml -vvv --ask-become-pass --become | tee setup.log
+ANSIBLE_NOCOLOR=True && ansible-playbook -i hosts -c local -v eclipse.yml -vvv --ask-become-pass --become > eclipse.log  2>&1
+```
 
 ### Contributor
 

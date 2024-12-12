@@ -1,8 +1,7 @@
-# vi: ft=yaml.ansible.jinja2
 ---
 fail_fast: true
 minimum_pre_commit_version: 3.7.1
-exclude: "docs/_build/"
+exclude: docs/_build/
 #  default_language_version:
 #    python: python3.6  # Ubuntu 18.04.3
 #    python: python3.7  # Ubuntu 19.04
@@ -10,102 +9,111 @@ exclude: "docs/_build/"
 #    python: python3.10  # Ubuntu 22.04
 #    python: python3.11  # Ubuntu 24.04
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks.git
+    - repo: https://github.com/pre-commit/pre-commit-hooks.git
     # pre-commit-hooks is not working on both environment
     # You will have to switch
     # pre-commit-hooks.git from v2.1.0 to v2.4.0
     #    rev: v2.1.0 # ok python3.6  # 18.04.3
     #    rev: v2.2.3 # ok python3.6  # 19.04 but failing on 18.04.3
-    rev: v4.6.0  # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-added-large-files
-        args: ["--maxkb=123"]
-        exclude: >
-          (?x)^(
-              package-lock.json|
-              npm-shrinkwrap.json
-          )$
-      - id: check-case-conflict
-      - id: check-docstring-first
-      - id: check-executables-have-shebangs
-        exclude: >
-          (?x)^(
-              env/home/log4j.xml
-              clean.bat|
-              build.bat|
-              mvnw.cmd|
-              .mvn/|
-              env/winnt|
-          )$
-      - id: check-json
-        exclude: ^.vscode/
-      - id: check-xml
-      - id: check-yaml
-        exclude: >
-          (?x)^(
-              packs/.*|
-              k8s/.*|
-          )$
-      - id: check-symlinks
-      - id: check-merge-conflict
-      - id: debug-statements
-        exclude: >
-          (?x)^(
-              env/scripts/zodclient.py|
-              env/scripts/server-connector.py
-          )$
-      - id: detect-private-key
-        exclude: >
-          (?x)^(
-              .ssh/id_rsa|
-              roles/jenkins-master/defaults/main.yml|
-              roles/jenkins-master/README.md|
-              env/scripts/server-connector.py
-          )$
-      - id: double-quote-string-fixer
-      - id: name-tests-test
-        exclude: >
-          (?x)^(
-              molecule/default/tests/test_default.py|
-          )$
+      rev: v5.0.0 # ok python3.6 on Ubuntu 18.04 AND python3.7 on Ubuntu 19.04
+      hooks:
+          - id: trailing-whitespace
+          - id: end-of-file-fixer
+          - id: check-added-large-files
+            args: [--maxkb=123]
+            exclude: >
+                (?x)^(
+                    package-lock.json|
+                    npm-shrinkwrap.json
+                )$
+          - id: check-case-conflict
+          - id: check-docstring-first
+          - id: check-executables-have-shebangs
+            exclude: >
+                (?x)^(
+                    env/home/log4j.xml
+                    clean.bat|
+                    build.bat|
+                    mvnw.cmd|
+                    .mvn/|
+                    env/winnt|
+                )$
+          - id: check-json
+            exclude: ^.vscode/
+          - id: check-xml
+          - id: check-yaml
+            exclude: >
+                (?x)^(
+                    packs/.*|
+                    k8s/.*|
+                )$
+          - id: check-symlinks
+          - id: check-merge-conflict
+          - id: debug-statements
+            exclude: >
+                (?x)^(
+                    env/scripts/zodclient.py|
+                    env/scripts/server-connector.py
+                )$
+          - id: detect-private-key
+            exclude: >
+                (?x)^(
+                    .ssh/id_rsa|
+                    roles/jenkins-master/defaults/main.yml|
+                    roles/jenkins-master/README.md|
+                    env/scripts/server-connector.py
+                )$
+          - id: double-quote-string-fixer
+          - id: name-tests-test
+            exclude: >
+                (?x)^(
+                    molecule/default/tests/test_default.py|
+                )$
       #      - id: no-commit-to-branch
       #        args: [--branch, develop, --branch, master, --branch, release/*]
-      - id: end-of-file-fixer
-      - id: fix-encoding-pragma
-      - id: requirements-txt-fixer
-      - id: sort-simple-yaml
-      - id: file-contents-sorter
-  - repo: https://github.com/asottile/add-trailing-comma
-    rev: v3.1.0
-    hooks:
-      - id: add-trailing-comma
+          - id: end-of-file-fixer
+          - id: fix-encoding-pragma
+          - id: requirements-txt-fixer
+          - id: sort-simple-yaml
+          - id: file-contents-sorter
+    - repo: https://github.com/asottile/add-trailing-comma
+      rev: v3.1.0
+      hooks:
+          - id: add-trailing-comma
   # - repo: https://github.com/willthames/ansible-lint.git
   #   rev: v24.2.2
   #   hooks:
   #     - id: ansible-lint
   #       files: \.(yaml|yml)$
   #       exclude: ".travis.yml"
-  - repo: https://github.com/doublify/pre-commit-hindent.git
-    rev: b3680b6ebf9f7cf29b19307f246adef66756feef
-    hooks:
-      - id: hindent
-  - repo: https://github.com/detailyang/pre-commit-shell
-    rev: 1.0.5
-    hooks:
-      - id: shell-lint
+    - repo: https://github.com/adrienverge/yamllint.git
+      rev: v1.35.1 # or higher tag
+      hooks:
+          - id: yamllint
+            args: [--format, parsable, --strict]
+    - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+      rev: 0.2.3 # or other specific tag
+      hooks:
+          - id: yamlfmt
+    - repo: https://github.com/doublify/pre-commit-hindent.git
+      rev: b3680b6ebf9f7cf29b19307f246adef66756feef
+      hooks:
+          - id: hindent
+    - repo: https://github.com/detailyang/pre-commit-shell
+      rev: 1.0.5
+      hooks:
+          - id: shell-lint
         # entry: pre_commit_hooks/shell-lint.sh -x
-        args: [-x]
-        exclude: >
-          (?x)^(
-              mvnw|
-              hooks|
-              env/linux/.*|
-              env/home/dev.env.sh|
-              env/home/dotfiles/.*|
-              .git-prompt.sh|
-          )$
+            args: [-x]
+            exclude: >
+                (?x)^(
+                    mvnw|
+                    hooks|
+                    env/linux/.*|
+                    env/home/dev.env.sh|
+                    env/home/dotfiles/.*|
+                    .git-prompt.sh|
+                )$
   #  - repo: https://github.com/PyCQA/flake8
   #    rev: 3.9.2
   #    hooks:
@@ -120,30 +128,30 @@ repos:
   #    rev: master
   #    hooks:
   #    - id: bandit
-  - repo: https://github.com/IamTheFij/ansible-pre-commit
-    rev: v0.1.2
-    hooks:
-      - id: encryption-check
-        exclude: >
-          (?x)^(
-              .github/workflows/vault.yml|
-              infra/terraform/nomad/jobs/vault-backup.nomad|
-              infra/terraform/vault/.*|
-          )$
-  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: v1.1.2
-    hooks:
-      - id: htmlhint
-        args: [--config, .htmlhintrc]
+    - repo: https://github.com/IamTheFij/ansible-pre-commit
+      rev: v0.1.2
+      hooks:
+          - id: encryption-check
+            exclude: >
+                (?x)^(
+                    .github/workflows/vault.yml|
+                    infra/terraform/nomad/jobs/vault-backup.nomad|
+                    infra/terraform/vault/.*|
+                )$
+    - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+      rev: v1.1.2
+      hooks:
+          - id: htmlhint
+            args: [--config, .htmlhintrc]
   #      - id: markdown-toc
   #        args: [--maxdepth, "3", -i]
   #      - id: dockerfile_lint
   #        args: [--permissive, --verbose, --dockerfile, ./docker/ubuntu20/Dockerfile]
-  - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.15.2 # NOK v8.18.4
-    hooks:
-      - id: gitleaks
-        args: [--config, .gitleaks.toml]
+    - repo: https://github.com/zricethezav/gitleaks
+      rev: v8.21.2 # NOK v8.18.4
+      hooks:
+          - id: gitleaks
+            args: [--config, .gitleaks.toml]
       # diff: line 0: git-crypt: not found
       # - id: gitleaks-docker
       #   entry: zricethezav/gitleaks protect --verbose --redact --staged # --config .gitleaks.toml
@@ -154,17 +162,17 @@ repos:
   #    - id: checkov
   #      verbose: true
   #      args: [--soft-fail]
-  - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.28.5
-    hooks:
-      - id: check-github-workflows
-      - id: check-gitlab-ci
-  - repo: https://github.com/gitguardian/ggshield
-    rev: v1.28.0
-    hooks:
-      - id: ggshield
-        language_version: python3
-        stages: [commit]
+    - repo: https://github.com/python-jsonschema/check-jsonschema
+      rev: 0.30.0
+      hooks:
+          - id: check-github-workflows
+          - id: check-gitlab-ci
+    - repo: https://github.com/gitguardian/ggshield
+      rev: v1.34.0
+      hooks:
+          - id: ggshield
+            language_version: python3
+            stages: [commit]
         # args: ['secret', 'scan', 'pre-commit']
 #  - repo: https://github.com/Checkmarx/kics
 #    rev: "v1.5.9"
