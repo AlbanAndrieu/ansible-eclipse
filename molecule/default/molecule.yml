@@ -6,6 +6,7 @@ dependency:
         ignore-errors: true
 driver:
     name: docker
+  # name: podman
 platforms:
   # - name: eclipse-centos
   #   image: milcom/centos7-systemd:latest
@@ -17,48 +18,82 @@ platforms:
   #   groups:
   #     - group1
   #   privileged: true
-    - name: eclipse-debian-stretch
-      image: minimum2scp/systemd-stretch:latest
-      command: /sbin/init
-      groups:
-          - group1
+  # - name: eclipse-debian-stretch
+  #   image: minimum2scp/systemd-stretch:latest
+  #   command: /sbin/init
+  #   groups:
+  #     - group1
   # - name: eclipse-ubuntu-xenial
   #   image: solita/ubuntu-systemd:xenial
   #   groups:
   #     - group1
   #   privileged: true
-    - name: eclipse-ubuntu-bionic
-      image: solita/ubuntu-systemd:bionic
-      groups:
-          - group1
-      privileged: true
-    - name: instance
-      image: ubuntu:22.04
-      groups:
-          - group1
-      privileged: true
-      pre_build_image: true
-  # - name: eclipse-ubuntu-noble
-  #   image: solita/ubuntu-systemd:noble
+  # - name: eclipse-ubuntu-bionic
+  #   image: solita/ubuntu-systemd:bionic
+  #   groups:
+  #     - group1
+  #   privileged: true
+  # - name: instance
+  #   image: ubuntu:22.04
   #   groups:
   #     - group1
   #   privileged: true
   #   pre_build_image: true
+    - name: ubuntu
+      image: geerlingguy/docker-ubuntu2004-ansible
+      tmpfs:
+          - /run
+          - /tmp
+      volumes:
+          - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      capabilities:
+          - SYS_ADMIN
+      command: /lib/systemd/systemd
+      pre_build_image: true
 provisioner:
     name: ansible
 scenario:
     name: default
-    test_sequence:
-        - destroy
+    create_sequence:
         - dependency
+        - create
+        - prepare
+    check_sequence:
+        - dependency
+        - cleanup
+        - destroy
+        - create
+        - prepare
+        - converge
+        - check
+        - destroy
+    converge_sequence:
+        - dependency
+        - create
+        - prepare
+        - converge
+    destroy_sequence:
+        - dependency
+        - cleanup
+        - destroy
+    test_sequence:
+    # - lint
+        - dependency
+        - cleanup
+        - destroy
         - syntax
         - create
         - prepare
         - converge
-    # 2 below will be hard to get 100% right
-    # - idempotence
-    # - side_effect
+    # EXAMPLE_6: idempotence is hard.  Look at molecule scenarios for CI.
+        - idempotence
+        - side_effect
         - verify
+        - cleanup
         - destroy
 verifier:
     name: testinfra
+lint: |
+    set -e
+    yamllint .
+    ansible-lint .
