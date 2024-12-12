@@ -1,43 +1,43 @@
 ---
 dependency:
-  name: galaxy
-  enabled: false
-  options:
-    ignore-errors: true
+    name: galaxy
+    enabled: false
+    options:
+        ignore-errors: true
 driver:
-  name: docker
+    name: docker
 platforms:
   # - name: eclipse-centos
   #   image: milcom/centos7-systemd:latest
   #   groups:
   #     - group1
   #   privileged: true
-  - name: eclipse-debian-jessie
-    image: maint/debian-systemd:latest
-    groups:
-      - group1
-    privileged: true
-  - name: eclipse-debian-stretch
-    image: minimum2scp/systemd-stretch:latest
-    command: /sbin/init
-    groups:
-      - group1
+  # - name: eclipse-debian-jessie
+  #   image: maint/debian-systemd:latest
+  #   groups:
+  #     - group1
+  #   privileged: true
+    - name: eclipse-debian-stretch
+      image: minimum2scp/systemd-stretch:latest
+      command: /sbin/init
+      groups:
+          - group1
   # - name: eclipse-ubuntu-xenial
   #   image: solita/ubuntu-systemd:xenial
   #   groups:
   #     - group1
   #   privileged: true
-  - name: eclipse-ubuntu-bionic
-    image: solita/ubuntu-systemd:bionic
-    groups:
-      - group1
-    privileged: true
-  - name: instance
-    image: ubuntu:22.04
-    groups:
-      - group1
-    privileged: true
-    pre_build_image: true
+    - name: eclipse-ubuntu-bionic
+      image: solita/ubuntu-systemd:bionic
+      groups:
+          - group1
+      privileged: true
+    - name: instance
+      image: ubuntu:22.04
+      groups:
+          - group1
+      privileged: true
+      pre_build_image: true
   # - name: eclipse-ubuntu-noble
   #   image: solita/ubuntu-systemd:noble
   #   groups:
@@ -45,20 +45,20 @@ platforms:
   #   privileged: true
   #   pre_build_image: true
 provisioner:
-  name: ansible
+    name: ansible
 scenario:
-  name: default
-  test_sequence:
-    - destroy
-    - dependency
-    - syntax
-    - create
-    - prepare
-    - converge
+    name: default
+    test_sequence:
+        - destroy
+        - dependency
+        - syntax
+        - create
+        - prepare
+        - converge
     # 2 below will be hard to get 100% right
     # - idempotence
     # - side_effect
-    - verify
-    - destroy
+        - verify
+        - destroy
 verifier:
-  name: testinfra
+    name: testinfra
