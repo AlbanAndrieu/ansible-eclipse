@@ -24,7 +24,7 @@
 
 - set_fact: eclipse_dir_tmp="{{ tempdir.path }}"
 
-- include: install_{{ ansible_distribution }}.yml
+- ansible.builtin.include_tasks: install_{{ ansible_distribution }}.yml
 
 - debug: var=eclipse_home
 - debug: var=eclipse
@@ -59,11 +59,11 @@
   become: true
   tags: eclipse_setup
 
-- include: cleanups.yml
+- ansible.builtin.import_tasks: cleanups.yml
 
-- include: lombok.yml
+- ansible.builtin.import_tasks: lombok.yml
 
-- include: config.yml
+- ansible.builtin.import_tasks: config.yml
   when: eclipse_ini_enabled
 
 - name: eclipse | Install eclipse MoDisco & EMF Facet plugins
@@ -255,7 +255,7 @@
   when: eclipse_plugins_m2e_enabled and eclipse_plugins_enabled
   ignore_errors: true
 
-- include: features.yml
+- ansible.builtin.import_tasks: features.yml
 
 - name: eclipse | fix permissions eclipse home
   file: recurse=yes owner={{ eclipse_owner }} group={{ eclipse_group }} dest={{ eclipse_home }}
