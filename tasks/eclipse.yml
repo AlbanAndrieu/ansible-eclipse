@@ -37,7 +37,7 @@
     owner="{{ eclipse_owner }}"
     # group="{{eclipse_group}}"
   become: true
-  when: eclipse_download.changed
+  when: eclipse_download is defined and eclipse_download.changed
 
 - name: eclipse | Create a link to eclipse (2)
   file:

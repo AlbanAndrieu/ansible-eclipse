@@ -3,10 +3,18 @@
 
 - set_fact: eclipse="{{ eclipse_home_dir }}/eclipse"
 
-- name: eclipse | Download eclipse on 'master' if we don't have it
+- name: eclipse | Check if eclipse is already installed
+  stat: path={{ eclipse_home }}
+  register: eclipse_installed
+
+- name: eclipse | Download and extract eclipse
   connection: local
-  unarchive: src={{ eclipse_url }} dest={{ eclipse_dir_tmp }} copy=no
+  unarchive:
+    src: "{{ eclipse_url }}"
+    dest: "{{ eclipse_dir_tmp }}"
+    copy: no
   register: eclipse_download
+  when: not eclipse_installed.stat.exists
   become: true
 
 - name: eclipse | Create base directory
@@ -16,12 +24,13 @@
     owner="{{ eclipse_owner }}"
     group="{{ eclipse_group }}"
   become: true
-  when: eclipse_download.changed
+  when: not eclipse_installed.stat.exists
   tags: eclipse_setup
 
 - name: eclipse | Copy eclipse into place
   copy: src={{ eclipse_dir_tmp }}/eclipse/ dest="{{ eclipse_home }}" owner="{{ eclipse_owner }}" group="{{ eclipse_group }}"
   become: true
+  when: not eclipse_installed.stat.exists
   tags: eclipse_setup
 
 - name: eclipse | Install tar
